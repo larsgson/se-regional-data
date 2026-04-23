@@ -6,15 +6,12 @@ Everything runs on your local machine — the pipeline, the packaging, and the `
 
 ## Pipeline
 
-Run in order; total wall-clock ~18 min for `--country MX`.
-
 ```bash
 npm install
-python3 scripts/fetch_pkf.py --country MX --workers 8   # ~10 min, stdlib only
-python3 scripts/dedupe_assets.py                        # ~5 s
-node scripts/map_figures.mjs                            # <10 s
-CONCURRENCY=6 node scripts/map_media.mjs                # ~8 min
+make pipeline              # fetch + dedupe + map-figures + map-media; ~18 min for COUNTRY=mx
 ```
+
+Individual stages: `make fetch`, `make dedupe`, `make map-figures`, `make map-media`.
 
 Output lives under `data/pkf/` (gitignored, ~170 MB):
 
@@ -26,20 +23,22 @@ Output lives under `data/pkf/` (gitignored, ~170 MB):
 
 ## Cutting a release
 
-Requires `gh auth login` against the repo. One-shot:
+Requires `gh auth login` against the repo. Driven via `make`:
 
 ```bash
-scripts/release.sh                     # country=mx, tag=data-YYYY.MM.DD
-COUNTRY=mx TAG=data-2026.04.23 scripts/release.sh
-DRAFT=1 scripts/release.sh             # publish as draft for review
+make release                           # full publish, country=mx, tag=data-YYYY.MM.DD
+make release-dry                       # pack + diff, print what would upload; nothing leaves the machine
+make release-draft                     # publish as a hidden draft on GitHub (still uploads)
+make release COUNTRY=mx TAG=data-2026.04.23
+make pack                              # just the tarball + index.json
+make notes                             # just release/release-notes.md
+make clean                             # rm -rf release/
+make help                              # list targets + current var values
 ```
 
-The wrapper packs `data/pkf/`, writes release notes (diff vs. previous release), and calls `gh release create`. To dry-run without publishing, run the two underlying steps:
+`release-dry` is the way to preview without touching GitHub — it prints the paths, sizes, and notes it *would* upload, then exits. Override compression with `ZSTD_LEVEL=15 make pack` (default `19`).
 
-```bash
-node scripts/pack_release.mjs          # → release/pkf-mx-YYYYMMDD.tar.zst + index.json + manifest copy
-node scripts/diff_manifest.mjs         # → release/release-notes.md
-```
+`make release` packs `data/pkf/`, writes release notes (diff vs. the previous release), and calls `gh release create`.
 
 ## Release format
 

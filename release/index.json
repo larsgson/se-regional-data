@@ -1,0 +1,15 @@
+{
+  "version": "data-2026.04.23",
+  "tag": "data-2026.04.23",
+  "country": "mx",
+  "created_at": "2026-04-23T08:43:09.591Z",
+  "asset": "pkf-mx-20260423.tar.zst",
+  "manifest_asset": "manifest-mx-20260423.json",
+  "bytes": 141632590,
+  "sha256": "f17f21c40247c77ea6764265ae5da32fe3e0817634f1e0c637b9303154e276c3",
+  "summary": {
+    "languages": 139,
+    "pkf_bytes_total": 136569830,
+    "updated_at": "2026-04-21T10:43:13Z"
+  }
+}

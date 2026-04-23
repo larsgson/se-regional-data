@@ -14,7 +14,7 @@
  * directory each time.
  */
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, execSync } from 'node:child_process';
 import {
     mkdirSync,
     readFileSync,
@@ -72,12 +72,13 @@ function main() {
     mkdirSync(STAGE, { recursive: true });
 
     const tarPath = join(STAGE, ASSET);
-    console.log(`[pack] building ${tarPath} from ${PKF_ROOT}/ ...`);
-    // GNU tar on ubuntu-latest and bsdtar on macOS both accept --zstd.
-    execFileSync(
-        'tar',
-        ['--zstd', '-cf', tarPath, '-C', PKF_ROOT, '.'],
-        { stdio: 'inherit' }
+    const zstdLevel = parseInt(process.env.ZSTD_LEVEL || '19', 10);
+    console.log(`[pack] building ${tarPath} from ${PKF_ROOT}/ (zstd -${zstdLevel}) ...`);
+    // bsdtar on macOS and GNU tar on Linux disagree on how -I word-splits its
+    // argument, so pipe through zstd explicitly via the shell instead.
+    execSync(
+        `tar -cf - -C ${PKF_ROOT} . | zstd -${zstdLevel} -T0 -q -o ${tarPath}`,
+        { stdio: 'inherit', shell: '/bin/bash' }
     );
 
     const bytes = statSync(tarPath).size;

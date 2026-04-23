@@ -6,7 +6,8 @@
 #   scripts/release.sh                # country=mx, tag=data-YYYY.MM.DD
 #   COUNTRY=mx scripts/release.sh
 #   TAG=data-2026.04.23 scripts/release.sh
-#   DRAFT=1 scripts/release.sh        # publish as draft
+#   DRAFT=1 scripts/release.sh        # publish as draft (still uploads to GitHub)
+#   DRY_RUN=1 scripts/release.sh      # pack + diff only; skip the gh release create call
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -36,6 +37,17 @@ for f in "$TAR" "$MANIFEST" "$INDEX" "$NOTES"; do
     [ -f "$f" ] || { echo "[release] missing $f" >&2; exit 1; }
 done
 
+if [ "${DRY_RUN:-0}" = "1" ]; then
+    echo "[release] DRY_RUN=1 — skipping gh release create"
+    echo "[release] would upload to tag ${TAG}:"
+    for f in "$TAR" "$MANIFEST" "$INDEX"; do
+        printf '         %s (%s bytes)\n' "$f" "$(wc -c < "$f" | tr -d ' ')"
+    done
+    echo "[release] notes preview:"
+    sed 's/^/         /' "$NOTES"
+    exit 0
+fi
+
 draft_flag=()
 [ "${DRAFT:-0}" = "1" ] && draft_flag=(--draft)
 
@@ -44,6 +56,6 @@ gh release create "$TAG" \
     "$TAR" "$MANIFEST" "$INDEX" \
     --title "$TAG" \
     --notes-file "$NOTES" \
-    "${draft_flag[@]}"
+    ${draft_flag[@]+"${draft_flag[@]}"}
 
 gh release view "$TAG" --web || true
