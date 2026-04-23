@@ -27,6 +27,7 @@ import {
 } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
+import { loadExcludedIsos, filterManifest } from './lib/excluded.mjs';
 
 const COUNTRY = (process.env.COUNTRY || 'mx').toLowerCase();
 const CURRENT_MANIFEST = 'data/pkf/manifest.json';
@@ -170,16 +171,21 @@ function main() {
         console.error(`[diff] missing ${CURRENT_MANIFEST}; run fetch_pkf.py first`);
         process.exit(1);
     }
-    const current = JSON.parse(readFileSync(CURRENT_MANIFEST, 'utf8'));
-    const prev = findPreviousManifest();
+    const excluded = loadExcludedIsos();
+    const current = filterManifest(
+        JSON.parse(readFileSync(CURRENT_MANIFEST, 'utf8')),
+        excluded
+    );
+    const prevRaw = findPreviousManifest();
+    const previous = prevRaw ? filterManifest(prevRaw.manifest, excluded) : null;
     const notes = buildNotes({
         current,
-        previous: prev?.manifest ?? null,
-        previousTag: prev?.tag ?? null
+        previous,
+        previousTag: prevRaw?.tag ?? null
     });
     mkdirSync(dirname(out), { recursive: true });
     writeFileSync(out, notes);
-    console.log(`[diff] wrote ${out}`);
+    console.log(`[diff] wrote ${out}` + (excluded.size ? ` (excluded ${excluded.size} ISO[s])` : ''));
 }
 
 main();

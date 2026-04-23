@@ -14,16 +14,16 @@
  * directory each time.
  */
 import { createHash } from 'node:crypto';
-import { execFileSync, execSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import {
     mkdirSync,
     readFileSync,
     writeFileSync,
     statSync,
-    rmSync,
-    copyFileSync
+    rmSync
 } from 'node:fs';
 import { join } from 'node:path';
+import { loadExcludedIsos, filterManifest } from './lib/excluded.mjs';
 
 const COUNTRY = (process.env.COUNTRY || 'mx').toLowerCase();
 const PKF_ROOT = 'data/pkf';
@@ -58,34 +58,58 @@ function sha256OfFile(path) {
     return h.digest('hex');
 }
 
-function readManifestVersion(manifestPath) {
-    const m = JSON.parse(readFileSync(manifestPath, 'utf8'));
-    const langs = (m.languages || []).length;
-    const bytes = (m.languages || []).reduce((a, l) => a + (l.pkf_bytes || 0), 0);
-    return { languages: langs, pkf_bytes_total: bytes, updated_at: m.updated_at };
+function summarizeManifest(manifest) {
+    const langs = (manifest.languages || []).length;
+    const bytes = (manifest.languages || []).reduce((a, l) => a + (l.pkf_bytes || 0), 0);
+    return { languages: langs, pkf_bytes_total: bytes, updated_at: manifest.updated_at };
 }
 
 function main() {
     const manifestPath = ensurePkfRoot();
+    const excluded = loadExcludedIsos();
 
     rmSync(STAGE, { recursive: true, force: true });
     mkdirSync(STAGE, { recursive: true });
 
     const tarPath = join(STAGE, ASSET);
     const zstdLevel = parseInt(process.env.ZSTD_LEVEL || '19', 10);
+    const excludeFlags = [...excluded].map((iso) => `--exclude=./${iso}`).join(' ');
+    if (excluded.size) {
+        console.log(`[pack] excluding ${excluded.size} ISO(s) per EXCLUDED_ISOS.txt: ${[...excluded].join(', ')}`);
+    }
     console.log(`[pack] building ${tarPath} from ${PKF_ROOT}/ (zstd -${zstdLevel}) ...`);
     // bsdtar on macOS and GNU tar on Linux disagree on how -I word-splits its
     // argument, so pipe through zstd explicitly via the shell instead.
     execSync(
-        `tar -cf - -C ${PKF_ROOT} . | zstd -${zstdLevel} -T0 -q -o ${tarPath}`,
+        `tar ${excludeFlags} -cf - -C ${PKF_ROOT} . | zstd -${zstdLevel} -T0 -q -o ${tarPath}`,
         { stdio: 'inherit', shell: '/bin/bash' }
     );
 
+    // Verify no excluded iso slipped into the tar (defensive — bsdtar/GNU tar
+    // can disagree on glob anchoring).
+    if (excluded.size) {
+        const listing = execSync(
+            `zstd -dc ${tarPath} | tar -tf - | head -2000`,
+            { shell: '/bin/bash' }
+        ).toString();
+        const leaks = [...excluded].filter((iso) =>
+            listing.split('\n').some((p) => p === `./${iso}/` || p.startsWith(`./${iso}/`))
+        );
+        if (leaks.length) {
+            console.error(`[pack] FATAL: excluded ISO(s) found in tar: ${leaks.join(', ')}`);
+            process.exit(1);
+        }
+    }
+
+    // Stage a filtered manifest.json (no excluded ISOs).
+    const fullManifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    const filtered = filterManifest(fullManifest, excluded);
+    const manifestStaged = join(STAGE, MANIFEST_ASSET);
+    writeFileSync(manifestStaged, JSON.stringify(filtered, null, 2));
+
     const bytes = statSync(tarPath).size;
     const sha256 = sha256OfFile(tarPath);
-    const manifestStaged = join(STAGE, MANIFEST_ASSET);
-    copyFileSync(manifestPath, manifestStaged);
-    const manifestSummary = readManifestVersion(manifestPath);
+    const manifestSummary = summarizeManifest(filtered);
 
     const index = {
         version: TAG,
@@ -96,13 +120,14 @@ function main() {
         manifest_asset: MANIFEST_ASSET,
         bytes,
         sha256,
-        summary: manifestSummary
+        summary: manifestSummary,
+        excluded_isos: [...excluded]
     };
     writeFileSync(join(STAGE, 'index.json'), JSON.stringify(index, null, 2));
 
     const mb = (bytes / (1024 * 1024)).toFixed(1);
     console.log(`[pack] ${ASSET}  ${mb} MB  sha256=${sha256.slice(0, 16)}…`);
-    console.log(`[pack] tag=${TAG}  languages=${manifestSummary.languages}`);
+    console.log(`[pack] tag=${TAG}  languages=${manifestSummary.languages} (excluded ${excluded.size})`);
     console.log(`[pack] staged in ./${STAGE}/`);
 }
 

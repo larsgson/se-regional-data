@@ -1,0 +1,6 @@
+# ISOs whose source license does not permit redistribution by us.
+# These are excluded from release tarballs even when present in data/pkf/.
+# Format: one ISO per line. Blank lines and lines starting with # are ignored.
+# Inline comments after the ISO are allowed (separated by whitespace).
+
+cya  # Chatino de Nopala — text © 2013 David Neil Nellis, used with permission; no CC license granted.

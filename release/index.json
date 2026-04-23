@@ -2,14 +2,17 @@
   "version": "data-2026.04.23",
   "tag": "data-2026.04.23",
   "country": "mx",
-  "created_at": "2026-04-23T08:43:09.591Z",
+  "created_at": "2026-04-23T10:13:42.433Z",
   "asset": "pkf-mx-20260423.tar.zst",
   "manifest_asset": "manifest-mx-20260423.json",
-  "bytes": 141632590,
-  "sha256": "f17f21c40247c77ea6764265ae5da32fe3e0817634f1e0c637b9303154e276c3",
+  "bytes": 140894232,
+  "sha256": "84c12aa87b058e5c3f8e692bc7c09c4a54b932d16eabd1c1dbe44e3abf4bf82c",
   "summary": {
-    "languages": 139,
-    "pkf_bytes_total": 136569830,
+    "languages": 138,
+    "pkf_bytes_total": 135841698,
     "updated_at": "2026-04-21T10:43:13Z"
-  }
+  },
+  "excluded_isos": [
+    "cya"
+  ]
 }

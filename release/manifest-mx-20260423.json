@@ -275,19 +275,6 @@
       "pkf_bytes": 866123
     },
     {
-      "iso": "cya",
-      "version": "13.3.2-1770412315133",
-      "pkfs": [
-        "cya_cya.CkhjH_ty.pkf"
-      ],
-      "catalogs": [
-        "cya_cya.2V7pFv9j.json"
-      ],
-      "styles": 4,
-      "fonts": 4,
-      "pkf_bytes": 728132
-    },
-    {
       "iso": "hch",
       "version": "13.3.2-1770401135789",
       "pkfs": [
