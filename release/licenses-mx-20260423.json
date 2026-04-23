@@ -1,0 +1,1114 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-04-23",
+  "source": "Scripture Earth SAB app service-worker + JS chunk scan",
+  "notes": [
+    "License applies to the scripture TEXT only (the .pkf data).",
+    "Images, audio, and video referenced by SE URL carry their own per-asset licenses and are NOT covered by this classification."
+  ],
+  "default_license": "CC-BY-NC-ND-4.0",
+  "included_count": 132,
+  "excluded_count": 7,
+  "included": {
+    "amu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "azd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "azg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "azz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cco": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "chf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "chq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "chz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cle": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cnl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cnt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cok": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cpa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cso": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cta": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ctp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ctu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cut": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "cux": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "hch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "huv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "jmx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "lac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "maj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "maq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mau": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "maz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mbz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mco": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mdv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "meh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mfy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mie": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mig": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mih": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mil": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mim": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mio": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mir": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mit": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mix": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "miy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "miz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mjc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mks": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mpm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mto": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mxb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mxq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mxt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mxv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "mza": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ncj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ncl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ngu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nhe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nhg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nhi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nhw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nhy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nlv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "npl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nsu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ntp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "nuz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ood": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "otm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "otn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "otq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ots": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "pls": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "pmq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "poe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "poi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "pps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "stp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tcf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tee": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tku": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "toc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "toj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "too": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "top": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tos": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tpl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tpp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tpx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "tqt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "trc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "trq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "trs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "var": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "vmj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "vmy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "xta": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "xtd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "xtj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "xtn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "yaq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zaa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zad": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zai": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zam": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zao": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zaq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zar": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zas": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zat": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zaw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zca": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zos": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zpz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zsr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ztl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ztp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "ztq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    },
+    "zts": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": false
+      }
+    }
+  },
+  "excluded": {
+    "chd": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "cuc": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "cya": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "knj": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "tpt": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "vmz": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    },
+    "zty": {
+      "license": "unclear",
+      "reason": "No CC badge or inline CC declaration found",
+      "text_holder": null,
+      "texto": ""
+    }
+  }
+}
