@@ -20,7 +20,9 @@ import {
     readFileSync,
     writeFileSync,
     statSync,
-    rmSync
+    rmSync,
+    existsSync,
+    copyFileSync
 } from 'node:fs';
 import { join } from 'node:path';
 import { loadExcludedIsos, filterManifest } from './lib/excluded.mjs';
@@ -34,6 +36,7 @@ const TAG = process.env.TAG || `data-${CREATED_AT.slice(0, 10).replace(/-/g, '.'
 
 const ASSET = `pkf-${COUNTRY}-${YMD}.tar.zst`;
 const MANIFEST_ASSET = `manifest-${COUNTRY}-${YMD}.json`;
+const LICENSES_ASSET = `licenses-${COUNTRY}-${YMD}.json`;
 
 function ensurePkfRoot() {
     try {
@@ -107,6 +110,17 @@ function main() {
     const manifestStaged = join(STAGE, MANIFEST_ASSET);
     writeFileSync(manifestStaged, JSON.stringify(filtered, null, 2));
 
+    // Stage licenses.json — emitted by classify_licenses.mjs (audit record of
+    // what's in / out and why). Required as a release asset.
+    const licensesPath = join(PKF_ROOT, 'licenses.json');
+    if (!existsSync(licensesPath)) {
+        console.error(`[pack] missing ${licensesPath}; run classify_licenses.mjs (or make classify) first`);
+        process.exit(1);
+    }
+    const licensesStaged = join(STAGE, LICENSES_ASSET);
+    copyFileSync(licensesPath, licensesStaged);
+    const licensesDoc = JSON.parse(readFileSync(licensesPath, 'utf8'));
+
     const bytes = statSync(tarPath).size;
     const sha256 = sha256OfFile(tarPath);
     const manifestSummary = summarizeManifest(filtered);
@@ -118,16 +132,22 @@ function main() {
         created_at: CREATED_AT,
         asset: ASSET,
         manifest_asset: MANIFEST_ASSET,
+        licenses_asset: LICENSES_ASSET,
         bytes,
         sha256,
         summary: manifestSummary,
-        excluded_isos: [...excluded]
+        excluded_isos: [...excluded],
+        licenses_summary: {
+            included: licensesDoc.included_count,
+            excluded: licensesDoc.excluded_count,
+            default_license: licensesDoc.default_license
+        }
     };
     writeFileSync(join(STAGE, 'index.json'), JSON.stringify(index, null, 2));
 
     const mb = (bytes / (1024 * 1024)).toFixed(1);
     console.log(`[pack] ${ASSET}  ${mb} MB  sha256=${sha256.slice(0, 16)}…`);
-    console.log(`[pack] tag=${TAG}  languages=${manifestSummary.languages} (excluded ${excluded.size})`);
+    console.log(`[pack] tag=${TAG}  languages=${manifestSummary.languages} (excluded ${excluded.size}, classifier-excluded ${licensesDoc.excluded_count})`);
     console.log(`[pack] staged in ./${STAGE}/`);
 }
 

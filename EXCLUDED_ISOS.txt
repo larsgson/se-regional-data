@@ -2,5 +2,21 @@
 # These are excluded from release tarballs even when present in data/pkf/.
 # Format: one ISO per line. Blank lines and lines starting with # are ignored.
 # Inline comments after the ISO are allowed (separated by whitespace).
+#
+# Two sections:
+#   - Manual entries (above the BEGIN marker) are preserved across runs of
+#     classify_licenses.mjs. Use this for ISOs the classifier can't catch
+#     or that require an out-of-band judgement.
+#   - Auto-managed entries (between the BEGIN/END markers) are rewritten on
+#     every "make classify" run from data/pkf/licenses.json. Do NOT edit by
+#     hand — your changes will be overwritten.
 
-cya  # Chatino de Nopala — text © 2013 David Neil Nellis, used with permission; no CC license granted.
+# BEGIN auto-managed by classify_licenses.mjs (do not edit by hand)
+chd  # unclear — No CC badge or inline CC declaration found
+cuc  # unclear — No CC badge or inline CC declaration found
+cya  # unclear — No CC badge or inline CC declaration found
+knj  # unclear — No CC badge or inline CC declaration found
+tpt  # unclear — No CC badge or inline CC declaration found
+vmz  # unclear — No CC badge or inline CC declaration found
+zty  # unclear — No CC badge or inline CC declaration found
+# END auto-managed

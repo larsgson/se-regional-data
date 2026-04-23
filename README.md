@@ -15,6 +15,8 @@ make pipeline              # fetch + dedupe + map-figures + map-media; ~18 min f
 
 Individual stages: `make fetch`, `make dedupe`, `make map-figures`, `make map-media`.
 
+`make classify` probes each ISO's SE deployment, writes `data/pkf/licenses.json` (the audit record), and rewrites the auto-managed block of [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) so the release-time pack step automatically excludes any non-CC ISO it found. By default it **only probes ISOs not already present** in the prior `licenses.json` — steady-state runs take ~30 s instead of ~5 min. Use `make classify-force` (or `--force`) to re-probe everything; do this when you suspect SE has updated a per-language license. `make release` invokes the cached classifier automatically before packing.
+
 Output lives under `data/pkf/` (gitignored, ~170 MB):
 
 - `data/pkf/manifest.json` — top-level summary keyed by ISO with version + pkf bytes.
@@ -48,9 +50,10 @@ Each release has tag `data-YYYY.MM.DD` and three assets:
 
 | Asset                                | Purpose                                                     |
 |--------------------------------------|-------------------------------------------------------------|
-| `pkf-<country>-<YYYYMMDD>.tar.zst`   | Full `data/pkf/*` tree, zstd-compressed (~50–60 MB)         |
+| `pkf-<country>-<YYYYMMDD>.tar.zst`   | CC-licensed `data/pkf/*` tree, zstd-compressed              |
 | `manifest-<country>-<YYYYMMDD>.json` | Sibling copy of `data/pkf/manifest.json` for cheap diffs    |
-| `index.json`                         | `{ version, created_at, bytes, sha256, tag, asset, … }`     |
+| `licenses-<country>-<YYYYMMDD>.json` | Per-ISO classification result (`included` / `excluded` + why) |
+| `index.json`                         | `{ version, created_at, bytes, sha256, tag, asset, licenses_summary, … }` |
 
 The consuming PWA's build step downloads `index.json` (tiny), verifies `sha256`, then pulls `asset` and untars into its own fixtures directory.
 
@@ -58,7 +61,7 @@ The consuming PWA's build step downloads `index.json` (tiny), verifies `sha256`,
 
 - **Code:** MIT — see [`LICENSE`](LICENSE).
 - **Data in releases:** every included language is CC BY-NC-ND 4.0 International. Per-language attribution lives in `info.json` inside the release tarball; the canonical credit is the SE app's "About" / "Copyright" screen for that language.
-- **Excluded ISOs:** [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) lists languages that lack a CC license and are stripped from every release tarball and the published `manifest.json`. Currently: `cya`. The pack step fails loudly if an excluded ISO ever leaks into the tar.
+- **Excluded ISOs:** [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) lists languages that lack a CC license and are stripped from every release tarball and the published `manifest.json`. The auto-managed block in that file is rewritten by `make classify`; the manual section above it is preserved for ISOs the classifier can't catch. The pack step fails loudly if an excluded ISO ever leaks into the tar.
 
 Full background and downstream attribution requirements: [`LICENSING.md`](LICENSING.md).
 
@@ -68,6 +71,7 @@ Full background and downstream attribution requirements: [`LICENSING.md`](LICENS
 - `scripts/dedupe_assets.py` — consolidates fonts into `_fonts/`, emits per-iso `delta.css`.
 - `scripts/map_figures.mjs` — populates `figure_urls` in each `info.json`.
 - `scripts/map_media.mjs` — scrapes SE's main JS chunk for video + audio manifests.
+- `scripts/classify_licenses.mjs` — probes SE per ISO and emits `data/pkf/licenses.json`; with `--prune`, also strips non-CC ISO directories and rewrites `manifest.json`.
 - `scripts/pack_release.mjs` — builds the release tarball + `index.json`.
 - `scripts/diff_manifest.mjs` — writes `release-notes.md` by diffing against the previous release's manifest asset.
 - `scripts/release.sh` — thin wrapper: pack + diff + `gh release create`.

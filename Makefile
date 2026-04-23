@@ -7,13 +7,15 @@ export COUNTRY TAG ZSTD_LEVEL
 COUNTRY_UPPER := $(shell echo $(COUNTRY) | tr a-z A-Z)
 
 .PHONY: help release release-dry release-draft pack notes \
-        pipeline fetch dedupe map-figures map-media clean
+        pipeline fetch dedupe map-figures map-media classify classify-force clean
 
 help:
 	@echo "Targets:"
 	@echo "  make pipeline        fetch + dedupe + map-figures + map-media"
-	@echo "  make release         pack + diff + gh release create"
-	@echo "  make release-dry     pack + diff, print what would upload (no network)"
+	@echo "  make classify        classify newly-fetched ISOs (cached re-use; fast)"
+	@echo "  make classify-force  re-probe every ISO ignoring cache (~5 min)"
+	@echo "  make release         classify + pack + diff + gh release create"
+	@echo "  make release-dry     same but prints what would upload (no network)"
 	@echo "  make release-draft   publish as a hidden draft on GitHub"
 	@echo "  make pack            build release/*.tar.zst + index.json"
 	@echo "  make notes           write release/release-notes.md"
@@ -49,6 +51,12 @@ map-figures:
 
 map-media:
 	CONCURRENCY=6 node scripts/map_media.mjs
+
+classify:
+	node scripts/classify_licenses.mjs
+
+classify-force:
+	node scripts/classify_licenses.mjs --force
 
 clean:
 	rm -rf release/
