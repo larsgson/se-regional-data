@@ -1,0 +1,8 @@
+node_modules
+data/
+*.tar.zst
+*.log
+__pycache__
+*.pyc
+.DS_Store
+.claude

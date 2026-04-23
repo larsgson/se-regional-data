@@ -1,0 +1,107 @@
+name: build-data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'  # Monday 06:00 UTC
+
+permissions:
+  contents: write
+
+env:
+  COUNTRY: mx
+  CACHE_VERSION: v1  # bump to bust the data/pkf/ cache
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Compute date stamp
+        id: stamp
+        run: |
+          ymd=$(date -u +%Y%m%d)
+          dotted=$(date -u +%Y.%m.%d)
+          echo "ymd=$ymd"           >> "$GITHUB_OUTPUT"
+          echo "tag=data-$dotted"   >> "$GITHUB_OUTPUT"
+
+      - name: Restore data/pkf cache
+        id: pkf-cache
+        uses: actions/cache@v4
+        with:
+          path: data/pkf
+          key: pkf-${{ env.COUNTRY }}-${{ env.CACHE_VERSION }}-${{ hashFiles('.github/workflows/build-data.yml', 'scripts/fetch_pkf.py', 'scripts/dedupe_assets.py', 'scripts/map_figures.mjs', 'scripts/map_media.mjs') }}
+
+      - name: Fetch PKF assets
+        if: steps.pkf-cache.outputs.cache-hit != 'true'
+        run: python3 scripts/fetch_pkf.py --country "${COUNTRY^^}" --workers 8
+
+      - name: Dedupe assets
+        if: steps.pkf-cache.outputs.cache-hit != 'true'
+        run: python3 scripts/dedupe_assets.py
+
+      - name: Map figures
+        if: steps.pkf-cache.outputs.cache-hit != 'true'
+        run: node scripts/map_figures.mjs
+
+      - name: Map media
+        if: steps.pkf-cache.outputs.cache-hit != 'true'
+        env:
+          CONCURRENCY: '6'
+        run: node scripts/map_media.mjs
+
+      - name: Sanity check pipeline output
+        run: |
+          test -f data/pkf/manifest.json
+          langs=$(jq '.languages | length' data/pkf/manifest.json)
+          echo "languages: $langs"
+          if [ "$langs" -lt 1 ]; then
+            echo "::error::manifest.json has zero languages"
+            exit 1
+          fi
+
+      - name: Pack release artifact
+        env:
+          TAG: ${{ steps.stamp.outputs.tag }}
+        run: node scripts/pack_release.mjs
+
+      - name: Diff against previous release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/diff_manifest.mjs --out release/release-notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.stamp.outputs.tag }}
+          YMD: ${{ steps.stamp.outputs.ymd }}
+        run: |
+          gh release create "$TAG" \
+            "release/pkf-${COUNTRY}-${YMD}.tar.zst" \
+            "release/manifest-${COUNTRY}-${YMD}.json" \
+            "release/index.json" \
+            --title "$TAG" \
+            --notes-file release/release-notes.md
+
+      - name: Upload artifacts (debug)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ steps.stamp.outputs.tag }}
+          path: release/
+          if-no-files-found: ignore
+          retention-days: 7
