@@ -70,6 +70,13 @@ def main() -> int:
         shutil.rmtree(STAGE)
     STAGE.mkdir(parents=True)
 
+    # Compute filtered manifest once — used both inside the tarball and as the
+    # sibling release asset. The on-disk data/pkf/manifest.json is left alone
+    # (that's fetch_pkf.py's output; the pipeline re-uses it across runs).
+    full_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    filtered = filter_manifest(full_manifest, excluded)
+    filtered_json = json.dumps(filtered, indent=2, ensure_ascii=False)
+
     tar_path = STAGE / ASSET
     zstd_level = int(os.environ.get("ZSTD_LEVEL", "19"))
     if excluded:
@@ -79,21 +86,32 @@ def main() -> int:
         )
     print(f"[pack] building {tar_path} from {PKF_ROOT}/ (zstd -{zstd_level}) ...")
 
-    # Pipe tar into zstd so we don't rely on bsdtar's -I quirks on macOS.
+    # Swap the on-disk manifest.json with the filtered version for the
+    # duration of the tar, then restore. This way the manifest.json *inside*
+    # the tarball lists only the 134 included isos — consumers who extract
+    # and never look at the sibling asset still see the correct view.
+    # Wrapped in try/finally so a crash can't leave the filtered version
+    # in place of the 139-iso original.
     exclude_flags = [f"--exclude=./{iso}" for iso in sorted(excluded)]
     tar_cmd = ["tar", *exclude_flags, "-cf", "-", "-C", str(PKF_ROOT), "."]
     zstd_cmd = ["zstd", f"-{zstd_level}", "-T0", "-q", "-o", str(tar_path)]
-    tar_proc = subprocess.Popen(tar_cmd, stdout=subprocess.PIPE)
-    zstd_proc = subprocess.Popen(zstd_cmd, stdin=tar_proc.stdout)
-    if tar_proc.stdout is not None:
-        tar_proc.stdout.close()
-    zstd_rc = zstd_proc.wait()
-    tar_rc = tar_proc.wait()
+    original_manifest_bytes = manifest_path.read_bytes()
+    try:
+        manifest_path.write_text(filtered_json, encoding="utf-8")
+        tar_proc = subprocess.Popen(tar_cmd, stdout=subprocess.PIPE)
+        zstd_proc = subprocess.Popen(zstd_cmd, stdin=tar_proc.stdout)
+        if tar_proc.stdout is not None:
+            tar_proc.stdout.close()
+        zstd_rc = zstd_proc.wait()
+        tar_rc = tar_proc.wait()
+    finally:
+        manifest_path.write_bytes(original_manifest_bytes)
     if tar_rc != 0 or zstd_rc != 0:
         print(f"[pack] tar|zstd failed (tar={tar_rc}, zstd={zstd_rc})", file=sys.stderr)
         return 1
 
-    # Defensive leak-check: verify no excluded iso made it into the tarball.
+    # Defensive leak-check: verify no excluded iso made it into the tarball,
+    # and that the embedded manifest.json matches the filtered iso count.
     if excluded:
         listing = subprocess.run(
             f"zstd -dc {tar_path} | tar -tf - | head -2000",
@@ -109,11 +127,29 @@ def main() -> int:
         if leaks:
             print(f"[pack] FATAL: excluded ISO(s) found in tar: {', '.join(leaks)}", file=sys.stderr)
             return 1
+    embedded = subprocess.run(
+        f"zstd -dc {tar_path} | tar -xOf - ./manifest.json",
+        shell=True,
+        capture_output=True,
+        text=True,
+        check=False,
+    ).stdout
+    try:
+        embedded_manifest = json.loads(embedded)
+    except json.JSONDecodeError:
+        embedded_manifest = None
+    embedded_count = len(embedded_manifest.get("languages", [])) if embedded_manifest else -1
+    expected_count = len(filtered.get("languages", []))
+    if embedded_count != expected_count:
+        print(
+            f"[pack] FATAL: embedded manifest.json has {embedded_count} languages, "
+            f"expected {expected_count}",
+            file=sys.stderr,
+        )
+        return 1
 
-    # Staged filtered manifest.json.
-    full_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    filtered = filter_manifest(full_manifest, excluded)
-    (STAGE / MANIFEST_ASSET).write_text(json.dumps(filtered, indent=2, ensure_ascii=False), encoding="utf-8")
+    # Stage the sibling manifest release asset from the same filtered bytes.
+    (STAGE / MANIFEST_ASSET).write_text(filtered_json, encoding="utf-8")
 
     # Stage licenses.json (required — the classifier writes it).
     licenses_src = PKF_ROOT / "licenses.json"
