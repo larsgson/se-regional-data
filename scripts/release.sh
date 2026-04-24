@@ -27,13 +27,13 @@ if [ ! -f data/pkf/manifest.json ]; then
 fi
 
 echo "[release] classifying licenses (disk-cached; rm data/.license-scan-cache to force rescan)"
-node scripts/classify_licenses.mjs
+python3 scripts/classify_licenses.py
 
 echo "[release] packing ${COUNTRY} → ${TAG}"
-node scripts/pack_release.mjs
+python3 scripts/pack_release.py
 
 echo "[release] diffing against previous release"
-node scripts/diff_manifest.mjs --out release/release-notes.md
+python3 scripts/diff_manifest.py --out release/release-notes.md
 
 TAR="release/pkf-${COUNTRY}-${YMD}.tar.zst"
 MANIFEST="release/manifest-${COUNTRY}-${YMD}.json"

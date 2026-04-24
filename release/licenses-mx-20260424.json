@@ -1,541 +1,551 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-04-23",
+  "classifier_version": 3,
+  "updated_at": "2026-04-24",
   "source": "Scripture Earth SAB app service-worker + JS chunk scan",
   "notes": [
     "License applies to the scripture TEXT only (the .pkf data).",
-    "Images, audio, and video referenced by SE URL carry their own per-asset licenses and are NOT covered by this classification."
+    "Images, audio, and video referenced by SE URL carry their own per-asset licenses and are NOT covered by this classification.",
+    "Badge presence is recorded as evidence but not used in the decision — it is unreliable (SAB tooling emits it for all Wycliffe texts regardless of actual license status)."
   ],
   "default_license": "CC-BY-NC-ND-4.0",
-  "included_count": 132,
-  "excluded_count": 7,
+  "included_count": 134,
+  "excluded_count": 5,
   "included": {
     "amu": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1999,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "azd": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2018, 2019,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "azg": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1992, 2015,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "azz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1979,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cco": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2002,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "chd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1991,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     },
     "chf": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1977,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "chq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1983,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "chz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2003,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cle": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2008,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cnl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2012,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cnt": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1994,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cok": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cpa": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1973,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cso": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1986,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cta": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1981,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ctp": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1992,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ctu": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1977,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "cuc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     },
     "cut": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1972,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "cux": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1974,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
-      }
-    },
-    "hch": {
-      "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "huv": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1996,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "jmx": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2021,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "knj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016, Asociación Educativa y Cultural Maya; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     },
     "lac": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1978,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "maj": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2013,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "maq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1991,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mau": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "maz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2007,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mbz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2010, 2023, WPS",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mco": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1976,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mdv": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "meh": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2021,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mfy": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2014, 2018, 2022, 2024,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mie": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1977,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mig": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2010,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mih": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1979,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mil": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2002,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mim": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016, 2022, Wycliffe Bible Translators, Inc.",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mio": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mir": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1988,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mit": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1978,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mix": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2017,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "miy": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016, 2018, 2019, 2022, 2023, 2025,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "miz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2003,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mjc": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2008,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mks": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1999,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mpm": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2010,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mto": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mxb": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005, 2006, 2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mxq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2008,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mxt": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1983,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mxv": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2017,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "mza": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2015,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nch": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ncj": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1979,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ncl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1998,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ngu": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1987, 2009, 2016, 2022,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nhe": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nhg": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1980,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nhi": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2007, 2012,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nhw": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nhy": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2006,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
-      }
-    },
-    "nlv": {
-      "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "npl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2011,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nsu": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2017,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ntp": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1981,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "nuz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005, 2012,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ood": {
@@ -543,572 +553,588 @@
       "text_holder": null,
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "otm": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1999,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "otn": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1975,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "otq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2003,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ots": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1975,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "pls": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "pmq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2020,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "poe": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
-      }
-    },
-    "poi": {
-      "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "pps": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "stp": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2007,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tac": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2008, Peninsula Bible Church",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tcf": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2023,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tee": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1976, 2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tku": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1999,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "toc": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2006,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "toj": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1972,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "too": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1978,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
-      }
-    },
-    "top": {
-      "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tos": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1999,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tpl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2023,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tpp": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2015,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "tpt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     },
     "tpx": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2019, 2023,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "tqt": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "trc": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2014, 2024,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "trq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1996,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "trs": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2014,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "var": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "vmj": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2020, 2022, 2024,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "vmy": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "vmz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020, 2022, 2024,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     },
     "xta": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2005,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "xtd": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2001,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "xtj": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2020,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "xtn": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2015,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "yaq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2003,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zaa": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1970,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zab": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1995,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zac": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1983,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zad": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2011,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zai": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2006,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zam": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1971,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zao": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2007,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zaq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2020,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zar": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2007,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zas": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2010,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zat": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2012,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zav": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1970,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zaw": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2006,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zca": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2013,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zos": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1984,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpc": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1986,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpg": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2019,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpi": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2009,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2010,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpm": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1998,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpo": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2002, 2013, 2021,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1987,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpt": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2015,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpu": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2000,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpv": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1990,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zpz": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2004,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zsr": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "1992,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ztl": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2025, Wycliffe Bible Translators, Inc.",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ztp": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2016,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "ztq": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2000,",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
       }
     },
     "zts": {
       "license": "CC-BY-NC-ND-4.0",
-      "text_holder": null,
+      "text_holder": "2026 Instituto Lingüístico de Verano, A.C.",
       "evidence": {
         "badge_in_sw": true,
-        "cc_text_in_js": false
+        "cc_text_in_js": true
+      }
+    },
+    "zty": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
       }
     }
   },
   "excluded": {
-    "chd": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
-    },
-    "cuc": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
-    },
     "cya": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
+      "license": "not-cc",
+      "reason": "Texto: \"Usado con permiso\" — permission-only, not CC",
+      "text_holder": "2013, David Neil Nellis (Audio Visuales para América Latina, A.C. 2000) (Usado con permiso)",
+      "texto": "© 2013, David Neil Nellis (Audio Visuales para América Latina, A.C. 2000) (Usado con permiso)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
     },
-    "knj": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
+    "hch": {
+      "license": "not-cc",
+      "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC",
+      "text_holder": "2020,",
+      "texto": "© 2020, <a href=\n class=\n>Wycliffe Bible Translators, Inc.</a>; Santa Biblia, NUEVA VERSIÓN INTERNACIONAL® NVI® (Castellano)",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      }
     },
-    "tpt": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
+    "nlv": {
+      "license": "not-cc",
+      "reason": "Texto: provisional / not-final translation",
+      "text_holder": "2017, Wycliffe Bible Translators, Inc.",
+      "texto": "Texto en proceso de finalizar: © 2017, Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      }
     },
-    "vmz": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
+    "poi": {
+      "license": "not-cc",
+      "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC",
+      "text_holder": "1997, 2025,",
+      "texto": "© 1997, 2025, <a href=\n class=\n>Wycliffe Bible Translators, Inc.</a>;  Santa Biblia, NUEVA VERSIÓN INTERNACIONAL® NVI® (Castellano)",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      }
     },
-    "zty": {
-      "license": "unclear",
-      "reason": "No CC badge or inline CC declaration found",
-      "text_holder": null,
-      "texto": ""
+    "top": {
+      "license": "not-cc",
+      "reason": "Texto: \"Todos los derechos reservados\" — ARR declaration",
+      "text_holder": "1985, 1990, Wycliffe Bible Translators, Inc. Todos los derechos reservados.",
+      "texto": "© 1985, 1990, Wycliffe Bible Translators, Inc.  Todos los derechos reservados.",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      }
     }
   }
 }

@@ -33,10 +33,10 @@ release-draft:
 	DRAFT=1 scripts/release.sh
 
 pack:
-	node scripts/pack_release.mjs
+	python3 scripts/pack_release.py
 
 notes:
-	node scripts/diff_manifest.mjs
+	python3 scripts/diff_manifest.py
 
 pipeline: fetch dedupe map-figures map-media
 
@@ -50,14 +50,14 @@ map-figures:
 	node scripts/map_figures.mjs
 
 map-media:
-	CONCURRENCY=6 node scripts/map_media.mjs
+	CONCURRENCY=6 python3 scripts/map_media.py
 
 classify:
-	node scripts/classify_licenses.mjs
+	python3 scripts/classify_licenses.py
 
 classify-rescan:
 	rm -rf data/.license-scan-cache
-	node scripts/classify_licenses.mjs
+	python3 scripts/classify_licenses.py
 
 clean:
 	rm -rf release/

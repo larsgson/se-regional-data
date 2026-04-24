@@ -5,13 +5,13 @@
 #
 # Two sections:
 #   - Manual entries (above the BEGIN marker) are preserved across runs of
-#     classify_licenses.mjs. Use this for ISOs the classifier can't catch
+#     classify_licenses.py. Use this for ISOs the classifier can't catch
 #     or that require an out-of-band judgement.
 #   - Auto-managed entries (between the BEGIN/END markers) are rewritten on
 #     every "make classify" run from data/pkf/licenses.json. Do NOT edit by
 #     hand — your changes will be overwritten.
 
-# BEGIN auto-managed by classify_licenses.mjs (do not edit by hand)
+# BEGIN auto-managed by classify_licenses.py (do not edit by hand)
 cya  # not-cc — Texto: "Usado con permiso" — permission-only, not CC
 hch  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
 nlv  # not-cc — Texto: provisional / not-final translation

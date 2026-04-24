@@ -6,16 +6,22 @@ Everything runs on your local machine — the pipeline, the packaging, and the `
 
 Code is MIT-licensed. Released data is upstream-licensed (CC BY-NC-ND 4.0 per included language); see [`LICENSING.md`](LICENSING.md).
 
+## Requirements
+
+- **Python 3.11+** — drives the whole pipeline. Stdlib only; no `pip install` needed.
+- **Node 20+** with `npm install` — only required by `scripts/map_figures.mjs`, which uses `proskomma-core` to parse `.pkf` succinct docsets.
+- **Homebrew / apt tools** — `tar`, `zstd`, `gh` (GitHub CLI), `jq` (for ad-hoc inspection, optional).
+
 ## Pipeline
 
 ```bash
-npm install
+npm install                # one-time; installs proskomma-core for map_figures.mjs only
 make pipeline              # fetch + dedupe + map-figures + map-media; ~18 min for COUNTRY=mx
 ```
 
 Individual stages: `make fetch`, `make dedupe`, `make map-figures`, `make map-media`.
 
-`make classify` probes each ISO's SE deployment, writes `data/pkf/licenses.json` (the audit record), and rewrites the auto-managed block of [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) so the release-time pack step automatically excludes any non-CC ISO it found. By default it **only probes ISOs not already present** in the prior `licenses.json` — steady-state runs take ~30 s instead of ~5 min. Use `make classify-force` (or `--force`) to re-probe everything; do this when you suspect SE has updated a per-language license. `make release` invokes the cached classifier automatically before packing.
+`make classify` probes each ISO's SE deployment, writes `data/pkf/licenses.json` (the audit record), and rewrites the auto-managed block of [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) so the release-time pack step automatically excludes any non-CC ISO it found. Uses a per-iso on-disk cache at `data/.license-scan-cache/` keyed on the SW chunk-paths hash, so re-runs are nearly free (SE redeploys auto-invalidate the cache). `make classify-rescan` drops the cache first for a full rescan (~30 min sequential). `make release` invokes the classifier automatically before packing.
 
 Output lives under `data/pkf/` (gitignored, ~170 MB):
 
@@ -67,13 +73,21 @@ Full background and downstream attribution requirements: [`LICENSING.md`](LICENS
 
 ## What lives where
 
+Python (stdlib only):
+
 - `scripts/fetch_pkf.py` — discovers and downloads PKF + catalog + CSS + fonts.
 - `scripts/dedupe_assets.py` — consolidates fonts into `_fonts/`, emits per-iso `delta.css`.
-- `scripts/map_figures.mjs` — populates `figure_urls` in each `info.json`.
-- `scripts/map_media.mjs` — scrapes SE's main JS chunk for video + audio manifests.
-- `scripts/classify_licenses.mjs` — probes SE per ISO and emits `data/pkf/licenses.json`; with `--prune`, also strips non-CC ISO directories and rewrites `manifest.json`.
-- `scripts/pack_release.mjs` — builds the release tarball + `index.json`.
-- `scripts/diff_manifest.mjs` — writes `release-notes.md` by diffing against the previous release's manifest asset.
-- `scripts/release.sh` — thin wrapper: pack + diff + `gh release create`.
-- `scripts/lib/excluded.mjs` — shared loader for `EXCLUDED_ISOS.txt`; used by both pack + diff.
-- `scripts/probe_*.mjs`, `scan_media.mjs` — ad-hoc debugging helpers.
+- `scripts/map_media.py` — scrapes SE's main JS chunk for video + audio manifests.
+- `scripts/classify_licenses.py` — probes SE per ISO, emits `data/pkf/licenses.json`, rewrites the auto block of `EXCLUDED_ISOS.txt`. With `--prune`, also strips non-CC ISO dirs and rewrites `manifest.json`.
+- `scripts/pack_release.py` — builds the release tarball + `index.json`, stages manifest + licenses assets, sanity-checks against excluded-iso leaks.
+- `scripts/diff_manifest.py` — writes `release-notes.md` by diffing against the previous release's manifest asset. `SKIP_TAG=<tag>` env skips a named release (for regenerating notes for an already-published release).
+- `scripts/_lib.py` — shared `load_excluded_isos` / `filter_manifest` helpers.
+- `scripts/release.sh` — thin wrapper: classify + pack + diff + `gh release create`.
+
+Node (required for this one only):
+
+- `scripts/map_figures.mjs` — uses `proskomma-core` + `fflate` to parse `.pkf` succinct docsets and populate `figure_urls` in each `info.json`. No Python equivalent of Proskomma exists.
+
+Ad-hoc debugging helpers (not wired into `make`):
+
+- `scripts/probe_*.mjs`, `scripts/scan_media.mjs`.
