@@ -12,11 +12,9 @@
 #     hand — your changes will be overwritten.
 
 # BEGIN auto-managed by classify_licenses.mjs (do not edit by hand)
-chd  # unclear — No CC badge or inline CC declaration found
-cuc  # unclear — No CC badge or inline CC declaration found
-cya  # unclear — No CC badge or inline CC declaration found
-knj  # unclear — No CC badge or inline CC declaration found
-tpt  # unclear — No CC badge or inline CC declaration found
-vmz  # unclear — No CC badge or inline CC declaration found
-zty  # unclear — No CC badge or inline CC declaration found
+cya  # not-cc — Texto: "Usado con permiso" — permission-only, not CC
+hch  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
+nlv  # not-cc — Texto: provisional / not-final translation
+poi  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
+top  # not-cc — Texto: "Todos los derechos reservados" — ARR declaration
 # END auto-managed

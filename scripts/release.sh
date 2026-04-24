@@ -8,7 +8,10 @@
 #   TAG=data-2026.04.23 scripts/release.sh
 #   DRAFT=1 scripts/release.sh        # publish as draft (still uploads to GitHub)
 #   DRY_RUN=1 scripts/release.sh      # pack + diff only; skip the gh release create call
-#   FORCE_CLASSIFY=1 scripts/release.sh  # re-probe every ISO (slow); default uses cache
+#
+# Network behavior: classify_licenses.mjs reuses its disk cache
+# (data/.license-scan-cache/) so steady-state release runs are fast. To force
+# a full rescan, run `make classify-rescan` first.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -23,14 +26,8 @@ if [ ! -f data/pkf/manifest.json ]; then
     exit 1
 fi
 
-# Classify only the ISOs not already in licenses.json (cached entries are
-# preserved). Use FORCE_CLASSIFY=1 to re-probe everything.
-echo "[release] classifying licenses (cached re-use; FORCE_CLASSIFY=1 to override)"
-if [ "${FORCE_CLASSIFY:-0}" = "1" ]; then
-    node scripts/classify_licenses.mjs --force
-else
-    node scripts/classify_licenses.mjs
-fi
+echo "[release] classifying licenses (disk-cached; rm data/.license-scan-cache to force rescan)"
+node scripts/classify_licenses.mjs
 
 echo "[release] packing ${COUNTRY} → ${TAG}"
 node scripts/pack_release.mjs
