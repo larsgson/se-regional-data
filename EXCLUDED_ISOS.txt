@@ -13,8 +13,6 @@
 
 # BEGIN auto-managed by classify_licenses.py (do not edit by hand)
 cya  # not-cc — Texto: "Usado con permiso" — permission-only, not CC
-hch  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
 nlv  # not-cc — Texto: provisional / not-final translation
-poi  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
 top  # not-cc — Texto: "Todos los derechos reservados" — ARR declaration
 # END auto-managed

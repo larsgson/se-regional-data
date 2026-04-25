@@ -25,7 +25,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _lib import REPO_ROOT, load_excluded_isos, filter_manifest  # noqa: E402
+from _lib import (  # noqa: E402
+    REPO_ROOT,
+    filter_manifest,
+    load_excluded_isos,
+    load_excluded_packages,
+    package_base_from_filename,
+    strippable_packages_for_iso,
+)
 
 COUNTRY = os.environ.get("COUNTRY", "mx").lower()
 PKF_ROOT = REPO_ROOT / "data" / "pkf"
@@ -64,17 +71,29 @@ def main() -> int:
         return 1
 
     excluded = load_excluded_isos()
+    excluded_packages = load_excluded_packages()
 
     # Stage dir.
     if STAGE.exists():
         shutil.rmtree(STAGE)
     STAGE.mkdir(parents=True)
 
+    # Per-iso package strip plan: { iso: {"spa_SPA", ...} }. Computed from the
+    # manifest's per-iso pkfs/catalogs lists. Only isos that actually ship a
+    # listed package land in this map.
+    full_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    strippable_per_iso: dict[str, set[str]] = {}
+    for lang in full_manifest.get("languages", []):
+        if lang.get("iso") in excluded:
+            continue  # iso is fully dropped; per-package filtering is moot
+        s = strippable_packages_for_iso(lang, excluded_packages)
+        if s:
+            strippable_per_iso[lang["iso"]] = s
+
     # Compute filtered manifest once — used both inside the tarball and as the
     # sibling release asset. The on-disk data/pkf/manifest.json is left alone
     # (that's fetch_pkf.py's output; the pipeline re-uses it across runs).
-    full_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    filtered = filter_manifest(full_manifest, excluded)
+    filtered = filter_manifest(full_manifest, excluded, excluded_packages)
     filtered_json = json.dumps(filtered, indent=2, ensure_ascii=False)
 
     tar_path = STAGE / ASSET
@@ -84,20 +103,47 @@ def main() -> int:
             f"[pack] excluding {len(excluded)} ISO(s) per EXCLUDED_ISOS.txt: "
             f"{', '.join(sorted(excluded))}"
         )
+    if strippable_per_iso:
+        listing = ", ".join(
+            f"{iso}/[{','.join(sorted(bases))}]" for iso, bases in sorted(strippable_per_iso.items())
+        )
+        print(f"[pack] stripping companion packages per EXCLUDED_PACKAGES.txt: {listing}")
     print(f"[pack] building {tar_path} from {PKF_ROOT}/ (zstd -{zstd_level}) ...")
 
-    # Swap the on-disk manifest.json with the filtered version for the
-    # duration of the tar, then restore. This way the manifest.json *inside*
-    # the tarball lists only the 134 included isos — consumers who extract
-    # and never look at the sibling asset still see the correct view.
-    # Wrapped in try/finally so a crash can't leave the filtered version
-    # in place of the 139-iso original.
+    # Build tar exclude list:
+    #   - whole iso dirs for fully-excluded isos
+    #   - per-iso package globs for strippable companion packages
     exclude_flags = [f"--exclude=./{iso}" for iso in sorted(excluded)]
+    for iso, bases in sorted(strippable_per_iso.items()):
+        for base in sorted(bases):
+            exclude_flags.append(f"--exclude=./{iso}/{base}.*")
+
+    # Swap-and-restore plan for filtered files: each (path, original_bytes,
+    # filtered_bytes) gets written to disk for the duration of the tar, then
+    # restored in finally. Wrap manifest.json + each affected info.json.
+    swaps: list[tuple[Path, bytes, bytes]] = [
+        (manifest_path, manifest_path.read_bytes(), filtered_json.encode("utf-8"))
+    ]
+    for iso, bases in strippable_per_iso.items():
+        info_path = PKF_ROOT / iso / "info.json"
+        if not info_path.exists():
+            continue
+        original = info_path.read_bytes()
+        info = json.loads(original.decode("utf-8"))
+        info["assets"] = [
+            a for a in info.get("assets", [])
+            if package_base_from_filename(a.get("name", "")) not in bases
+            and a.get("base") not in bases
+        ]
+        swaps.append(
+            (info_path, original, json.dumps(info, indent=2, ensure_ascii=False).encode("utf-8"))
+        )
+
     tar_cmd = ["tar", *exclude_flags, "-cf", "-", "-C", str(PKF_ROOT), "."]
     zstd_cmd = ["zstd", f"-{zstd_level}", "-T0", "-q", "-o", str(tar_path)]
-    original_manifest_bytes = manifest_path.read_bytes()
     try:
-        manifest_path.write_text(filtered_json, encoding="utf-8")
+        for path, _orig, filtered_bytes in swaps:
+            path.write_bytes(filtered_bytes)
         tar_proc = subprocess.Popen(tar_cmd, stdout=subprocess.PIPE)
         zstd_proc = subprocess.Popen(zstd_cmd, stdin=tar_proc.stdout)
         if tar_proc.stdout is not None:
@@ -105,28 +151,42 @@ def main() -> int:
         zstd_rc = zstd_proc.wait()
         tar_rc = tar_proc.wait()
     finally:
-        manifest_path.write_bytes(original_manifest_bytes)
+        for path, original, _filtered in swaps:
+            path.write_bytes(original)
     if tar_rc != 0 or zstd_rc != 0:
         print(f"[pack] tar|zstd failed (tar={tar_rc}, zstd={zstd_rc})", file=sys.stderr)
         return 1
 
-    # Defensive leak-check: verify no excluded iso made it into the tarball,
-    # and that the embedded manifest.json matches the filtered iso count.
+    # Defensive leak-check: verify no excluded iso AND no strippable package
+    # leaked into the tarball.
+    listing = subprocess.run(
+        f"zstd -dc {tar_path} | tar -tf -",
+        shell=True,
+        capture_output=True,
+        text=True,
+        check=False,
+    ).stdout.splitlines()
     if excluded:
-        listing = subprocess.run(
-            f"zstd -dc {tar_path} | tar -tf - | head -2000",
-            shell=True,
-            capture_output=True,
-            text=True,
-            check=False,
-        ).stdout
         leaks = [
             iso for iso in excluded
-            if any(p == f"./{iso}/" or p.startswith(f"./{iso}/") for p in listing.splitlines())
+            if any(p == f"./{iso}/" or p.startswith(f"./{iso}/") for p in listing)
         ]
         if leaks:
             print(f"[pack] FATAL: excluded ISO(s) found in tar: {', '.join(leaks)}", file=sys.stderr)
             return 1
+    pkg_leaks: list[str] = []
+    for iso, bases in strippable_per_iso.items():
+        for base in bases:
+            prefix = f"./{iso}/{base}."
+            for p in listing:
+                if p.startswith(prefix):
+                    pkg_leaks.append(p)
+    if pkg_leaks:
+        print(
+            f"[pack] FATAL: strippable companion packages found in tar: {', '.join(pkg_leaks[:10])}",
+            file=sys.stderr,
+        )
+        return 1
     embedded = subprocess.run(
         f"zstd -dc {tar_path} | tar -xOf - ./manifest.json",
         shell=True,
@@ -176,6 +236,9 @@ def main() -> int:
         "sha256": sha256,
         "summary": summary,
         "excluded_isos": sorted(excluded),
+        "stripped_packages": {
+            iso: sorted(bases) for iso, bases in sorted(strippable_per_iso.items())
+        },
         "licenses_summary": {
             "included": licenses_doc.get("included_count"),
             "excluded": licenses_doc.get("excluded_count"),
@@ -186,9 +249,11 @@ def main() -> int:
 
     mb = size / (1024 * 1024)
     print(f"[pack] {ASSET}  {mb:.1f} MB  sha256={sha256[:16]}…")
+    pkg_count = sum(len(b) for b in strippable_per_iso.values())
     print(
         f"[pack] tag={TAG}  languages={summary['languages']} "
-        f"(excluded {len(excluded)}, classifier-excluded {licenses_doc.get('excluded_count')})"
+        f"(iso-excluded {len(excluded)}, classifier-excluded {licenses_doc.get('excluded_count')}, "
+        f"package-stripped {pkg_count} from {len(strippable_per_iso)} iso(s))"
     )
     print(f"[pack] staged in ./{STAGE.relative_to(REPO_ROOT)}/")
     return 0

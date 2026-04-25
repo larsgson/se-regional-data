@@ -275,6 +275,19 @@
       "pkf_bytes": 866123
     },
     {
+      "iso": "hch",
+      "version": "13.3.2-1770401135789",
+      "pkfs": [
+        "hch_hch.Bsy8WhX5.pkf"
+      ],
+      "catalogs": [
+        "hch_hch.dEAywyGf.json"
+      ],
+      "styles": 3,
+      "fonts": 4,
+      "pkf_bytes": 6863520
+    },
+    {
       "iso": "huv",
       "version": "13.3.2-1769639669455",
       "pkfs": [
@@ -975,6 +988,19 @@
       "styles": 4,
       "fonts": 4,
       "pkf_bytes": 1166662
+    },
+    {
+      "iso": "poi",
+      "version": "13.3.2-1770156505070",
+      "pkfs": [
+        "poi_poi.DJ1UzuOI.pkf"
+      ],
+      "catalogs": [
+        "poi_poi.Cf6YISfc.json"
+      ],
+      "styles": 4,
+      "fonts": 4,
+      "pkf_bytes": 1825761
     },
     {
       "iso": "pps",

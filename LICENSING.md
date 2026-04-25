@@ -27,22 +27,18 @@ When using a release artifact downstream:
 
 ## How exclusion is enforced
 
-Two layers with different cadences:
+Three layers, each with a different scope:
 
 1. **Audit — `scripts/classify_licenses.py`.** Probes every ISO's SE deployment, parses the in-app "Texto:" copyright block plus the JS bundle for a Creative Commons declaration, and writes `data/pkf/licenses.json`. Uses a per-iso on-disk cache at `data/.license-scan-cache/` keyed on the SW chunk-paths hash, so steady-state runs are nearly free and SE redeploys auto-invalidate. `make release` invokes the classifier automatically before packing. To force a full rescan (e.g. when you suspect SE has updated a license upstream), use `make classify-rescan`. The full classification (included + excluded with the reason for each) is published as `licenses-<country>-<YYYYMMDD>.json` next to the tarball, so downstream consumers (and auditors) can see exactly what was decided and when.
 
-2. **Enforcement — `EXCLUDED_ISOS.txt` (read at every release).** The list of ISOs that must be excluded. Read by `scripts/pack_release.py`, which uses it to filter the tar and sanity-check the staged `manifest.json` — the release will fail loudly if an excluded ISO slips through. The file has two sections: an **auto-managed block** (between the `# BEGIN auto-managed` / `# END auto-managed` markers) that `classify_licenses.py` rewrites on every run from `licenses.json`, and a **manual section** above that block which is preserved verbatim. Hand-edit the manual section for ISOs the classifier can't catch; never edit the auto block.
+2. **Iso-level enforcement — `EXCLUDED_ISOS.txt` (read at every release).** The list of ISOs that must be excluded **entirely** from the tarball. Read by `scripts/pack_release.py`, which uses it to filter the tar and sanity-check the staged `manifest.json` — the release will fail loudly if an excluded ISO slips through. The file has two sections: an **auto-managed block** (between the `# BEGIN auto-managed` / `# END auto-managed` markers) that `classify_licenses.py` rewrites on every run from `licenses.json`, and a **manual section** above that block which is preserved verbatim. Hand-edit the manual section for ISOs the classifier can't catch; never edit the auto block.
 
-Currently in `EXCLUDED_ISOS.txt`:
+3. **Package-level enforcement — `EXCLUDED_PACKAGES.txt` (read at every release).** Some isos ship a non-CC *companion package* alongside otherwise-CC native scripture (the canonical case is a Biblica NVI Spanish diglot named `spa_SPA`). Listing a package basename here causes `pack_release.py` to strip every matching `<base>.<hash>.pkf` and `<base>.<hash>.json` file from any iso shipping it, and to update the in-tarball `info.json` and `manifest.json` to drop the references. The iso itself remains released. The classifier knows about this list: when it finds a Biblica/NVI mention in a Texto: block, it now checks whether the iso's only NVI content is in a strippable companion — if so, the iso is treated as included (with `strip_packages: ["spa_SPA"]` recorded in `licenses.json`) instead of being kicked out entirely. The release fails loudly if a stripped package leaks into the tar.
 
-| ISO | Language | Reason |
-|-----|----------|--------|
-| `cya` | Chatino de Nopala | Text © 2013 David Neil Nellis (used by SE with permission). No Creative Commons license was granted; treat as all rights reserved. |
-
-The classifier independently flags `cya` based on its "Usado con permiso" copy and writes it into the auto-managed block of `EXCLUDED_ISOS.txt`; that's what keeps it out of the tarball. `licenses.json` is the published audit record of how each ISO was classified, including per-iso `evidence.badge_in_sw` / `evidence.cc_text_in_js` flags so you can trace the decision.
+For the live state, see [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) and [`EXCLUDED_PACKAGES.txt`](EXCLUDED_PACKAGES.txt). Each release also publishes a `licenses-<country>-<YYYYMMDD>.json` audit file with per-iso `evidence.badge_in_sw` / `evidence.cc_text_in_js` flags and (for diglots) `strip_packages: [...]` so you can trace each decision.
 
 ## Why this repo can be public
 
-`CC BY-NC-ND 4.0` permits unmodified, attributed, non-commercial redistribution. Hosting the tarballs as GitHub Releases on a public repo qualifies, provided `EXCLUDED_ISOS.txt` is kept current and `pack_release.mjs`'s sanity check passes. The audit file (`licenses.json`) serves as the publishable record of how each ISO was classified at the time the file was last refreshed.
+`CC BY-NC-ND 4.0` permits unmodified, attributed, non-commercial redistribution. Hosting the tarballs as GitHub Releases on a public repo qualifies, provided `EXCLUDED_ISOS.txt` is kept current and `pack_release.py`'s sanity check passes. The audit file (`licenses.json`) serves as the publishable record of how each ISO was classified at the time the file was last refreshed.
 
 **Operational reminder:** if you suspect SE has updated a per-language license (e.g. a previously-excluded ISO now has a CC declaration, or vice versa), the disk cache won't pick it up until SE changes the chunk hashes. Run `make classify-rescan` to drop the cache and re-probe everything.

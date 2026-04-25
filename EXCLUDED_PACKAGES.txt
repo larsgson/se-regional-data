@@ -1,0 +1,13 @@
+# Package basenames that must be stripped from any ISO shipping them.
+# At pack time, scripts/pack_release.py removes matching <base>.<hash>.pkf and
+# <base>.<hash>.json files from data/pkf/<iso>/ for every affected iso, and
+# updates the in-tarball info.json + manifest.json to drop the references.
+#
+# This is the package-level analogue of EXCLUDED_ISOS.txt: rather than dropping
+# the entire iso, we drop a specific companion package while keeping the rest
+# of the iso's content. Used when an otherwise-CC iso ships a non-CC companion
+# (e.g. a Biblica NVI Spanish diglot).
+#
+# Format: one package basename per line. Blank lines and # comments are ignored.
+
+spa_SPA  # Biblica NVI Spanish — proprietary, cannot redistribute. Currently shipped by hch + poi.

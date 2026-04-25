@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "classifier_version": 3,
-  "updated_at": "2026-04-24",
+  "updated_at": "2026-04-25",
   "source": "Scripture Earth SAB app service-worker + JS chunk scan",
   "notes": [
     "License applies to the scripture TEXT only (the .pkf data).",
@@ -9,8 +9,8 @@
     "Badge presence is recorded as evidence but not used in the decision — it is unreliable (SAB tooling emits it for all Wycliffe texts regardless of actual license status)."
   ],
   "default_license": "CC-BY-NC-ND-4.0",
-  "included_count": 134,
-  "excluded_count": 5,
+  "included_count": 136,
+  "excluded_count": 3,
   "included": {
     "amu": {
       "license": "CC-BY-NC-ND-4.0",
@@ -179,6 +179,17 @@
         "badge_in_sw": true,
         "cc_text_in_js": true
       }
+    },
+    "hch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020,",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      },
+      "strip_packages": [
+        "spa_SPA"
+      ]
     },
     "huv": {
       "license": "CC-BY-NC-ND-4.0",
@@ -611,6 +622,17 @@
         "badge_in_sw": true,
         "cc_text_in_js": true
       }
+    },
+    "poi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2025,",
+      "evidence": {
+        "badge_in_sw": true,
+        "cc_text_in_js": true
+      },
+      "strip_packages": [
+        "spa_SPA"
+      ]
     },
     "pps": {
       "license": "CC-BY-NC-ND-4.0",
@@ -1096,31 +1118,11 @@
         "cc_text_in_js": false
       }
     },
-    "hch": {
-      "license": "not-cc",
-      "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC",
-      "text_holder": "2020,",
-      "texto": "© 2020, <a href=\n class=\n>Wycliffe Bible Translators, Inc.</a>; Santa Biblia, NUEVA VERSIÓN INTERNACIONAL® NVI® (Castellano)",
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": true
-      }
-    },
     "nlv": {
       "license": "not-cc",
       "reason": "Texto: provisional / not-final translation",
       "text_holder": "2017, Wycliffe Bible Translators, Inc.",
       "texto": "Texto en proceso de finalizar: © 2017, Wycliffe Bible Translators, Inc.",
-      "evidence": {
-        "badge_in_sw": true,
-        "cc_text_in_js": true
-      }
-    },
-    "poi": {
-      "license": "not-cc",
-      "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC",
-      "text_holder": "1997, 2025,",
-      "texto": "© 1997, 2025, <a href=\n class=\n>Wycliffe Bible Translators, Inc.</a>;  Santa Biblia, NUEVA VERSIÓN INTERNACIONAL® NVI® (Castellano)",
       "evidence": {
         "badge_in_sw": true,
         "cc_text_in_js": true

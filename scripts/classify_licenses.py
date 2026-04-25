@@ -52,7 +52,11 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _lib import REPO_ROOT  # noqa: E402
+from _lib import (  # noqa: E402
+    REPO_ROOT,
+    load_excluded_packages,
+    strippable_packages_for_iso,
+)
 
 PKF_DIR = REPO_ROOT / "data" / "pkf"
 MANIFEST = PKF_DIR / "manifest.json"
@@ -140,13 +144,24 @@ def extract_holder(texto: str) -> str:
     return re.sub(r"\s+", " ", m.group(1)).strip()
 
 
-def classify_texto(texto: str) -> dict:
-    """Return {'ok': True} or {'ok': False, 'reason': '…'} based on Texto:-block content."""
+def classify_texto(texto: str, strippable: set[str]) -> dict:
+    """Return {'ok': True[, 'strip_packages': [...]]} or {'ok': False, 'reason': …}
+    based on Texto:-block content. `strippable` is the set of package basenames
+    this iso ships that EXCLUDED_PACKAGES.txt allows us to drop at pack time —
+    used to demote NVI mentions when the only NVI content sits inside such a
+    companion package."""
     if NEG_USADO.search(texto):
         return {"ok": False, "reason": 'Texto: "Usado con permiso" — permission-only, not CC'}
     if NEG_ARR.search(texto):
         return {"ok": False, "reason": 'Texto: "Todos los derechos reservados" — ARR declaration'}
     if NEG_NVI.search(texto):
+        # Diglot deployments mention NVI in the Texto: block because they ship
+        # a Spanish companion package alongside the native scripture. If the
+        # companion is in EXCLUDED_PACKAGES.txt (e.g. spa_SPA), the pack step
+        # will strip it — the iso itself stays releasable on the strength of
+        # its native CC declaration.
+        if "spa_SPA" in strippable:
+            return {"ok": True, "strip_packages": ["spa_SPA"]}
         return {"ok": False, "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC"}
     if NEG_PROV.search(texto):
         return {"ok": False, "reason": "Texto: provisional / not-final translation"}
@@ -177,7 +192,7 @@ def joined_js_for_iso(iso: str, chunk_delay_s: float) -> dict:
     return {"unreachable": False, "sw": sw, "joined": joined}
 
 
-def probe_iso(iso: str, chunk_delay_s: float) -> dict:
+def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
     result = joined_js_for_iso(iso, chunk_delay_s)
     if result["unreachable"]:
         return {"iso": iso, "unreachable": True}
@@ -188,7 +203,7 @@ def probe_iso(iso: str, chunk_delay_s: float) -> dict:
     texto = extract_texto(joined)
     holder = extract_holder(texto)
     cc_text = bool(CC_TEXT.search(joined))
-    decision = classify_texto(texto)
+    decision = classify_texto(texto, strippable)
     evidence = {"badge_in_sw": badge, "cc_text_in_js": cc_text}
 
     if not decision["ok"]:
@@ -202,7 +217,7 @@ def probe_iso(iso: str, chunk_delay_s: float) -> dict:
             "evidence": evidence,
         }
     if cc_text:
-        return {
+        out = {
             "iso": iso,
             "include": True,
             "license": "CC-BY-NC-ND-4.0",
@@ -210,6 +225,9 @@ def probe_iso(iso: str, chunk_delay_s: float) -> dict:
             "text_holder": holder,
             "evidence": evidence,
         }
+        if decision.get("strip_packages"):
+            out["strip_packages"] = decision["strip_packages"]
+        return out
     return {
         "iso": iso,
         "include": False,
@@ -307,14 +325,24 @@ def main() -> int:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     isos = [l["iso"] for l in manifest["languages"]]
 
+    excluded_packages = load_excluded_packages()
+    strippable_per_iso: dict[str, set[str]] = {}
+    for lang in manifest["languages"]:
+        s = strippable_packages_for_iso(lang, excluded_packages)
+        if s:
+            strippable_per_iso[lang["iso"]] = s
+
     # SE's Apache rate-limits at ~8 req/s per IP — sequential by default.
     chunk_delay_s = float(os.environ.get("CHUNK_DELAY_MS", "150")) / 1000.0
     print(f"Classifying {len(isos)} ISOs (sequential, {chunk_delay_s*1000:.0f}ms between chunks)...")
+    if strippable_per_iso:
+        listing = ", ".join(f"{iso}={'+'.join(sorted(s))}" for iso, s in sorted(strippable_per_iso.items()))
+        print(f"  per-iso strippable companion packages: {listing}")
 
     results: list[dict] = []
     for iso in isos:
         try:
-            results.append(probe_iso(iso, chunk_delay_s))
+            results.append(probe_iso(iso, chunk_delay_s, strippable_per_iso.get(iso, set())))
         except Exception as e:
             results.append({"iso": iso, "error": str(e)})
 
@@ -328,11 +356,14 @@ def main() -> int:
             }
             continue
         if r["include"]:
-            included[r["iso"]] = {
+            entry = {
                 "license": r["license"],
                 "text_holder": r["text_holder"] or None,
                 "evidence": r["evidence"],
             }
+            if r.get("strip_packages"):
+                entry["strip_packages"] = r["strip_packages"]
+            included[r["iso"]] = entry
         else:
             excluded[r["iso"]] = {
                 "license": r["license"],

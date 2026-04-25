@@ -67,7 +67,8 @@ The consuming PWA's build step downloads `index.json` (tiny), verifies `sha256`,
 
 - **Code:** MIT — see [`LICENSE`](LICENSE).
 - **Data in releases:** every included language is CC BY-NC-ND 4.0 International. Per-language attribution lives in `info.json` inside the release tarball; the canonical credit is the SE app's "About" / "Copyright" screen for that language.
-- **Excluded ISOs:** [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) lists languages that lack a CC license and are stripped from every release tarball and the published `manifest.json`. The auto-managed block in that file is rewritten by `make classify`; the manual section above it is preserved for ISOs the classifier can't catch. The pack step fails loudly if an excluded ISO ever leaks into the tar.
+- **Excluded ISOs:** [`EXCLUDED_ISOS.txt`](EXCLUDED_ISOS.txt) lists languages that are dropped entirely from every release tarball and the published `manifest.json`. The auto-managed block in that file is rewritten by `make classify`; the manual section above it is preserved for ISOs the classifier can't catch. The pack step fails loudly if an excluded ISO ever leaks into the tar.
+- **Excluded companion packages:** [`EXCLUDED_PACKAGES.txt`](EXCLUDED_PACKAGES.txt) lists package basenames (e.g. `spa_SPA`) that get stripped from any iso shipping them — keeping the iso, dropping just the non-CC companion. Used for diglot deployments that bundle a Biblica NVI Spanish package alongside the native CC scripture.
 
 Full background and downstream attribution requirements: [`LICENSING.md`](LICENSING.md).
 
