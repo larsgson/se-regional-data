@@ -333,8 +333,9 @@ def main() -> int:
             strippable_per_iso[lang["iso"]] = s
 
     # SE's Apache rate-limits at ~8 req/s per IP — sequential by default.
+    # The chunk delay only applies on cache misses (cold cache or SE redeploy).
     chunk_delay_s = float(os.environ.get("CHUNK_DELAY_MS", "150")) / 1000.0
-    print(f"Classifying {len(isos)} ISOs (sequential, {chunk_delay_s*1000:.0f}ms between chunks)...")
+    print(f"Classifying {len(isos)} ISOs (sequential; cache hits skip network)...")
     if strippable_per_iso:
         listing = ", ".join(f"{iso}={'+'.join(sorted(s))}" for iso, s in sorted(strippable_per_iso.items()))
         print(f"  per-iso strippable companion packages: {listing}")
