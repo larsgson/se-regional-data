@@ -24,12 +24,19 @@ Structure stored:
 Idempotent. Safe to re-run after SE redeploys (JS-chunk hashes change, so
 we always re-discover the manifest chunk via grep).
 
+Disk cache: the service-worker and manifest chunk for each ISO are cached
+at data/.media-cache/<iso>.<hash>.{sw,js}. Cache hits skip all HEAD and
+chunk-fetch requests (~25x faster). Invalidates automatically when SE
+redeploys (chunk hashes change). To force a full re-fetch:
+    rm -rf data/.media-cache/
+
 Env:
     CONCURRENCY=6   number of parallel workers (default 6)
 """
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import os
 import re
@@ -45,6 +52,7 @@ from _lib import REPO_ROOT  # noqa: E402
 
 SE = "https://scriptureearth.org"
 PKF_ROOT = REPO_ROOT / "data" / "pkf"
+CACHE_DIR = REPO_ROOT / "data" / ".media-cache"
 
 UA = "bw-map-media/1.0"
 
@@ -478,9 +486,21 @@ def chunk_urls_from(sw_text: str) -> list[str]:
 # --- main manifest-finder ---------------------------------------------------
 
 
+def _cache_key(iso: str, chunk_paths: list[str]) -> str:
+    blob = f"{iso}|{'|'.join(sorted(chunk_paths))}".encode()
+    return hashlib.sha1(blob).hexdigest()[:16]
+
+
 def find_manifest_chunk(iso: str, chunk_paths: list[str]) -> Optional[str]:
-    """HEAD each chunk to get content-length, then try largest-first. The
-    contents manifest is typically the largest chunk by a wide margin."""
+    """Return the manifest JS chunk text, using a disk cache when available.
+
+    Cache key is derived from the SW's chunk-path list; a SE redeploy changes
+    chunk hashes, which invalidates the cache automatically."""
+    key = _cache_key(iso, chunk_paths)
+    cache_path = CACHE_DIR / f"{iso}.{key}.js"
+    if cache_path.exists():
+        return cache_path.read_text(encoding="utf-8")
+
     with_sizes: list[dict] = []
     for p in chunk_paths:
         url = f"{SE}/data/{iso}/sab/{iso}{p}"
@@ -492,8 +512,46 @@ def find_manifest_chunk(iso: str, chunk_paths: list[str]) -> Optional[str]:
         if not body:
             continue
         if "onlineUrl:" in body or "audioSources:" in body:
+            CACHE_DIR.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(body, encoding="utf-8")
             return body
     return None
+
+
+def _find_cached_sw(iso: str) -> Optional[str]:
+    """Return a cached SW if any cache file exists for this ISO."""
+    for p in CACHE_DIR.glob(f"{iso}.*.sw"):
+        return p.read_text(encoding="utf-8")
+    return None
+
+
+def _fetch_and_cache_sw(iso: str) -> tuple[Optional[str], bool]:
+    """Fetch the SW; return (sw_text, cache_is_warm).
+
+    On cache hit (chunk hashes unchanged) the full manifest is on disk already,
+    so the caller can skip all further network.  We still need the SW text for
+    image-map / timing-URL extraction, so we cache it too."""
+    sw = fetch_text(f"{SE}/data/{iso}/sab/{iso}/service-worker.js")
+    if not sw:
+        return None, False
+
+    chunks = chunk_urls_from(sw)
+    if not chunks:
+        return sw, False
+
+    key = _cache_key(iso, chunks)
+    sw_cache = CACHE_DIR / f"{iso}.{key}.sw"
+    manifest_cache = CACHE_DIR / f"{iso}.{key}.js"
+    warm = manifest_cache.exists()
+
+    if not sw_cache.exists():
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        # Purge stale cache files for this ISO
+        for stale in CACHE_DIR.glob(f"{iso}.*"):
+            stale.unlink()
+        sw_cache.write_text(sw, encoding="utf-8")
+
+    return sw, warm
 
 
 def process_iso(iso: str) -> Optional[dict]:
@@ -506,9 +564,13 @@ def process_iso(iso: str) -> Optional[dict]:
     except (OSError, json.JSONDecodeError):
         return None
 
-    sw = fetch_text(f"{SE}/data/{iso}/sab/{iso}/service-worker.js")
+    sw, cache_warm = _fetch_and_cache_sw(iso)
     if not sw:
-        return {"iso": iso, "error": "no SW"}
+        cached_sw = _find_cached_sw(iso)
+        if cached_sw:
+            sw = cached_sw
+        else:
+            return {"iso": iso, "error": "no SW"}
 
     image_map = image_url_map_from(iso, sw)
     chunks = chunk_urls_from(sw)
@@ -529,13 +591,11 @@ def process_iso(iso: str) -> Optional[dict]:
             info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
         return {"iso": iso, "videos": 0, "audio": 0}
 
-    # Extract and write timing files
+    # Extract and write timing files (skip if cache is warm and files exist)
     timing_count = 0
+    timing_dir = iso_dir / "timing"
     if audio_items:
-        timing_data = extract_timing_data(manifest_text, iso, sw, audio_items)
-        if timing_data:
-            timing_dir = iso_dir / "timing"
-            timing_dir.mkdir(exist_ok=True)
+        if cache_warm and timing_dir.is_dir():
             for item in audio_items:
                 tf = item.get("timingFile")
                 book = item.get("bookCode")
@@ -545,14 +605,30 @@ def process_iso(iso: str) -> Optional[dict]:
                     if tm:
                         book = tm.group(1).upper()
                         chapter = int(tm.group(2))
-                if tf and tf in timing_data and book and chapter is not None:
-                    out_path = timing_dir / f"{book}-{chapter}.json"
-                    out_path.write_text(
-                        json.dumps(timing_data[tf], separators=(",", ":")),
-                        encoding="utf-8",
-                    )
+                if book and chapter is not None and (timing_dir / f"{book}-{chapter}.json").exists():
                     item["hasTiming"] = True
                     timing_count += 1
+        if not timing_count:
+            timing_data = extract_timing_data(manifest_text, iso, sw, audio_items)
+            if timing_data:
+                timing_dir.mkdir(exist_ok=True)
+                for item in audio_items:
+                    tf = item.get("timingFile")
+                    book = item.get("bookCode")
+                    chapter = item.get("chapter")
+                    if not book or chapter is None:
+                        tm = TIMING_FILENAME_RE.search(tf or "")
+                        if tm:
+                            book = tm.group(1).upper()
+                            chapter = int(tm.group(2))
+                    if tf and tf in timing_data and book and chapter is not None:
+                        out_path = timing_dir / f"{book}-{chapter}.json"
+                        out_path.write_text(
+                            json.dumps(timing_data[tf], separators=(",", ":")),
+                            encoding="utf-8",
+                        )
+                        item["hasTiming"] = True
+                        timing_count += 1
 
     base_url = sources.get("d1") or (next(iter(sources.values())) if sources else None)
     info["media"] = {
