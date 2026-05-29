@@ -33,9 +33,9 @@ Requires data/pkf/manifest.json (produced by fetch_pkf.py). Run AFTER
 fetch_pkf.py + dedupe_assets.py but BEFORE packing the release tarball.
 
 Disk cache: per-iso concatenated string-literal corpus is cached at
-data/.license-scan-cache/<iso>.<chunk-paths-sha1>.txt. Cache hits skip
-all chunk network fetches; SE redeploys auto-invalidate via the chunk
-hashes. To force a full re-scan, `rm -rf data/.license-scan-cache/`.
+data/.license-scan-cache/<iso>.<chunk-paths-sha1>.txt. On warm cache,
+no network requests are made at all — the cached corpus is reused
+directly. To force a full re-scan, `rm -rf data/.license-scan-cache/`.
 """
 from __future__ import annotations
 
@@ -170,6 +170,14 @@ def classify_texto(texto: str, strippable: set[str]) -> dict:
 
 def joined_js_for_iso(iso: str, chunk_delay_s: float) -> dict:
     """Fetch + cache the concatenated string-literal corpus for one ISO."""
+    # Fast path: if a cache file exists, reuse it without hitting the network.
+    # SE redeploys change the chunk-path hash, so stale entries are never read;
+    # they linger until a cold re-fetch replaces them (harmless).
+    existing = list(CACHE_DIR.glob(f"{iso}.*.txt"))
+    if existing:
+        cached = existing[0]
+        return {"unreachable": False, "sw": "", "joined": cached.read_text(encoding="utf-8")}
+
     base = f"https://scriptureearth.org/data/{iso}/sab/{iso}"
     sw = fetch_text(f"{base}/service-worker.js")
     if not sw:
