@@ -8,13 +8,18 @@ to scriptureearth.org / youtube.com / 4.dbt.io, rendered on demand.
 Structure stored:
     media.audio = {
       base_url: "https://www.scriptureearth.org/data/<iso>/audio",
-      items: [ { bookCode, chapter, filename, url, len, size, timingFile } ]
+      items: [ { bookCode, chapter, filename, url, len, size, timingFile,
+                 hasTiming } ]
     }
     media.videos = [
       { id, title, width, height, thumbnail, thumbnailUrl, onlineUrl,
         kind: 'youtube' | 'hls' | 'other',
         placement: { bookCode, chapter, verse, pos } }
     ]
+    timing files: data/pkf/<iso>/timing/<BOOK>-<chapter>.json
+      each is [[start, end, tag], ...] parsed from SE's TSV timing data.
+      Auto-generated timing is decoded from base64 data URIs in the JS chunk;
+      manual overrides are fetched from hashed asset files.
 
 Idempotent. Safe to re-run after SE redeploys (JS-chunk hashes change, so
 we always re-discover the manifest chunk via grep).
@@ -24,6 +29,7 @@ Env:
 """
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
@@ -307,14 +313,15 @@ def extract_audio_sources(chunk_text: str) -> dict[str, str]:
 
 
 AUDIO_ITEM_HANDLE = re.compile(r'\bnum\s*:\s*\d+\s*,\s*filename\s*:\s*"[^"]+\.mp3"')
-AUDIO_FILENAME_RE = re.compile(r"-(\d{2})-([A-Z0-9]{3})-(\d+)\.mp3$", re.I)
+AUDIO_FILENAME_RE = re.compile(r"-(\d{2})-([A-Z0-9]{3})(?:-(\d+))?\.mp3$", re.I)
 
 
 def parse_audio_filename(filename: str) -> dict:
     m = AUDIO_FILENAME_RE.search(filename)
     if not m:
         return {}
-    return {"bookCode": m.group(2).upper(), "chapter": int(m.group(3))}
+    chapter = int(m.group(3)) if m.group(3) else 1
+    return {"bookCode": m.group(2).upper(), "chapter": chapter}
 
 
 def extract_audio_items(chunk_text: str, sources: dict[str, str]) -> list[dict]:
@@ -346,6 +353,104 @@ def extract_audio_items(chunk_text: str, sources: dict[str, str]) -> list[dict]:
             }
         )
     return out
+
+
+# --- timing extraction --------------------------------------------------------
+
+
+TIMING_FILENAME_RE = re.compile(r"-([A-Z0-9]{3})-(\d+)-timing\.txt$", re.I)
+
+TIMING_ASSET_ENTRY_RE = re.compile(
+    r'"\./([^"]*-timing\.txt)"\s*:\s*([A-Za-z_$][\w$]*)'
+)
+SW_TIMING_RE = re.compile(
+    r"/_app/immutable/assets/([\w-]+-timing)\.([A-Za-z0-9_-]+)\.txt"
+)
+
+
+def parse_timing_tsv(text: str) -> list[list]:
+    rows: list[list] = []
+    for line in text.split("\n"):
+        line = line.strip()
+        if not line or line.startswith("\\"):
+            continue
+        parts = line.split("\t")
+        if len(parts) >= 3:
+            try:
+                rows.append([round(float(parts[0]), 3), round(float(parts[1]), 3), parts[2]])
+            except ValueError:
+                continue
+    return rows
+
+
+def timing_urls_from_sw(iso: str, sw_text: str) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for m in SW_TIMING_RE.finditer(sw_text):
+        out[m.group(1)] = f"{SE}/data/{iso}/sab/{iso}{m.group(0)}"
+    return out
+
+
+def extract_timing_data(
+    chunk_text: str, iso: str, sw_text: str, audio_items: list[dict]
+) -> dict[str, list]:
+    """Extract timing data for audio items from the JS chunk.
+
+    Auto-generated timing is embedded as base64 data URIs.
+    Manual overrides are separate hashed .txt assets fetched via SW URLs.
+    Returns {timingFile_name: [[start, end, tag], ...], ...}.
+    """
+    timing_names = {item["timingFile"] for item in audio_items if item.get("timingFile")}
+    if not timing_names:
+        return {}
+
+    sw_urls = timing_urls_from_sw(iso, sw_text)
+
+    file_to_var: dict[str, str] = {}
+    for m in TIMING_ASSET_ENTRY_RE.finditer(chunk_text):
+        if m.group(1) in timing_names:
+            file_to_var[m.group(1)] = m.group(2)
+
+    result: dict[str, list] = {}
+    for fname, var in file_to_var.items():
+        tsv_text = None
+        varpat = r"(?<![A-Za-z0-9_$])" + re.escape(var)
+
+        # Try direct string assignment: VAR="data:text/plain;base64,..."
+        m = re.search(varpat + r'\s*=\s*"([^"]+)"', chunk_text)
+        if m:
+            value = m.group(1)
+            if value.startswith("data:text/plain;base64,"):
+                b64 = value[len("data:text/plain;base64,"):]
+                try:
+                    tsv_text = base64.b64decode(b64).decode("utf-8", errors="replace")
+                except Exception:
+                    pass
+            elif value.startswith("/"):
+                tsv_text = fetch_text(f"{SE}/data/{iso}/sab/{iso}{value}")
+
+        # Manual overrides: VAR=""+new URL("../assets/NAME.HASH.txt",...)
+        if tsv_text is None:
+            m = re.search(
+                varpat + r'\s*=\s*""\+new\s+URL\("(\.\./assets/[^"]+)"',
+                chunk_text,
+            )
+            if m:
+                asset = m.group(1).replace("../assets/", "/_app/immutable/assets/")
+                tsv_text = fetch_text(f"{SE}/data/{iso}/sab/{iso}{asset}")
+
+        # Fallback: try SW hashed URL
+        if tsv_text is None:
+            basename = fname.rsplit(".", 1)[0]
+            url = sw_urls.get(basename)
+            if url:
+                tsv_text = fetch_text(url)
+
+        if tsv_text:
+            parsed = parse_timing_tsv(tsv_text)
+            if parsed:
+                result[fname] = parsed
+
+    return result
 
 
 # --- service-worker helpers -------------------------------------------------
@@ -424,6 +529,31 @@ def process_iso(iso: str) -> Optional[dict]:
             info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
         return {"iso": iso, "videos": 0, "audio": 0}
 
+    # Extract and write timing files
+    timing_count = 0
+    if audio_items:
+        timing_data = extract_timing_data(manifest_text, iso, sw, audio_items)
+        if timing_data:
+            timing_dir = iso_dir / "timing"
+            timing_dir.mkdir(exist_ok=True)
+            for item in audio_items:
+                tf = item.get("timingFile")
+                book = item.get("bookCode")
+                chapter = item.get("chapter")
+                if not book or chapter is None:
+                    tm = TIMING_FILENAME_RE.search(tf or "")
+                    if tm:
+                        book = tm.group(1).upper()
+                        chapter = int(tm.group(2))
+                if tf and tf in timing_data and book and chapter is not None:
+                    out_path = timing_dir / f"{book}-{chapter}.json"
+                    out_path.write_text(
+                        json.dumps(timing_data[tf], separators=(",", ":")),
+                        encoding="utf-8",
+                    )
+                    item["hasTiming"] = True
+                    timing_count += 1
+
     base_url = sources.get("d1") or (next(iter(sources.values())) if sources else None)
     info["media"] = {
         "videos": videos,
@@ -441,6 +571,7 @@ def process_iso(iso: str) -> Optional[dict]:
         "videos": len(videos),
         "video_kinds": kinds,
         "audio": len(audio_items),
+        "timing": timing_count,
         "base_url": base_url,
     }
 
@@ -458,6 +589,7 @@ def main() -> int:
 
     with_video = 0
     with_audio = 0
+    with_timing = 0
     done = 0
     video_kind_totals: dict[str, int] = {}
 
@@ -483,15 +615,18 @@ def main() -> int:
                         video_kind_totals[k] = video_kind_totals.get(k, 0) + v
                 if r.get("audio"):
                     with_audio += 1
+                if r.get("timing"):
+                    with_timing += 1
                 kinds_str = ",".join(f"{k}={v}" for k, v in (r.get("video_kinds") or {}).items())
+                timing_str = f"  timing={r.get('timing', 0):>3}" if r.get("timing") else ""
                 print(
                     f"  {iso:<6} videos={r['videos']:>3} [{kinds_str}]  "
-                    f"audio={r['audio']:>3}  ({done}/{len(isos)})"
+                    f"audio={r['audio']:>3}{timing_str}  ({done}/{len(isos)})"
                 )
 
     print(
-        f"\nDone. {with_video} languages with videos, {with_audio} with audio. "
-        f"Totals by kind: {json.dumps(video_kind_totals)}."
+        f"\nDone. {with_video} languages with videos, {with_audio} with audio, "
+        f"{with_timing} with timing. Totals by kind: {json.dumps(video_kind_totals)}."
     )
     return 0
 
