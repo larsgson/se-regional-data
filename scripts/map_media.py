@@ -48,10 +48,9 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _lib import REPO_ROOT  # noqa: E402
+from _lib import POOL_DIR as PKF_ROOT, REPO_ROOT  # noqa: E402
 
 SE = "https://scriptureearth.org"
-PKF_ROOT = REPO_ROOT / "data" / "pkf"
 CACHE_DIR = REPO_ROOT / "data" / ".media-cache"
 
 UA = "bw-map-media/1.0"
@@ -554,6 +553,15 @@ def _fetch_and_cache_sw(iso: str) -> tuple[Optional[str], bool]:
     return sw, warm
 
 
+_NO_MEDIA = {"videos": [], "audio": {"items": []}}
+
+
+def _mark_no_media(info: dict, info_path: Path) -> None:
+    if info.get("media") != _NO_MEDIA:
+        info["media"] = _NO_MEDIA
+        info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
 def process_iso(iso: str) -> Optional[dict]:
     iso_dir = PKF_ROOT / iso
     info_path = iso_dir / "info.json"
@@ -563,6 +571,19 @@ def process_iso(iso: str) -> Optional[dict]:
         info = json.loads(info_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
+
+    # Skip if already processed (has media section in info.json)
+    if "media" in info:
+        audio = info["media"].get("audio", {})
+        items = audio.get("items", [])
+        timing_count = sum(1 for i in items if i.get("hasTiming"))
+        return {
+            "iso": iso,
+            "videos": len(info["media"].get("videos", [])),
+            "audio": len(items),
+            "timing": timing_count,
+            "already_done": True,
+        }
 
     sw, cache_warm = _fetch_and_cache_sw(iso)
     if not sw:
@@ -575,10 +596,12 @@ def process_iso(iso: str) -> Optional[dict]:
     image_map = image_url_map_from(iso, sw)
     chunks = chunk_urls_from(sw)
     if not chunks:
+        _mark_no_media(info, info_path)
         return {"iso": iso, "videos": 0, "audio": 0}
 
     manifest_text = find_manifest_chunk(iso, chunks)
     if not manifest_text:
+        _mark_no_media(info, info_path)
         return {"iso": iso, "videos": 0, "audio": 0}
 
     videos = extract_videos(manifest_text, image_map)
@@ -586,9 +609,7 @@ def process_iso(iso: str) -> Optional[dict]:
     audio_items = extract_audio_items(manifest_text, sources)
 
     if not videos and not audio_items:
-        if "media" in info:
-            del info["media"]
-            info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
+        _mark_no_media(info, info_path)
         return {"iso": iso, "videos": 0, "audio": 0}
 
     # Extract and write timing files (skip if cache is warm and files exist)
@@ -666,6 +687,7 @@ def main() -> int:
     with_video = 0
     with_audio = 0
     with_timing = 0
+    already_done = 0
     done = 0
     video_kind_totals: dict[str, int] = {}
 
@@ -680,6 +702,15 @@ def main() -> int:
                 continue
             done += 1
             if not r:
+                continue
+            if r.get("already_done"):
+                already_done += 1
+                if r.get("audio"):
+                    with_audio += 1
+                if r.get("timing"):
+                    with_timing += 1
+                if r.get("videos"):
+                    with_video += 1
                 continue
             if r.get("error"):
                 print(f"  {iso}: {r['error']}  ({done}/{len(isos)})")
@@ -700,9 +731,10 @@ def main() -> int:
                     f"audio={r['audio']:>3}{timing_str}  ({done}/{len(isos)})"
                 )
 
+    new = done - already_done
     print(
-        f"\nDone. {with_video} languages with videos, {with_audio} with audio, "
-        f"{with_timing} with timing. Totals by kind: {json.dumps(video_kind_totals)}."
+        f"\nDone. {with_video} with videos, {with_audio} with audio, "
+        f"{with_timing} with timing. ({new} new, {already_done} already done)"
     )
     return 0
 

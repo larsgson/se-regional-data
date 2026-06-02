@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _lib import REPO_ROOT, load_excluded_isos, filter_manifest  # noqa: E402
 
 COUNTRY = os.environ.get("COUNTRY", "mx").lower()
-CURRENT_MANIFEST = REPO_ROOT / "data" / "pkf" / "manifest.json"
+CURRENT_MANIFEST = REPO_ROOT / "data" / COUNTRY / "manifest.json"
 
 
 def gh(args: list[str]) -> str:

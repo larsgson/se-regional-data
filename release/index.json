@@ -1,22 +1,56 @@
 {
-  "version": "data-2026.05.29",
-  "tag": "data-2026.05.29",
-  "country": "mx",
-  "created_at": "2026-05-29T15:23:13.000Z",
-  "asset": "pkf-mx-20260529.tar.zst",
-  "manifest_asset": "manifest-mx-20260529.json",
-  "licenses_asset": "licenses-mx-20260529.json",
-  "bytes": 148371370,
-  "sha256": "32371da032f1f092d09b0fec9af81d82015a3217ece9a5134783894c37e3cf3b",
+  "version": "data-2026.06.02",
+  "tag": "data-2026.06.02",
+  "country": "global",
+  "created_at": "2026-06-02T15:20:40.000Z",
+  "asset": "pkf-global-20260602.tar.zst",
+  "manifest_asset": "manifest-global-20260602.json",
+  "licenses_asset": "licenses-global-20260602.json",
+  "bytes": 731690048,
+  "sha256": "9620b5c7cf96e4d5c3f47a8b0c9d7f287fde300eecc67c9f2e37f36f26608413",
   "summary": {
-    "languages": 136,
-    "pkf_bytes_total": 133908902,
-    "updated_at": "2026-04-21T10:43:13Z"
+    "languages": 588,
+    "pkf_bytes_total": 676149804,
+    "updated_at": "2026-06-01T19:43:57Z"
   },
   "excluded_isos": [
+    "als",
+    "amc",
+    "amk",
+    "bus",
+    "car",
     "cya",
+    "djk",
+    "eka",
+    "eky",
+    "hbb",
+    "hns",
+    "ikw",
+    "jvn",
+    "kcg",
+    "kjb",
+    "kmu",
+    "ktj",
+    "kxf",
+    "kyu",
+    "mbu",
+    "mda",
+    "mgj",
+    "moa",
+    "nin",
     "nlv",
-    "top"
+    "nsk",
+    "pio",
+    "quw",
+    "roh",
+    "srm",
+    "srn",
+    "ssy",
+    "sti",
+    "ted",
+    "top",
+    "ttr",
+    "tul"
   ],
   "stripped_packages": {
     "hch": [
@@ -27,8 +61,8 @@
     ]
   },
   "licenses_summary": {
-    "included": 136,
-    "excluded": 3,
+    "included": 588,
+    "excluded": 37,
     "default_license": "CC-BY-NC-ND-4.0"
   }
 }

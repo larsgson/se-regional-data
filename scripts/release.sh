@@ -21,8 +21,9 @@ YMD="$(date -u +%Y%m%d)"
 TAG="${TAG:-data-$(date -u +%Y.%m.%d)}"
 export COUNTRY TAG
 
-if [ ! -f data/pkf/manifest.json ]; then
-    echo "[release] missing data/pkf/manifest.json — run the fetch pipeline first" >&2
+CC="$(echo "${COUNTRY}" | tr A-Z a-z)"
+if [ ! -f "data/${CC}/manifest.json" ]; then
+    echo "[release] missing data/${CC}/manifest.json — run the fetch pipeline first" >&2
     exit 1
 fi
 

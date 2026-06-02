@@ -12,7 +12,41 @@
 #     hand — your changes will be overwritten.
 
 # BEGIN auto-managed by classify_licenses.py (do not edit by hand)
+als  # unclear — No CC declaration found in Texto block or JS bundle
+amc  # unclear — No CC declaration found in Texto block or JS bundle
+amk  # unclear — No CC declaration found in Texto block or JS bundle
+bus  # unclear — No CC declaration found in Texto block or JS bundle
+car  # unclear — No CC declaration found in Texto block or JS bundle
 cya  # not-cc — Texto: "Usado con permiso" — permission-only, not CC
+djk  # unclear — No CC declaration found in Texto block or JS bundle
+eka  # unclear — No CC declaration found in Texto block or JS bundle
+eky  # unclear — No CC declaration found in Texto block or JS bundle
+hbb  # unclear — No CC declaration found in Texto block or JS bundle
+hns  # unclear — No CC declaration found in Texto block or JS bundle
+ikw  # unclear — No CC declaration found in Texto block or JS bundle
+jvn  # unclear — No CC declaration found in Texto block or JS bundle
+kcg  # unclear — No CC declaration found in Texto block or JS bundle
+kjb  # not-cc — Texto: bundles Biblica NVI translation — proprietary, not CC
+kmu  # unclear — No CC declaration found in Texto block or JS bundle
+ktj  # unclear — No CC declaration found in Texto block or JS bundle
+kxf  # unclear — No CC declaration found in Texto block or JS bundle
+kyu  # unclear — No CC declaration found in Texto block or JS bundle
+mbu  # unclear — No CC declaration found in Texto block or JS bundle
+mda  # unclear — No CC declaration found in Texto block or JS bundle
+mgj  # unclear — No CC declaration found in Texto block or JS bundle
+moa  # unclear — No CC declaration found in Texto block or JS bundle
+nin  # unclear — No CC declaration found in Texto block or JS bundle
 nlv  # not-cc — Texto: provisional / not-final translation
+nsk  # unclear — No CC declaration found in Texto block or JS bundle
+pio  # unclear — No CC declaration found in Texto block or JS bundle
+quw  # unclear — No CC declaration found in Texto block or JS bundle
+roh  # unclear — No CC declaration found in Texto block or JS bundle
+srm  # unclear — No CC declaration found in Texto block or JS bundle
+srn  # unclear — No CC declaration found in Texto block or JS bundle
+ssy  # unclear — No CC declaration found in Texto block or JS bundle
+sti  # unclear — No CC declaration found in Texto block or JS bundle
+ted  # unclear — No CC declaration found in Texto block or JS bundle
 top  # not-cc — Texto: "Todos los derechos reservados" — ARR declaration
+ttr  # unclear — No CC declaration found in Texto block or JS bundle
+tul  # unclear — No CC declaration found in Texto block or JS bundle
 # END auto-managed

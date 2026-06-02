@@ -53,12 +53,13 @@ from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _lib import (  # noqa: E402
+    PKF_ROOT,
     REPO_ROOT,
     load_excluded_packages,
     strippable_packages_for_iso,
 )
 
-PKF_DIR = REPO_ROOT / "data" / "pkf"
+PKF_DIR = PKF_ROOT
 MANIFEST = PKF_DIR / "manifest.json"
 OUT = PKF_DIR / "licenses.json"
 EXCLUDED_TXT = REPO_ROOT / "EXCLUDED_ISOS.txt"

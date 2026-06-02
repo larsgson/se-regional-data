@@ -1,0 +1,81 @@
+Languages available in se-regional-data but NOT in language-sources.txt
+Generated from data/_pool/ (73 languages)
+
+=== AUDIO + TIMING + TEXT (33) ===
+aps  audio=125 timing=112 videos=19
+azd  audio=138 timing=138 videos=72
+cto  audio=37 timing=37 videos=73
+eko  audio=259 timing=259 videos=115
+fan  audio=260 timing=260 videos=189
+grg  audio=16 timing=16 videos=35
+hbb  audio=260 timing=260 videos=140
+kjb  audio=260 timing=260 videos=126
+kyj  audio=260 timing=260 videos=83
+mbk  audio=107 timing=94 videos=19
+mbz  audio=118 timing=118 videos=95
+mdv  audio=25 timing=25 videos=34
+mix  audio=89 timing=89 videos=86
+mzr  audio=162 timing=162 videos=45
+mzz  audio=102 timing=102 videos=13
+nsk  audio=500 timing=500 videos=95
+nuz  audio=49 timing=49 videos=45
+pav  audio=260 timing=260 videos=83
+qws  audio=25 timing=25 videos=6
+qxl  audio=260 timing=260 videos=157
+roh  audio=260 timing=260 videos=95
+snx  audio=16 timing=16 videos=34
+sso  audio=96 timing=96 videos=19
+tcf  audio=7 timing=7 videos=61
+tio  audio=44 timing=42 videos=33
+tke  audio=350 timing=350 videos=163
+tpl  audio=7 timing=7 videos=61
+tpx  audio=11 timing=11 videos=1
+vmj  audio=60 timing=60 videos=50
+xri  audio=122 timing=122 videos=71
+xta  audio=60 timing=60 videos=43
+xtj  audio=24 timing=24 videos=28
+zts  audio=28 timing=28 videos=13
+
+=== AUDIO + TEXT (1) ===
+xer  audio=24 videos=68
+
+=== TEXT ONLY (39) ===
+abn
+amc videos=28
+cro videos=13
+eky
+isd videos=61
+ivv videos=61
+jab videos=61
+jmx
+kiw videos=61
+kmg
+kpc videos=61
+kqw videos=61
+ksc
+mbd
+mbi videos=61
+mgj videos=61
+mmn
+mta videos=61
+mts
+mwc videos=61
+nif
+nss
+oym videos=61
+pmq
+puu
+qwa
+sac videos=7
+ssy videos=61
+sti
+tpa
+tqt videos=61
+ttr videos=61
+tul videos=61
+var
+vmz
+wau videos=61
+xir
+yrl
+ztl

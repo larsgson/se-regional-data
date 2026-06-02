@@ -97,7 +97,8 @@ function scanOne(iso, pkfPath) {
     return { typeCounts, booksWithFigures, figureDetails };
 }
 
-const root = 'data/pkf';
+const country = (process.env.COUNTRY || 'mx').toLowerCase();
+const root = `data/${country}`;
 const all = gatherByIso(root);
 
 const hits = [];

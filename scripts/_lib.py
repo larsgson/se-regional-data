@@ -6,12 +6,17 @@ on the EXCLUDED_ISOS.txt loader; classify_licenses.py writes that file.
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Iterable
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EXCLUDED_TXT = REPO_ROOT / "EXCLUDED_ISOS.txt"
 EXCLUDED_PACKAGES_TXT = REPO_ROOT / "EXCLUDED_PACKAGES.txt"
+
+COUNTRY = os.environ.get("COUNTRY", "mx").lower()
+PKF_ROOT = REPO_ROOT / "data" / COUNTRY
+POOL_DIR = REPO_ROOT / "data" / "_pool"
 
 
 def _load_first_token_set(path: Path) -> set[str]:

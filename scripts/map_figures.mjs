@@ -119,12 +119,13 @@ function resolveUrl(filename, imgMap) {
 }
 
 async function main() {
-    const root = 'data/pkf';
+    const root = 'data/_pool';
     const isos = readdirSync(root)
         .filter((n) => !n.startsWith('_') && statSync(join(root, n)).isDirectory())
         .sort();
 
     const results = [];
+    let skipped = 0;
     for (const iso of isos) {
         const isoDir = join(root, iso);
         const pkfName = readdirSync(isoDir).find((f) => f.endsWith('.pkf'));
@@ -132,19 +133,20 @@ async function main() {
         const infoPath = join(isoDir, 'info.json');
         const info = JSON.parse(readFileSync(infoPath, 'utf8'));
 
+        // Skip if already scanned (figures key present — empty array means "no figures")
+        if ('figures' in info || 'figure_urls' in info) {
+            skipped++;
+            continue;
+        }
+
         const figures = scanFigures(join(isoDir, pkfName));
 
         if (figures.length === 0) {
-            let changed = false;
-            if ('figure_urls' in info) {
-                delete info.figure_urls;
-                changed = true;
+            if (!Array.isArray(info.figures) || info.figures.length > 0) {
+                info.figures = [];
+                info.figure_urls = {};
+                writeFileSync(infoPath, JSON.stringify(info, null, 2));
             }
-            if ('figures' in info) {
-                delete info.figures;
-                changed = true;
-            }
-            if (changed) writeFileSync(infoPath, JSON.stringify(info, null, 2));
             continue;
         }
 
@@ -174,7 +176,8 @@ async function main() {
         results.push({ iso, total: figures.length, mapped, missing });
     }
 
-    if (results.length === 0) console.log('No languages with figures found.');
+    if (skipped) console.log(`${skipped} already scanned, skipped.`);
+    if (results.length === 0) console.log('No new languages with figures found.');
     else console.log(`\nTotal illustrated languages: ${results.length}`);
 }
 

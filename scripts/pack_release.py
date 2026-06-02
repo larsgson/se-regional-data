@@ -35,7 +35,7 @@ from _lib import (  # noqa: E402
 )
 
 COUNTRY = os.environ.get("COUNTRY", "mx").lower()
-PKF_ROOT = REPO_ROOT / "data" / "pkf"
+PKF_ROOT = REPO_ROOT / "data" / COUNTRY
 STAGE = REPO_ROOT / "release"
 CREATED_AT = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 YMD = CREATED_AT[:10].replace("-", "")
@@ -139,7 +139,7 @@ def main() -> int:
             (info_path, original, json.dumps(info, indent=2, ensure_ascii=False).encode("utf-8"))
         )
 
-    tar_cmd = ["tar", *exclude_flags, "-cf", "-", "-C", str(PKF_ROOT), "."]
+    tar_cmd = ["tar", "-h", *exclude_flags, "-cf", "-", "-C", str(PKF_ROOT), "."]
     zstd_cmd = ["zstd", f"-{zstd_level}", "-T0", "-q", "-o", str(tar_path)]
     try:
         for path, _orig, filtered_bytes in swaps:

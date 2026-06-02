@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
@@ -231,26 +232,58 @@ def build_style_bundle(iso: str, iso_dir: Path, css_assets: list[Asset]) -> Path
     return bundle
 
 
-def fetch_iso(iso: str, out: Path, force: bool, dry: bool) -> dict:
+def _load_registry(pool: Path) -> dict:
+    reg_path = pool / "registry.json"
+    if reg_path.exists():
+        try:
+            return json.loads(reg_path.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def _save_registry(pool: Path, registry: dict) -> None:
+    pool.mkdir(parents=True, exist_ok=True)
+    (pool / "registry.json").write_text(
+        json.dumps(registry, indent=2, ensure_ascii=False, sort_keys=True),
+        encoding="utf-8",
+    )
+
+
+def fetch_iso(iso: str, out: Path, pool: Path, force: bool, dry: bool,
+              registry: dict) -> dict:
     result = {"iso": iso, "ok": False, "version": None, "assets": [], "error": None}
     try:
+        pool_iso = pool / iso
+        cached = registry.get(iso, {})
+
+        # Fast path: if registry has this ISO and data exists, skip all network
+        if (not force
+                and cached.get("version")
+                and pool_iso.is_dir()
+                and (pool_iso / "info.json").exists()):
+            result["version"] = cached["version"]
+            result["assets"] = cached.get("assets", [])
+            result["ok"] = True
+            result["cached"] = True
+            return result
+
         assets = discover_assets(iso)
         if not assets:
             result["error"] = "no SAB app or no .pkf found"
             return result
 
         result["version"] = fetch_version(iso)
-        iso_dir = out / iso
 
         for a in assets:
             if a.kind == "pkf" or a.kind == "json":
-                target = iso_dir / a.name
+                target = pool_iso / a.name
             elif a.kind == "css":
-                target = iso_dir / "styles" / "raw" / a.name
+                target = pool_iso / "styles" / "raw" / a.name
             elif a.kind == "font":
-                target = iso_dir / "styles" / "fonts" / a.name
+                target = pool_iso / "styles" / "fonts" / a.name
             else:
-                target = iso_dir / a.name
+                target = pool_iso / a.name
             entry = {
                 "name": a.name,
                 "kind": a.kind,
@@ -266,9 +299,9 @@ def fetch_iso(iso: str, out: Path, force: bool, dry: bool) -> dict:
             result["assets"].append(entry)
 
         if not dry:
-            iso_dir.mkdir(parents=True, exist_ok=True)
+            pool_iso.mkdir(parents=True, exist_ok=True)
             css_assets = [a for a in assets if a.kind == "css"]
-            bundle = build_style_bundle(iso, iso_dir, css_assets)
+            bundle = build_style_bundle(iso, pool_iso, css_assets)
             info = {
                 "iso": iso,
                 "version": result["version"],
@@ -277,7 +310,7 @@ def fetch_iso(iso: str, out: Path, force: bool, dry: bool) -> dict:
                 "style_bundle": "styles/bundle.css" if bundle else None,
                 "assets": result["assets"],
             }
-            (iso_dir / "info.json").write_text(
+            (pool_iso / "info.json").write_text(
                 json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8"
             )
 
@@ -338,8 +371,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
                     help="Country code (e.g. MX); discovers all ISOs listed for that "
                          "country via scriptureearth.org. Repeatable. Not every ISO has "
                          "a SAB app; missing ones are skipped.")
-    ap.add_argument("--out", type=Path, default=Path("data/pkf"),
-                    help="Output directory (default: data/pkf)")
+    country = os.environ.get("COUNTRY", "mx").lower()
+    ap.add_argument("--out", type=Path, default=Path(f"data/{country}"),
+                    help=f"Output directory (default: data/{country})")
     ap.add_argument("--workers", type=int, default=4,
                     help="Parallel downloads (default: 4)")
     ap.add_argument("--force", action="store_true",
@@ -349,8 +383,20 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return ap.parse_args(argv)
 
 
+def _symlink_iso(pool: Path, out: Path, iso: str) -> None:
+    """Create a symlink from data/<cc>/<iso> -> ../../_pool/<iso>."""
+    link = out / iso
+    if link.is_symlink():
+        link.unlink()
+    elif link.is_dir():
+        return
+    target = os.path.relpath(pool / iso, out)
+    link.symlink_to(target)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv if argv is not None else sys.argv[1:])
+    pool = args.out.parent / "_pool"
 
     isos: list[str] = list(args.iso)
     for f in args.iso_file:
@@ -372,14 +418,18 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.dry_run:
         args.out.mkdir(parents=True, exist_ok=True)
+        pool.mkdir(parents=True, exist_ok=True)
+
+    registry = _load_registry(pool)
 
     print(f"[info] fetching {len(isos)} ISO(s) -> {args.out} "
-          f"(workers={args.workers}, dry_run={args.dry_run})", file=sys.stderr)
+          f"(pool={pool}, workers={args.workers})", file=sys.stderr)
 
     results: list[dict] = []
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
         futures = {
-            ex.submit(fetch_iso, iso, args.out, args.force, args.dry_run): iso
+            ex.submit(fetch_iso, iso, args.out, pool, args.force, args.dry_run,
+                      registry): iso
             for iso in isos
         }
         for fut in as_completed(futures):
@@ -387,25 +437,47 @@ def main(argv: list[str] | None = None) -> int:
             results.append(r)
             iso = r["iso"]
             if r["ok"]:
-                pkf_count = sum(1 for a in r["assets"] if a["kind"] == "pkf")
-                css_count = sum(1 for a in r["assets"] if a["kind"] == "css")
-                font_count = sum(1 for a in r["assets"] if a["kind"] == "font")
-                total_size = sum(a.get("size", 0) for a in r["assets"] if a["kind"] == "pkf")
-                version = r["version"] or "?"
-                size_kb = total_size / 1024
-                print(f"  [ok]   {iso:<6} v{version}  "
-                      f"{pkf_count} pkf · {css_count} css · {font_count} font  "
-                      f"({size_kb:.0f} KB pkf)",
-                      file=sys.stderr)
+                if r.get("cached"):
+                    print(f"  [pool] {iso:<6} v{r['version']} (already in pool)",
+                          file=sys.stderr)
+                else:
+                    pkf_count = sum(1 for a in r["assets"] if a["kind"] == "pkf")
+                    css_count = sum(1 for a in r["assets"] if a["kind"] == "css")
+                    font_count = sum(1 for a in r["assets"] if a["kind"] == "font")
+                    total_size = sum(a.get("size", 0) for a in r["assets"] if a["kind"] == "pkf")
+                    version = r["version"] or "?"
+                    size_kb = total_size / 1024
+                    print(f"  [ok]   {iso:<6} v{version}  "
+                          f"{pkf_count} pkf · {css_count} css · {font_count} font  "
+                          f"({size_kb:.0f} KB pkf)",
+                          file=sys.stderr)
             else:
                 print(f"  [skip] {iso:<6} {r['error']}", file=sys.stderr)
 
     if not args.dry_run:
+        # Update registry with fetched results
+        for r in results:
+            if r["ok"] and not r.get("cached"):
+                registry[r["iso"]] = {
+                    "version": r["version"],
+                    "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "assets": r["assets"],
+                }
+        _save_registry(pool, registry)
+
+        # Symlink ISOs from pool into country dir
+        for r in results:
+            if r["ok"]:
+                _symlink_iso(pool, args.out, r["iso"])
+
         write_manifest(args.out, results)
 
     ok_count = sum(1 for r in results if r["ok"])
-    print(f"[done] {ok_count}/{len(results)} OK", file=sys.stderr)
-    return 0 if ok_count else 1
+    cached_count = sum(1 for r in results if r.get("cached"))
+    fresh = ok_count - cached_count
+    print(f"[done] {ok_count}/{len(results)} OK ({fresh} fetched, {cached_count} from pool)",
+          file=sys.stderr)
+    return 0
 
 
 if __name__ == "__main__":

@@ -1,0 +1,5098 @@
+{
+  "schema_version": 1,
+  "classifier_version": 3,
+  "updated_at": "2026-06-02",
+  "source": "Scripture Earth SAB app service-worker + JS chunk scan",
+  "notes": [
+    "License applies to the scripture TEXT only (the .pkf data).",
+    "Images, audio, and video referenced by SE URL carry their own per-asset licenses and are NOT covered by this classification.",
+    "Badge presence is recorded as evidence but not used in the decision — it is unreliable (SAB tooling emits it for all Wycliffe texts regardless of actual license status)."
+  ],
+  "default_license": "CC-BY-NC-ND-4.0",
+  "included_count": 588,
+  "excluded_count": 37,
+  "included": {
+    "aai": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aak": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aau": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aaz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "abn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "abx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aby": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aca": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "acu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ade": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "adj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aey": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "agu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1993, 2003, 2009, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ake": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "akh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ame": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "amm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "amn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "amp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "amr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "amu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1999,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "anv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aom": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aon": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "apb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "apn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "apu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "apy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "apz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "arl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "arn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "asg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "aso": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ata": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "atd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "atg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "att": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "auc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1992, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "auy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "avt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "awb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "azd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2018, 2019,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "azg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1992, 2015,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "azz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1979,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bao": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bbb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bbr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bco": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bdd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bef": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bgs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bhl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "big": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bjr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bkd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bkq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bkw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "blw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bmh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bmr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1981, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bmu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bnp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "boa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "boj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bon": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bor": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bpr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bqj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bsn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bwd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "byr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "byx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bzd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007, Comité Traducción al Bribri; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bzh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "bzj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "caa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1996, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "caf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cao": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1979, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cap": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1978, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1985, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cax": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1980, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009, 1992, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cbv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cco": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cgc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "chd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1991,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "chf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1977,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "chq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "chz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cjo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cjv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cle": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "clu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cni": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1972, 1977, 2008, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cnl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2012,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cnt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1994,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "coe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1982, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cof": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1990, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cok": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "con": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1980, 1998, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cot": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cpa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1973,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cpb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cpc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cpu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1996, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cpy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cro": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "crx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cso": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1986,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cta": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1981,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cto": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ctp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1992,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ctu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1977,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cub": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1989, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cuc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cui": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987, 2010, 2022, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cuk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cul": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cut": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1972,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "cux": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1974,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dad": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dah": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dbq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ded": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "des": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1984, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dgc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dgz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dik": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dob": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dop": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "due": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "duo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dww": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "dyi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ebk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "eip": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "eko": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "emp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "enq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "eri": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ese": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1984, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "esk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ess": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "faa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "fab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020, PROEL y Sociedad Bíblica de España",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "fai": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "fan": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, Asociación Cristiana de Traducciones Bíblicas",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "for": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gah": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gam": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gaw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gdg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gdn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gdr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gfk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ghs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gnw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "grg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gub": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "guc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "guh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1982, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gui": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1974, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gul": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gum": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2000, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gun": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, 2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "guo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2018, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gvc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1982, 2007, 2010-2021, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gvf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gvs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gwi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gym": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "gyr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1985, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "hch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      },
+      "strip_packages": [
+        "spa_SPA"
+      ]
+    },
+    "hix": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "hla": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "hot": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "hto": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1985, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "hui": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "huu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1975, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "huv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1996,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ian": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "icr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ifa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ifu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ify": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ign": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1980, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ikk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ilo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "imo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "inb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1996, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ino": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "iqw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "iri": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "isd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ivb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ivv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "iws": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "izz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jaa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2017, Jonathan Paul Campbell; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2016, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jae": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jam": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jic": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1993, 2008, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jiv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009, Asociación de Iglesias Evangélicas Shuar del Ecuador (Macuma, Morona Santiago, Ecuador)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "jmx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2021,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kaq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kbc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kbh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1990, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kew": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kgf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kgk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kgp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "khz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kiw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kjs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kmg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kmk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kmo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kms": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kne": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "knf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "knj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016, Asociación Educativa y Cultural Maya; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kog": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kpx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kqc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kqe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kqw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ksc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ksr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kto": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kub": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kud": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kue": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kup": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kvn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kwi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kwj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kyc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kyg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kyj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kyz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "lac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1978,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "lbk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "lcm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "leu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "lid": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "lww": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "maj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "maq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1991,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mau": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "maz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mbz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010, 2023, WPS",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mca": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mcb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1976, 1997, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mcd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mcf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2024, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mco": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1976,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mcq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mdv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "med": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mee": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "meh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2021,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mek": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "meu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mfy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, 2018, 2022, 2024,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mhl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mie": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1977,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mig": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mih": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1979,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mil": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mim": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016, 2022, Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mio": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mir": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1988,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mit": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1978,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mix": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2017,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "miy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016, 2018, 2019, 2022, 2023, 2025,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "miz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mjc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mks": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1999,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mlp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mmn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mmo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mmx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mna": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mox": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mpm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mpp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mpt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mpx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "msb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "msk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "msm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mta": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mti": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mto": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mts": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2024, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mux": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mva": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mvn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mwc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mxb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005, 2006, 2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mxq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mxt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mxv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2017,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "myu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "myw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "myy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1989, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mza": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2015,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mzr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "mzz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "naf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nak": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nas": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nca": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nch": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ncj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1979,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ncl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1998,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "neb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ngu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987, 2009, 2016, 2022,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nhe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nhg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1980,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nhi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007, 2012,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nhw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nhy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2006,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nif": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nii": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "niy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nko": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nop": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nou": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "npl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2011,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nsn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nss": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nsu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2017,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ntp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1981,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nuz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005, 2012,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nvm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "obo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "okv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "omw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ong": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ood": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "opm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "otm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1999,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "otn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1975,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "otq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ots": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1975,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "oym": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pad": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pah": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pao": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pbc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pcm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pdc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pib": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pir": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1990, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pls": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "plu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "plw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pma": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pmq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "poe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "poi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2025,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      },
+      "strip_packages": [
+        "spa_SPA"
+      ]
+    },
+    "ppo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "prf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "prq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ptp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "puu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "pwg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qub": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010, Asociación Cristiana JAWCA; Sociedad Bíblica Peruana, A.C.; y Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "quf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qul": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1985, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qup": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "quy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987, Sociedad Bíblica Peruana (en Cooperación de Wycliffe Bible Translators, Inc.) (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qve": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2015, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qvn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1997, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qvo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2025, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qvs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qvw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qvz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1992, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qwa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qws": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019-2024, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qxh": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qxl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2017, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "qxo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2008, 2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "rai": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ram": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "rap": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2018, Sociedad Bíblica Chilena; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "roo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "rro": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "rug": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1988, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sbe": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sbl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sey": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1990, 2012, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sgb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sgz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "shp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983, 2008, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sim": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sja": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2000, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sll": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "smk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "snc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "snn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1982, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "snx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sny": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "soq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "spl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sps": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sri": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1998, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "srq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1977, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ssd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ssg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sso": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ssx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "stp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sua": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "suc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "sue": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "swp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "syb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Peninsula Bible Church",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987, 2009, 2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tbc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tbg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tbk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tbl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tbo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tcf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2023,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tee": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1976, 2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ter": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tfr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tif": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tik": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tim": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tio": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tiy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tke": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tku": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1999,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tna": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1981, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tnc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tnk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "toc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2006,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "toj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1972,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "too": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1978,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tos": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1999,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2023,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2015,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpx": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019, 2023,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tpz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tqt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "trc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014, 2024,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "trq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1996,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "trs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2014,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tsw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ttc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tte": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tue": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tuf": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987, 2011, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "tvk": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "txu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ubr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ura": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2006-2024, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "urb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "uro": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "urt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "usa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "usp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2010, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "uth": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "uvl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "var": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "viv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "vmj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020, 2022, 2024,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "vmy": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "vmz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020, 2022, 2024,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "waj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wap": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wau": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "waw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wer": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wiu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wnc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wnu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wos": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wrs": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "wuv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xer": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xir": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xla": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xnn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xri": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xsb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xsi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xsu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xta": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2005,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xtd": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2001,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xte": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xtj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "xtn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2015,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yaa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yad": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1994, 2008, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yaq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2003,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yby": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ycn": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1982, 2014, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yka": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yle": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yml": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yon": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yrb": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yrl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yuj": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yut": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "yuw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zaa": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1970,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zab": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1995,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zac": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1983,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zad": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2011,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zai": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2006,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zam": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1971,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zao": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zaq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2020,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zar": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2007,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zas": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zat": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2012,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zav": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1970,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zaw": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2006,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zca": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2013,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zia": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": null,
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zos": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1984,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpc": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1986,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpg": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2019,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpi": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2009,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2010,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpm": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1998,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpo": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002, 2013, 2021,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1987,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpt": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2015,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpu": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2000,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpv": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1990,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zpz": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2004,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zsr": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "1992,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ztl": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2025, Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ztp": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2016,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ztq": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2000,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zts": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2026 Instituto Lingüístico de Verano, A.C.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "zty": {
+      "license": "CC-BY-NC-ND-4.0",
+      "text_holder": "2002,",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    }
+  },
+  "excluded": {
+    "als": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "amc": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": "2025, Wycliffe Bible Translators y Traductores Amahuaca de UINA (Unión Interregional de la Nación Amahuaca)",
+      "texto": "© 2025, Wycliffe Bible Translators y Traductores Amahuaca de UINA (Unión Interregional de la Nación Amahuaca)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "amk": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "bus": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "car": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "cya": {
+      "license": "not-cc",
+      "reason": "Texto: \"Usado con permiso\" — permission-only, not CC",
+      "text_holder": "2013, David Neil Nellis (Audio Visuales para América Latina, A.C. 2000) (Usado con permiso)",
+      "texto": "© 2013, David Neil Nellis (Audio Visuales para América Latina, A.C. 2000) (Usado con permiso)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "djk": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "eka": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "eky": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "hbb": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "hns": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "ikw": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "jvn": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "kcg": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "kjb": {
+      "license": "not-cc",
+      "reason": "Texto: bundles Biblica NVI translation — proprietary, not CC",
+      "text_holder": "2012, Sociedad Biblica de Guatemala; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (www.Wycliffe.org)",
+      "texto": "© 2012, Sociedad Biblica de Guatemala; Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (www.Wycliffe.org)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "kmu": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "ktj": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "kxf": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "kyu": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "mbu": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "mda": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "mgj": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "moa": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "nin": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "nlv": {
+      "license": "not-cc",
+      "reason": "Texto: provisional / not-final translation",
+      "text_holder": "2017, Wycliffe Bible Translators, Inc.",
+      "texto": "Texto en proceso de finalizar: © 2017, Wycliffe Bible Translators, Inc.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "nsk": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "pio": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": "1986, 1994, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA (",
+      "texto": "© 1986, 1994, 2009, Wycliffe Bible Translators, Inc., Orlando, FL 35862-8200 USA  (<a href=\n>www.Wycliffe.org</a>)",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "quw": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "Dominio Publico",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "roh": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "srm": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "srn": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "ssy": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "sti": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "ted": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "top": {
+      "license": "not-cc",
+      "reason": "Texto: \"Todos los derechos reservados\" — ARR declaration",
+      "text_holder": "1985, 1990, Wycliffe Bible Translators, Inc. Todos los derechos reservados.",
+      "texto": "© 1985, 1990, Wycliffe Bible Translators, Inc.  Todos los derechos reservados.",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": true
+      }
+    },
+    "ttr": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    },
+    "tul": {
+      "license": "unclear",
+      "reason": "No CC declaration found in Texto block or JS bundle",
+      "text_holder": null,
+      "texto": "",
+      "evidence": {
+        "badge_in_sw": false,
+        "cc_text_in_js": false
+      }
+    }
+  }
+}

@@ -1,13 +1,8 @@
-# Scripture Earth data — MX
+# Scripture Earth data — GLOBAL
 
-Updated **2026-04-21T10:43:13Z**
+Updated **2026-06-01T19:43:57Z**
 
-- **Languages:** 136
-- **Total .pkf bytes:** 127.7 MiB
+- **Languages:** 588
+- **Total .pkf bytes:** 644.8 MiB
 
-## Changes since `data-2026.04.25`
-
-- Added: **0**
-- Removed: **0**
-- Version-bumped: **0**
-
+_First release — no previous manifest to diff against._

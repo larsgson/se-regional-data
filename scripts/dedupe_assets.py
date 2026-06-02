@@ -28,7 +28,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-PKF_ROOT = Path("data/pkf")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _lib import POOL_DIR as PKF_ROOT  # noqa: E402
 FONTS_POOL = PKF_ROOT / "_fonts"
 FONT_URL_RE = re.compile(r"url\(\s*\./fonts/([A-Za-z0-9_.\-]+\.(?:ttf|otf|woff2?))\s*\)")
 FONT_URL_POOL_RE = re.compile(r"url\(\s*\.\./\.\./_fonts/([A-Za-z0-9_.\-]+)\s*\)")
@@ -66,7 +67,7 @@ def consolidate_fonts() -> dict:
 
     for iso_dir in sorted(d for d in PKF_ROOT.iterdir() if d.is_dir() and not d.name.startswith("_")):
         fonts_dir = iso_dir / "styles" / "fonts"
-        if not fonts_dir.exists():
+        if not fonts_dir.exists() or not fonts_dir.is_dir():
             continue
         mapping: dict[str, str] = {}
         for font in sorted(fonts_dir.iterdir()):
@@ -218,9 +219,13 @@ def update_info_json(iso: str, delta_rel: str) -> None:
 def generate_all_deltas() -> dict:
     pool_index = _load_pool_index()
     pool_reverse = _build_pool_reverse(pool_index)
-    counts = {"emitted": 0, "skipped": 0, "total_bytes": 0}
+    counts = {"emitted": 0, "skipped": 0, "already_done": 0, "total_bytes": 0}
     sizes: list[int] = []
     for iso_dir in sorted(d for d in PKF_ROOT.iterdir() if d.is_dir() and not d.name.startswith("_")):
+        delta_path = iso_dir / "styles" / "delta.css"
+        if delta_path.exists():
+            counts["already_done"] += 1
+            continue
         result = generate_delta(iso_dir.name, pool_reverse)
         if not result:
             counts["skipped"] += 1
@@ -321,20 +326,21 @@ def summarize_disk() -> None:
 
 def main() -> int:
     if not PKF_ROOT.exists():
-        print(f"error: {PKF_ROOT} does not exist", file=sys.stderr)
-        return 2
+        print(f"[dedupe] {PKF_ROOT} does not exist, nothing to do")
+        return 0
     stats = consolidate_fonts()
-    print("FONT DEDUP:")
-    for k, v in stats.items():
-        print(f"  {k}: {v}")
+    print(f"[dedupe] fonts: {stats['iso_font_dirs_consolidated']} consolidated, "
+          f"{stats['pool_files']} in pool")
     delta_stats = generate_all_deltas()
-    print("\nPER-ISO DELTA CSS:")
-    for k, v in delta_stats.items():
-        print(f"  {k}: {v}")
+    print(f"[dedupe] delta CSS: {delta_stats['emitted']} new, "
+          f"{delta_stats['already_done']} already done, "
+          f"{delta_stats['skipped']} skipped")
     removed = remove_bundles()
-    print(f"\nREMOVED {removed} superseded bundle.css file(s).")
-    report_css_deltas()
-    summarize_disk()
+    if removed:
+        print(f"[dedupe] removed {removed} superseded bundle.css file(s)")
+    if "--verbose" in sys.argv:
+        report_css_deltas()
+        summarize_disk()
     return 0
 
 
