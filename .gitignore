@@ -6,3 +6,7 @@ __pycache__
 *.pyc
 .DS_Store
 .claude
+internal-docs/
+.env
+.env.*
+!.env.example

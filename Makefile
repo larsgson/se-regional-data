@@ -10,9 +10,10 @@ COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 # Parse a conf file into a space-separated list of country codes
 read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 
-.PHONY: help release release-dry release-draft pack notes \
+.PHONY: help release release-dry release-draft release-publish pack notes \
         pipeline fetch dedupe map-figures map-media classify classify-rescan clean \
-        region-pipeline region-release merge-region merge-global
+        region-pipeline region-release merge-region merge-global \
+        publish-cdn publish-cdn-dry
 
 help:
 	@echo "Targets:"
@@ -22,6 +23,9 @@ help:
 	@echo "  make release          classify + pack + diff + gh release create"
 	@echo "  make release-dry      same but prints what would upload (no network)"
 	@echo "  make release-draft    publish as a hidden draft on GitHub"
+	@echo "  make release-publish  release + publish-cdn (GitHub release, then push to R2)"
+	@echo "  make publish-cdn      upload data/$(COUNTRY_LOWER)/ to Cloudflare R2 (cdn.bibel.wiki/pkf/)"
+	@echo "  make publish-cdn-dry  preview the CDN upload (rclone --dry-run, no writes)"
 	@echo "  make pack             build release/*.tar.zst + index.json"
 	@echo "  make notes            write release/release-notes.md"
 	@echo "  make clean            rm -rf release/"
@@ -42,6 +46,14 @@ release-dry:
 
 release-draft:
 	DRAFT=1 scripts/release.sh
+
+release-publish: release publish-cdn
+
+publish-cdn:
+	scripts/publish-cdn.sh
+
+publish-cdn-dry:
+	DRY_RUN=1 scripts/publish-cdn.sh
 
 pack:
 	python3 scripts/pack_release.py
