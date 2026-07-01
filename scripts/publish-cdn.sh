@@ -9,6 +9,12 @@
 # the filtered sibling asset release/manifest-<country>-<YMD>.json is uploaded as
 # pkf/manifest.json instead.
 #
+# Upload plan comes from scripts/cdn_delta.py, which diffs the source tree
+# against data/.cdn-published.json (a local record of what was published last
+# time) and hands rclone only the new/changed files via --files-from. This
+# avoids listing+diffing the ~80k-object remote pkf/ tree on every run — the
+# state file makes "nothing changed" runs finish in seconds instead of minutes.
+#
 # Usage:
 #   COUNTRY=global scripts/publish-cdn.sh
 #   COUNTRY=global DRY_RUN=1 scripts/publish-cdn.sh   # rclone --dry-run, no writes
@@ -58,34 +64,37 @@ export RCLONE_CONFIG_R2_ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.
 DEST="r2:${R2_BUCKET}/pkf"
 DRY=(); [ "${DRY_RUN:-0}" = "1" ] && DRY=(--dry-run)
 
-# --- license-filter rules (mirrors pack_release.py) ------------------------
-# Use --filter (NOT --include/--exclude): rules are evaluated top-to-bottom,
-# first match wins, so excluded ISOs are dropped BEFORE any include can match.
-# Mixing --include and --exclude has indeterminate order and could leak a
-# non-CC ISO's info.json/timing. These BASE rules go first in every pass.
+# --- license filtering (mirrors pack_release.py) ---------------------------
+# rclone forbids combining --files-from with --filter ("should be used alone
+# or with --files-from-raw"), so the exclusion logic can't live in rclone flags
+# here. Instead scripts/cdn_delta.py's iter_included_files() applies the SAME
+# rules (whole-ISO drop from EXCLUDED_ISOS.txt + package-basename strip from
+# EXCLUDED_PACKAGES.txt, on-disk manifest.json skipped) when it builds the
+# delta lists below — so a non-CC ISO/package never makes it into a
+# --files-from list in the first place.
 EXCLUDED_ISOS=()
 while read -r iso _; do [ -n "$iso" ] && EXCLUDED_ISOS+=("$iso"); done \
     < <(sed 's/#.*//' EXCLUDED_ISOS.txt | awk 'NF')
 
-BASE=()
-BASE+=(--filter "- /manifest.json")     # on-disk manifest is UNFILTERED — skip it
-for iso in "${EXCLUDED_ISOS[@]}"; do
-    BASE+=(--filter "- /${iso}/**")
-done
-while read -r base _; do
-    [ -n "$base" ] && BASE+=(--filter "- /*/${base}.*")
-done < <(sed 's/#.*//' EXCLUDED_PACKAGES.txt | awk 'NF')
-
-COMMON=(--copy-links --transfers 16 --checkers 16 --fast-list ${DRY[@]+"${DRY[@]}"})
+COMMON=(--copy-links --transfers 16 --checkers 16 ${DRY[@]+"${DRY[@]}"})
 
 echo "[cdn] publishing $SRC -> $DEST (country=$COUNTRY)"
 echo "[cdn] manifest: $MANIFEST"
 [ "${DRY_RUN:-0}" = "1" ] && echo "[cdn] DRY_RUN=1 — no objects written"
 
+# --- incremental plan (avoids listing+diffing the whole remote pkf/ tree) --
+# data/.cdn-published.json records what was uploaded last time; cdn_delta.py
+# diffs the source tree against it (local stat() calls, not a remote list)
+# and writes --files-from lists of just the new/changed paths per cache tier.
+STATE_FILE="data/.cdn-published.json"
+DELTA_DIR="$(mktemp -d)"
+trap 'rm -rf "$DELTA_DIR"' EXIT
+
 # Pass 0 — self-heal: purge any excluded (non-CC) ISO prefix already on the CDN.
 # Catches ISOs that were published before a later classify run excluded them.
-# The upload passes never re-create these (BASE filters drop them), so a one-way
-# purge keeps the CDN in sync with the current EXCLUDED_ISOS.txt.
+# The upload passes never re-create these (cdn_delta.py's iter_included_files
+# drops them too), so a one-way purge keeps the CDN in sync with EXCLUDED_ISOS.txt.
+# Also forget its local state so a later un-exclusion is treated as new.
 purged=0
 for iso in "${EXCLUDED_ISOS[@]}"; do
     [ -n "$(rclone lsf "${DEST}/${iso}/" 2>/dev/null)" ] || continue
@@ -93,33 +102,52 @@ for iso in "${EXCLUDED_ISOS[@]}"; do
         echo "[cdn] would purge ${DEST}/${iso}/ (excluded, present on CDN)"
     else
         rclone purge "${DEST}/${iso}" 2>/dev/null && echo "[cdn] purged ${DEST}/${iso}/ (now excluded)"
+        python3 scripts/cdn_delta.py forget --state "$STATE_FILE" --iso "$iso"
     fi
     purged=$((purged+1))
 done
 [ "$purged" -eq 0 ] && echo "[cdn] no stale excluded prefixes on CDN"
 
+python3 scripts/cdn_delta.py plan --src "$SRC" --state "$STATE_FILE" --out-dir "$DELTA_DIR"
+
 # Pass 1 — content-hashed assets (pkf, catalog json, fonts, styles): cache forever.
-# Excluded ISOs dropped first; info.json + timing handled in later passes; rest included.
-rclone copy "$SRC" "$DEST" "${COMMON[@]}" "${BASE[@]}" \
-    --header-upload "Cache-Control: public, max-age=31536000, immutable" \
-    --filter "- /*/info.json" \
-    --filter "- /*/timing/**"
+if [ -s "$DELTA_DIR/assets.txt" ]; then
+    rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
+        --files-from "$DELTA_DIR/assets.txt" --no-traverse \
+        --header-upload "Cache-Control: public, max-age=31536000, immutable"
+else
+    echo "[cdn] assets: nothing new"
+fi
 
 # Pass 2 — mutable per-iso indexes: short TTL so a new release propagates.
-rclone copy "$SRC" "$DEST" "${COMMON[@]}" "${BASE[@]}" \
-    --header-upload "Cache-Control: public, max-age=300" \
-    --filter "+ /*/info.json" \
-    --filter "- **"
+if [ -s "$DELTA_DIR/info.txt" ]; then
+    rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
+        --files-from "$DELTA_DIR/info.txt" --no-traverse \
+        --header-upload "Cache-Control: public, max-age=300"
+else
+    echo "[cdn] info.json: nothing new"
+fi
 
-# Pass 3 — timing: moderate TTL.
-rclone copy "$SRC" "$DEST" "${COMMON[@]}" "${BASE[@]}" \
-    --header-upload "Cache-Control: public, max-age=3600" \
-    --filter "+ /*/timing/**" \
-    --filter "- **"
+# Pass 3 — timing: moderate TTL. This tier has by far the most files (tens of
+# thousands of small per-chapter JSONs) — the one the old remote-diff approach
+# was slowest on. The delta plan means this is now just the ISOs that changed.
+if [ -s "$DELTA_DIR/timing.txt" ]; then
+    rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
+        --files-from "$DELTA_DIR/timing.txt" --no-traverse \
+        --header-upload "Cache-Control: public, max-age=3600"
+else
+    echo "[cdn] timing: nothing new"
+fi
 
 # Pass 4 — the FILTERED manifest as pkf/manifest.json (short TTL, in place)
 rclone copyto "$MANIFEST" "${DEST}/manifest.json" ${DRY[@]+"${DRY[@]}"} \
     --header-upload "Cache-Control: public, max-age=300"
+
+# Commit the new state only after every pass above has succeeded (set -e would
+# have aborted the script earlier on any rclone failure). Skipped on dry runs.
+if [ "${DRY_RUN:-0}" != "1" ]; then
+    python3 scripts/cdn_delta.py commit --src "$SRC" --state "$STATE_FILE"
+fi
 
 echo "[cdn] done."
 [ "${DRY_RUN:-0}" = "1" ] || echo "[cdn] verify: curl -sI ${PUBLIC_BASE}/pkf/manifest.json"

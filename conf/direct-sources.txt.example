@@ -1,0 +1,28 @@
+# Direct SAB (Scripture App Builder) deployments received outside Scripture
+# Earth's own country/ISO discovery (00eng.php). Typically a private/staging
+# link someone sends you directly — same SvelteKit app shell as SE, just
+# hosted on an arbitrary domain instead of scriptureearth.org.
+#
+# One line per collection to KEEP. A single deployment can bundle several
+# language collections (e.g. eng_C02 + grc_C03 + ind_C01 all in one app) —
+# list only the ones you actually want; omit the rest.
+#
+# Columns (whitespace-separated, # comments allowed):
+#   base_url          deployment root, no trailing slash
+#   collection_base   pkf filename prefix to keep, e.g. ind_C01
+#                      (from the hashed asset name <collection_base>.<hash>.pkf
+#                      in that deployment's service-worker.js)
+#   target_iso        directory name under data/_pool/<target_iso>/
+#                      (must not collide with a real scriptureearth.org ISO —
+#                      scripts/fetch_direct.py checks this before writing)
+#   license           public-domain | cc-by-nc-nd | cc-by | proprietary | unknown
+#                      Manually verified by YOU — classify_licenses.py trusts
+#                      this tag for direct-sourced ISOs and skips its normal
+#                      scriptureearth.org network probe for them.
+#
+# Copy this file to conf/direct-sources.txt (gitignored) and fill in real
+# entries there — the actual file is kept out of GitHub since a direct link
+# like this may not be meant for public listing and could change/expire.
+#
+# base_url                            collection_base  target_iso  license
+https://example.workers.dev            xyz_C01          xyz         public-domain

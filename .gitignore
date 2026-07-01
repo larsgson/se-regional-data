@@ -10,3 +10,5 @@ internal-docs/
 .env
 .env.*
 !.env.example
+conf/direct-sources.txt
+!conf/direct-sources.txt.example

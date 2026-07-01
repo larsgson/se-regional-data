@@ -1,8 +1,16 @@
 # Scripture Earth data — GLOBAL
 
-Updated **2026-06-01T19:43:57Z**
+Updated **2026-07-01T15:37:57Z**
 
-- **Languages:** 588
-- **Total .pkf bytes:** 644.8 MiB
+- **Languages:** 589
+- **Total .pkf bytes:** 648.2 MiB
 
-_First release — no previous manifest to diff against._
+## Changes since `data-2026.06.02`
+
+- Added: **1**
+- Removed: **0**
+- Version-bumped: **0**
+
+### Added languages
+- `ind` v?
+

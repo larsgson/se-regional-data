@@ -201,6 +201,33 @@ def joined_js_for_iso(iso: str, chunk_delay_s: float) -> dict:
     return {"unreachable": False, "sw": sw, "joined": joined}
 
 
+def manual_probe_result(iso: str) -> dict | None:
+    """If this ISO was fetched by scripts/fetch_direct.py, its info.json carries
+    a manual_license block (human-verified, not from scriptureearth.org — there's
+    nothing there to probe). Return it already shaped like probe_iso()'s output
+    so it drops straight into main()'s existing include/exclude processing.
+    Returns None for normal SE-sourced ISOs (no manual_license present)."""
+    info_path = PKF_DIR / iso / "info.json"
+    if not info_path.exists():
+        return None
+    try:
+        info = json.loads(info_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    manual = info.get("manual_license")
+    if not manual:
+        return None
+    return {
+        "iso": iso,
+        "include": manual.get("include", True),
+        "license": manual.get("license", "unknown"),
+        "reason": manual.get("reason", "manually verified — direct source"),
+        "text_holder": manual.get("text_holder"),
+        "texto": manual.get("reason", ""),
+        "evidence": {"manual": True, "source": info.get("source")},
+    }
+
+
 def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
     result = joined_js_for_iso(iso, chunk_delay_s)
     if result["unreachable"]:
@@ -351,6 +378,10 @@ def main() -> int:
 
     results: list[dict] = []
     for iso in isos:
+        manual = manual_probe_result(iso)
+        if manual is not None:
+            results.append(manual)
+            continue
         try:
             results.append(probe_iso(iso, chunk_delay_s, strippable_per_iso.get(iso, set())))
         except Exception as e:

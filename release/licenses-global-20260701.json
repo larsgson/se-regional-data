@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "classifier_version": 3,
-  "updated_at": "2026-06-02",
+  "updated_at": "2026-07-01",
   "source": "Scripture Earth SAB app service-worker + JS chunk scan",
   "notes": [
     "License applies to the scripture TEXT only (the .pkf data).",
@@ -9,7 +9,7 @@
     "Badge presence is recorded as evidence but not used in the decision — it is unreliable (SAB tooling emits it for all Wycliffe texts regardless of actual license status)."
   ],
   "default_license": "CC-BY-NC-ND-4.0",
-  "included_count": 588,
+  "included_count": 589,
   "excluded_count": 37,
   "included": {
     "aai": {
@@ -1653,6 +1653,14 @@
       "evidence": {
         "badge_in_sw": false,
         "cc_text_in_js": true
+      }
+    },
+    "ind": {
+      "license": "Public Domain",
+      "text_holder": null,
+      "evidence": {
+        "manual": true,
+        "source": "https://shrill-credit-5fcd.oreofields.workers.dev"
       }
     },
     "ino": {

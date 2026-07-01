@@ -257,6 +257,22 @@ def fetch_iso(iso: str, out: Path, pool: Path, force: bool, dry: bool,
         pool_iso = pool / iso
         cached = registry.get(iso, {})
 
+        # Guard: never clobber an ISO manually curated by fetch_direct.py (a
+        # non-scriptureearth.org deployment reusing this ISO code). Collisions
+        # are unlikely but silent overwrite would be worse than a loud skip.
+        info_path = pool_iso / "info.json"
+        if info_path.exists():
+            try:
+                existing = json.loads(info_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                existing = None
+            if existing and existing.get("source_type") == "direct":
+                result["error"] = (
+                    "iso reserved by scripts/fetch_direct.py (see conf/direct-sources.txt) "
+                    "— skipping to avoid overwriting a manually-curated source"
+                )
+                return result
+
         # Fast path: if registry has this ISO and data exists, skip all network
         if (not force
                 and cached.get("version")
