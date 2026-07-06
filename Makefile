@@ -11,7 +11,7 @@ COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 
 .PHONY: help release release-dry release-draft release-publish pack notes \
-        pipeline fetch dedupe map-figures map-media classify classify-rescan clean \
+        pipeline fetch dedupe map-figures map-media app-config classify classify-rescan clean \
         region-pipeline region-release merge-region merge-global \
         publish-cdn publish-cdn-dry
 
@@ -71,7 +71,7 @@ else
 	$(MAKE) --no-print-directory fetch process
 endif
 
-process: dedupe map-figures map-media
+process: dedupe map-figures map-media app-config
 
 fetch:
 	python3 scripts/fetch_pkf.py --country $(COUNTRY_UPPER) --workers 8
@@ -84,6 +84,9 @@ map-figures:
 
 map-media:
 	CONCURRENCY=6 python3 scripts/map_media.py
+
+app-config:
+	CONCURRENCY=8 python3 scripts/map_app_config.py
 
 classify:
 	python3 scripts/classify_licenses.py

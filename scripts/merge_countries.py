@@ -101,13 +101,14 @@ def main() -> int:
         target = os.path.relpath(pool_dir / iso, merged_dir)
         link.symlink_to(target)
 
-    # Symlink _fonts from pool
-    fonts_link = merged_dir / "_fonts"
-    if fonts_link.is_symlink():
-        fonts_link.unlink()
-    fonts_src = pool_dir / "_fonts"
-    if fonts_src.is_dir():
-        fonts_link.symlink_to(os.path.relpath(fonts_src, merged_dir))
+    # Symlink shared pool dirs (_fonts, _app) into the merged tree
+    for shared in ("_fonts", "_app"):
+        link = merged_dir / shared
+        if link.is_symlink():
+            link.unlink()
+        src = pool_dir / shared
+        if src.is_dir():
+            link.symlink_to(os.path.relpath(src, merged_dir))
 
     # Write merged manifest
     merged_manifest = {

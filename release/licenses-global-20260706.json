@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "classifier_version": 3,
-  "updated_at": "2026-07-01",
+  "updated_at": "2026-07-06",
   "source": "Scripture Earth SAB app service-worker + JS chunk scan",
   "notes": [
     "License applies to the scripture TEXT only (the .pkf data).",

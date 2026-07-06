@@ -80,8 +80,14 @@ def iter_included_files(src: Path):
 
 
 def classify_tier(relpath: str) -> str:
-    """assets | info | timing — mirrors publish-cdn.sh's three upload passes."""
-    if relpath.endswith("/info.json"):
+    """assets | info | timing — mirrors publish-cdn.sh's three upload passes.
+
+    'info' = mutable, short-TTL files that change in place each release:
+    per-iso info.json + app-config.json, and the shared _app/nav-base.json.
+    'assets' = content-hashed, cache-forever. 'timing' = its own moderate TTL."""
+    if (relpath.endswith("/info.json")
+            or relpath.endswith("/app-config.json")
+            or relpath.endswith("/nav-base.json")):
         return "info"
     if "/timing/" in relpath:
         return "timing"
