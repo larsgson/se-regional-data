@@ -12,3 +12,6 @@ internal-docs/
 !.env.example
 conf/direct-sources.txt
 !conf/direct-sources.txt.example
+# Release outputs live on GitHub Releases (per-tag, immutable) + the CDN.
+# pack/release/publish regenerate these locally each run; no need to track them.
+release/
