@@ -42,16 +42,27 @@ LICENSES="release/licenses-${COUNTRY}-${YMD}.json"
 INDEX="release/index.json"
 NOTES="release/release-notes.md"
 
-for f in "$TAR" "$MANIFEST" "$LICENSES" "$INDEX" "$NOTES"; do
+# The bulk tarball (~700 MB) is a producer-side BACKUP snapshot — no client needs
+# it (clients read the CDN, which already gets the incremental per-file delta).
+# So by default routine releases upload only the small metadata (a few hundred KB)
+# and skip re-uploading the whole tarball. Set RELEASE_TARBALL=1 to attach it
+# (e.g. a periodic backup snapshot).
+ASSETS=("$MANIFEST" "$LICENSES" "$INDEX")
+[ "${RELEASE_TARBALL:-0}" = "1" ] && ASSETS=("$TAR" "${ASSETS[@]}")
+
+req=("$MANIFEST" "$LICENSES" "$INDEX" "$NOTES")
+[ "${RELEASE_TARBALL:-0}" = "1" ] && req+=("$TAR")
+for f in "${req[@]}"; do
     [ -f "$f" ] || { echo "[release] missing $f" >&2; exit 1; }
 done
 
 if [ "${DRY_RUN:-0}" = "1" ]; then
     echo "[release] DRY_RUN=1 — skipping gh release create"
-    echo "[release] would upload to tag ${TAG}:"
-    for f in "$TAR" "$MANIFEST" "$LICENSES" "$INDEX"; do
+    echo "[release] would upload to tag ${TAG} (RELEASE_TARBALL=${RELEASE_TARBALL:-0}):"
+    for f in "${ASSETS[@]}"; do
         printf '         %s (%s bytes)\n' "$f" "$(wc -c < "$f" | tr -d ' ')"
     done
+    [ "${RELEASE_TARBALL:-0}" = "1" ] || echo "         (tarball skipped — set RELEASE_TARBALL=1 for a backup snapshot)"
     echo "[release] notes preview:"
     sed 's/^/         /' "$NOTES"
     exit 0
@@ -60,11 +71,16 @@ fi
 draft_flag=()
 [ "${DRAFT:-0}" = "1" ] && draft_flag=(--draft)
 
-echo "[release] publishing ${TAG}"
+echo "[release] publishing ${TAG} (tarball: ${RELEASE_TARBALL:-0})"
 gh release create "$TAG" \
-    "$TAR" "$MANIFEST" "$LICENSES" "$INDEX" \
+    "${ASSETS[@]}" \
     --title "$TAG" \
     --notes-file "$NOTES" \
     ${draft_flag[@]+"${draft_flag[@]}"}
+
+# Prune old releases: keep only the RELEASE_KEEP most recent (default 2 = latest
+# + previous). The "previous" one must survive — diff_manifest.py diffs the next
+# release against it for change-notes. Set RELEASE_KEEP=0 to disable pruning.
+scripts/prune_releases.sh || true
 
 gh release view "$TAG" --web || true

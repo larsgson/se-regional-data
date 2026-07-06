@@ -184,18 +184,34 @@ def _scalar(raw: str):
 # --- section extractors -----------------------------------------------------
 
 
-def extract_collection(coll: str, iso: str) -> dict:
+def pick_version_id(coll_id, pkf_bases: list) -> str | None:
+    """The .pkf/catalog stem of the PRIMARY collection = its version key.
+    Match the base whose suffix equals this collection's id (niy_C01 -> C01,
+    cco_cco -> cco, tpl_tcf -> tcf); skip stripped companion packages; fall
+    back to the first remaining base."""
+    usable = [b for b in pkf_bases if not b.endswith("_SPA")]
+    if coll_id:
+        for b in usable:
+            if b.rsplit("_", 1)[-1] == coll_id:
+                return b
+    return usable[0] if usable else None
+
+
+def extract_collection(coll: str, iso: str, pkf_bases: list) -> dict:
     td = (get_field(coll, "textDirection") or "LTR")
     abbr = get_field(coll, "collectionAbbreviation")
+    coll_id = get_field(coll, "id")
     # collectionName is only set by newer SAB builds; fall back so name is never null
     name = get_field(coll, "collectionName") or abbr or iso
-    return {
-        "id": get_field(coll, "id"),
+    out = {
+        "id": coll_id,
+        "versionId": pick_version_id(coll_id, pkf_bases),
         "name": name,
         "abbreviation": abbr,
         "languageCode": get_field(coll, "languageCode") or iso,
         "textDirection": str(td).lower(),
     }
+    return out
 
 
 def extract_features(js: str, coll: str) -> dict:
@@ -264,19 +280,38 @@ def load_licenses() -> dict:
     return {}
 
 
+YEAR_RE = re.compile(r"\b(1[89]\d{2}|20\d{2})\b")
+
+
+def _with_years(out: dict, holder: str | None) -> dict:
+    """Parse copyright year(s) from the holder string. `year` = most recent
+    (effective edition date); `years` added only when there's a revision list."""
+    if holder:
+        yrs = sorted({int(y) for y in YEAR_RE.findall(holder)})
+        if yrs:
+            out["year"] = yrs[-1]
+            if len(yrs) > 1:
+                out["years"] = yrs
+    return out
+
+
 def extract_copyright(iso: str, info: dict, lic: dict) -> dict | None:
     entry = lic.get(iso)
     if entry:
         out = {"license": entry.get("license")}
-        if entry.get("text_holder"):
-            out["holder"] = entry["text_holder"]
+        holder = entry.get("text_holder")
+        if holder:
+            out["holder"] = holder
+        _with_years(out, holder)
         out["source"] = info.get("source")
         return out
     ml = info.get("manual_license")
     if ml:
         out = {"license": ml.get("license")}
-        if ml.get("text_holder"):
-            out["holder"] = ml["text_holder"]
+        holder = ml.get("text_holder")
+        if holder:
+            out["holder"] = holder
+        _with_years(out, holder)
         out["source"] = info.get("source")
         return out
     return None
@@ -327,8 +362,9 @@ def process_iso(iso: str, lic: dict) -> dict:
     if not coll:
         return {"iso": iso, "error": "no bookCollections"}
 
+    pkf_bases = [a["base"] for a in info.get("assets", []) if a.get("kind") == "pkf"]
     cfg = {
-        "collection": extract_collection(coll, iso),
+        "collection": extract_collection(coll, iso, pkf_bases),
         "interfaceLanguages": extract_interface_languages(js),
         "features": extract_features(js, coll),
         "books": extract_books(coll),

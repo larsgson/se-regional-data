@@ -13,7 +13,7 @@ read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 .PHONY: help release release-dry release-draft release-publish pack notes \
         pipeline fetch dedupe map-figures map-media app-config classify classify-rescan clean \
         region-pipeline region-release merge-region merge-global \
-        publish-cdn publish-cdn-dry
+        publish-cdn publish-cdn-dry prune-releases
 
 help:
 	@echo "Targets:"
@@ -48,6 +48,9 @@ release-draft:
 	DRAFT=1 scripts/release.sh
 
 release-publish: release publish-cdn
+
+prune-releases:
+	scripts/prune_releases.sh
 
 publish-cdn:
 	scripts/publish-cdn.sh

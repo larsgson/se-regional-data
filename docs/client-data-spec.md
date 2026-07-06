@@ -171,15 +171,22 @@ here.
 ```json
 "collection": {
   "id": "C01",
+  "versionId": "ind_C01",
   "name": "Indonesian",
   "abbreviation": "IND",
-  "languageCode": "id",
+  "languageCode": "ind",
   "textDirection": "ltr"
 }
 ```
 
 **Use:** app/title-bar label; set `<html lang>` from `languageCode` and the root
-`dir` from `textDirection`. `id` joins back to the `.pkf`/catalog docset id.
+`dir` from `textDirection`. `id` is the docset id inside the `.pkf`/catalog (not
+unique across languages). `versionId` **is** the stable, unique key for *this
+specific text edition* — it's the `.pkf`/catalog filename stem (e.g. `ind_C01`,
+`cco_cco`, `tpl_tcf`). Use it for downstream cross-referencing / de-duplicating
+against other resources that carry several editions per language. For the rare
+multi-collection languages this is the **primary** collection's key; the other
+editions' `versionId`s are the remaining `manifest.pkfs[]` stems (see §3–§4).
 Read these synchronously at load — everything else can be deferred.
 
 ### 6.2 `interfaceLanguages` — UI language options
@@ -307,16 +314,22 @@ a theme is a CSS operation (§7). `id` is the value you set on
 ```json
 "copyright": {
   "license": "CC-BY-NC-ND-4.0",
-  "holder": "2019, Wycliffe Bible Translators, Inc., Orlando, FL, USA",
+  "holder": "1993, 2003, 2009, 2011, Wycliffe Bible Translators, Inc., …",
+  "year": 2011,
+  "years": [1993, 2003, 2009, 2011],
   "source": "https://scriptureearth.org/…"
 }
 ```
 
-**Use:** the About / copyright screen, and any attribution you must surface for
-licensing. `license` is present for **every** language (`CC-BY-NC-ND-4.0`,
-`Public Domain`, …). `holder` is the copyright line where one was detected
-(present for most Wycliffe-sourced texts; **may be absent** — render the licence
-alone when it is). `source` is the deployment the text came from.
+**Use:** the About / copyright screen, attribution, and edition dating.
+`license` is present for **every** language (`CC-BY-NC-ND-4.0`, `Public Domain`,
+…). `holder` is the copyright line where one was detected (present for ~42% of
+languages — mostly Wycliffe-sourced texts; **may be absent**, render the licence
+alone then). `year` is the most recent copyright year — the effective **edition
+date**, a useful disambiguator against other resources' editions; present only
+when a `holder` was found. `years` is the full ascending list and appears **only
+when there was more than one** (i.e. a revision history — original + revisions).
+`source` is the deployment the text came from.
 
 This is authoritative for attribution — every published language is
 licence-cleared before delivery, and this block is the machine-readable record
