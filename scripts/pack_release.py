@@ -70,6 +70,15 @@ def summarize_manifest(manifest: dict) -> dict:
 # DBT/Bible Brain audio is a separate repo's export, merged client-side.
 
 MEDIA_CACHE = REPO_ROOT / "data" / ".media-cache"
+
+# {iso: {nm, v?}} language-name registry (built by scripts/build_lang_names.py).
+# nm = English name (always present); v = vernacular in native script, only when
+# it differs from nm. Field names/rules mirror the consumer's dbt media-index.
+try:
+    LANG_NAMES = json.loads((REPO_ROOT / "conf" / "lang-names.json").read_text(encoding="utf-8"))
+except (OSError, ValueError):
+    LANG_NAMES = {}
+
 _OT = set("GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST "
           "JOB PSA PRO ECC SNG ISA JER LAM EZK DAN HOS JOL AMO OBA JON MIC NAM "
           "HAB ZEP HAG ZEC MAL".split())
@@ -159,7 +168,13 @@ def manifest_entry(iso: str, lang: dict) -> dict:
 
     top_media = ("a" if agg_audio else "") + ("v" if agg_video else "") + ("t" if agg_timing else "")
     top_codex = "".join(k for k in "ond" if k in codex_union)
-    return {"media": top_media, "codex": top_codex, "collections": collections}
+
+    name = LANG_NAMES.get(iso) or {}
+    entry = {"nm": name.get("nm") or iso.upper()}
+    if name.get("v"):
+        entry["v"] = name["v"]
+    entry.update({"media": top_media, "codex": top_codex, "collections": collections})
+    return entry
 
 
 def main() -> int:

@@ -71,6 +71,8 @@ language.
   "updated_at": "2026-07-07T…",
   "languages": {
     "ind": {
+      "nm": "Indonesian",
+      "v": "Bahasa Indonesia",
       "media": "",
       "codex": "on",
       "collections": [
@@ -84,7 +86,11 @@ language.
         }
       ]
     },
+    "cco": { "nm": "Chinantec, Comaltepec", "media": "avt", "codex": "n",
+             "collections": [ … ] },
     "niy": {
+      "nm": "Ndruna",
+      "v": "Ndrǔna",
       "media": "avt",
       "codex": "on",
       "collections": [
@@ -108,6 +114,19 @@ language.
 - To load a language, take a collection's `pkf` / `catalog` and fetch
   `pkf/<iso>/<that-filename>`. That resolves the content-hashed names; the hash
   is the cache-buster (there is no `version` field).
+
+**`nm` / `v`** — language display names, **same field names, types, and rules as
+the DBT `dbt/_app/media-index.json`** (they are sourced from it, so an ISO's name
+is identical across both indexes for the client-side merge):
+
+- **`nm`** — English name, **always present**. May carry a `:` / `,`-qualified
+  variant (`"English: USA"`, `"Chinantec, Comaltepec"`).
+- **`v`** — vernacular name in its native script; present **only when it differs
+  from `nm`** (e.g. `ind` → `"Bahasa Indonesia"`, `niy` → `"Ndrǔna"`), omitted
+  otherwise. Render `v` as the primary label with `nm` as the secondary/search
+  key when present; fall back to `nm` alone when it isn't.
+- The few SE languages the DBT index doesn't list take their `nm` from the SIL
+  ISO 639-3 reference name and carry no `v`.
 
 **`media`** — a compact string, letters in the fixed order **`a` `v` `t`**
 (audio, video, timing), present letter = available. `""` = none. Always present.

@@ -1,0 +1,2096 @@
+{
+  "aai": {
+    "nm": "Arifama-Miniafia"
+  },
+  "aak": {
+    "nm": "Angave"
+  },
+  "aau": {
+    "nm": "Abau"
+  },
+  "aaz": {
+    "nm": "Amarasi"
+  },
+  "abn": {
+    "nm": "Abua"
+  },
+  "abx": {
+    "nm": "Inabaknon"
+  },
+  "aby": {
+    "nm": "Aneme Wake"
+  },
+  "aca": {
+    "nm": "Achagua"
+  },
+  "acu": {
+    "nm": "Achuar",
+    "v": "Achuar-Shiwiar"
+  },
+  "ade": {
+    "nm": "Adele"
+  },
+  "adj": {
+    "nm": "Adioukrou"
+  },
+  "aey": {
+    "nm": "Amele"
+  },
+  "agd": {
+    "nm": "Agarabi"
+  },
+  "agg": {
+    "nm": "Angor"
+  },
+  "agm": {
+    "nm": "Angaataha"
+  },
+  "agn": {
+    "nm": "Agutaynen"
+  },
+  "agr": {
+    "nm": "Aguaruna",
+    "v": "Awajun"
+  },
+  "agt": {
+    "nm": "Central Cagayan Agta"
+  },
+  "agu": {
+    "nm": "Aguacateco"
+  },
+  "ake": {
+    "nm": "Akawaio"
+  },
+  "akh": {
+    "nm": "Angal Heneng"
+  },
+  "als": {
+    "nm": "Albanian",
+    "v": "Shqip"
+  },
+  "amc": {
+    "nm": "Amahuaca"
+  },
+  "ame": {
+    "nm": "Yanesha"
+  },
+  "amk": {
+    "nm": "Ambai"
+  },
+  "amm": {
+    "nm": "Ama",
+    "v": "Sawiyanu"
+  },
+  "amn": {
+    "nm": "Amanab"
+  },
+  "amp": {
+    "nm": "Alamblak"
+  },
+  "amr": {
+    "nm": "Amarakaeri"
+  },
+  "amu": {
+    "nm": "Amuzgo de Guerrero",
+    "v": "Ñomndaa"
+  },
+  "anv": {
+    "nm": "Denya"
+  },
+  "aom": {
+    "nm": "Ömie"
+  },
+  "aon": {
+    "nm": "Arapesh"
+  },
+  "apb": {
+    "nm": "Sa’a"
+  },
+  "apn": {
+    "nm": "Apinaye",
+    "v": "Apinayé"
+  },
+  "aps": {
+    "nm": "Arop-Sissano"
+  },
+  "apu": {
+    "nm": "Apurinã"
+  },
+  "apy": {
+    "nm": "Apalai"
+  },
+  "apz": {
+    "nm": "Safeyoka",
+    "v": "Ampeeli-Wojokeso"
+  },
+  "arl": {
+    "nm": "Arabela"
+  },
+  "arn": {
+    "nm": "Mapuche"
+  },
+  "asg": {
+    "nm": "Cishingini"
+  },
+  "aso": {
+    "nm": "Dano"
+  },
+  "ata": {
+    "nm": "Pele-Ata"
+  },
+  "atd": {
+    "nm": "Ata"
+  },
+  "atg": {
+    "nm": "Ivbie North-Okpela-Arhe",
+    "v": "Okphela"
+  },
+  "att": {
+    "nm": "Pamplona Atta"
+  },
+  "auc": {
+    "nm": "Waorani",
+    "v": "Waodani"
+  },
+  "auy": {
+    "nm": "Awiyaana"
+  },
+  "avt": {
+    "nm": "Au"
+  },
+  "awb": {
+    "nm": "Awa (PNG)",
+    "v": "Awa"
+  },
+  "azd": {
+    "nm": "Eastern Durango Nahuatl"
+  },
+  "azg": {
+    "nm": "San Pedro Amuzgo",
+    "v": "Amuzgo, San Pedro Amuzgos"
+  },
+  "azz": {
+    "nm": "Highland Puebla Nahuatl",
+    "v": "Nahuatlahtolli"
+  },
+  "bao": {
+    "nm": "Waimaha",
+    "v": "Waimaja"
+  },
+  "bbb": {
+    "nm": "Barai"
+  },
+  "bbr": {
+    "nm": "Girawa"
+  },
+  "bch": {
+    "nm": "Bariai"
+  },
+  "bco": {
+    "nm": "Kaluli"
+  },
+  "bdd": {
+    "nm": "Bunama"
+  },
+  "bef": {
+    "nm": "Benabena"
+  },
+  "bgs": {
+    "nm": "Tagabawa"
+  },
+  "bhl": {
+    "nm": "Bimin"
+  },
+  "big": {
+    "nm": "Biangai"
+  },
+  "bjr": {
+    "nm": "Binumarien"
+  },
+  "bkd": {
+    "nm": "Talaandig"
+  },
+  "bkq": {
+    "nm": "Bakairí",
+    "v": "Kurâ-Bakairí"
+  },
+  "bkw": {
+    "nm": "Bekwel",
+    "v": "Bɛkwyel"
+  },
+  "blw": {
+    "nm": "Balangao"
+  },
+  "bmh": {
+    "nm": "Kein"
+  },
+  "bmr": {
+    "nm": "Muinane"
+  },
+  "bmu": {
+    "nm": "Burum-Mindik"
+  },
+  "bnp": {
+    "nm": "Bola"
+  },
+  "boa": {
+    "nm": "Bora"
+  },
+  "boj": {
+    "nm": "Anjam"
+  },
+  "bon": {
+    "nm": "Bine"
+  },
+  "bor": {
+    "nm": "Bororo"
+  },
+  "bpr": {
+    "nm": "Koronadal Blaan"
+  },
+  "bps": {
+    "nm": "Blaan, Sarangani"
+  },
+  "bqj": {
+    "nm": "Bandial"
+  },
+  "bsn": {
+    "nm": "Barasana-Eduria",
+    "v": "Eduria"
+  },
+  "bus": {
+    "nm": "Bokobaru"
+  },
+  "bwd": {
+    "nm": "Bwaidoka"
+  },
+  "byr": {
+    "nm": "Baruya",
+    "v": "Yipma (Baruya)"
+  },
+  "byx": {
+    "nm": "Qaqet"
+  },
+  "bzd": {
+    "nm": "Bribri"
+  },
+  "bzh": {
+    "nm": "Buang, Central"
+  },
+  "bzj": {
+    "nm": "Belize Kriol",
+    "v": "Bileez Kriol"
+  },
+  "caa": {
+    "nm": "Chorti",
+    "v": "Chortí"
+  },
+  "cab": {
+    "nm": "Garifuna"
+  },
+  "caf": {
+    "nm": "Southern Carrier"
+  },
+  "cao": {
+    "nm": "Chácobo"
+  },
+  "cap": {
+    "nm": "Chipaya"
+  },
+  "car": {
+    "nm": "Carib",
+    "v": "Karìna auran"
+  },
+  "cav": {
+    "nm": "Cavineña"
+  },
+  "cax": {
+    "nm": "Chiquitano",
+    "v": "Bésiro"
+  },
+  "cbc": {
+    "nm": "Carapana"
+  },
+  "cbi": {
+    "nm": "Chachi"
+  },
+  "cbk": {
+    "nm": "Chavacano"
+  },
+  "cbr": {
+    "nm": "Cashibo-Cacataibo",
+    "v": "Kakataibo"
+  },
+  "cbt": {
+    "nm": "Chayahuita",
+    "v": "Shawi"
+  },
+  "cbu": {
+    "nm": "Candoshi-Shapra",
+    "v": "Candoshi"
+  },
+  "cbv": {
+    "nm": "Cacua"
+  },
+  "cco": {
+    "nm": "Chinantec, Comaltepec"
+  },
+  "cgc": {
+    "nm": "Kagayanen"
+  },
+  "chd": {
+    "nm": "Highland Oaxaca Chontal"
+  },
+  "chf": {
+    "nm": "Chontal, Tabasco"
+  },
+  "chq": {
+    "nm": "Quiotepec Chinantec"
+  },
+  "chz": {
+    "nm": "Chinantec de Ozumacin",
+    "v": "Chinanteco, Ozumacín"
+  },
+  "cjo": {
+    "nm": "Asheninka Pajonal"
+  },
+  "cjv": {
+    "nm": "Chuave"
+  },
+  "cle": {
+    "nm": "Chinanteco de San Juan Lealao",
+    "v": "Chinanteco, Lealao"
+  },
+  "clu": {
+    "nm": "Caluyanun"
+  },
+  "cni": {
+    "nm": "Ashaninca",
+    "v": "Asháninca"
+  },
+  "cnl": {
+    "nm": "Chinanteco de San Juan Lalana",
+    "v": "Chinanteco, Lalana"
+  },
+  "cnt": {
+    "nm": "Chinanteco de Tepetotutla",
+    "v": "Chinanteco, Tepetotutla"
+  },
+  "coe": {
+    "nm": "Koreguaje"
+  },
+  "cof": {
+    "nm": "Colorado"
+  },
+  "cok": {
+    "nm": "Cora, Santa Teresa"
+  },
+  "con": {
+    "nm": "Cofán"
+  },
+  "cot": {
+    "nm": "Caquinte"
+  },
+  "cpa": {
+    "nm": "Chinanteco de Palantla",
+    "v": "Chinanteco, Palantla"
+  },
+  "cpb": {
+    "nm": "Asheninka Ucayali-Yurua"
+  },
+  "cpc": {
+    "nm": "Asheninka Apurucayali",
+    "v": "Ajyéninka"
+  },
+  "cpu": {
+    "nm": "Asheninka, Pichis"
+  },
+  "cpy": {
+    "nm": "Asheninka South Ucayali"
+  },
+  "cro": {
+    "nm": "Crow"
+  },
+  "crx": {
+    "nm": "Carrier"
+  },
+  "cso": {
+    "nm": "Chinanteco de Sochiapan",
+    "v": "Chinanteco, Sochiapam"
+  },
+  "cta": {
+    "nm": "Tataltepec Chatino"
+  },
+  "cto": {
+    "nm": "Emberá-Catío"
+  },
+  "ctp": {
+    "nm": "Chatino Zona Alta (Occidental)"
+  },
+  "ctu": {
+    "nm": "Chol Tumbala",
+    "v": "Chol, Tumbalá"
+  },
+  "cub": {
+    "nm": "Cubeo"
+  },
+  "cuc": {
+    "nm": "Chinanteco de Usila",
+    "v": "Chinanteco, Usila"
+  },
+  "cui": {
+    "nm": "Cuiba",
+    "v": "Wajume"
+  },
+  "cuk": {
+    "nm": "Kuna, San Blas",
+    "v": "Kuna (San Blas)"
+  },
+  "cul": {
+    "nm": "Kulina",
+    "v": "Culina"
+  },
+  "cut": {
+    "nm": "Teutila Cuicatec"
+  },
+  "cux": {
+    "nm": "Cuicatec, Tepeuxila: Papalo",
+    "v": "Cuicateco de Santa María Pápalo"
+  },
+  "cya": {
+    "nm": "Chatino Nopala"
+  },
+  "dad": {
+    "nm": "Marik"
+  },
+  "dah": {
+    "nm": "Gwahatike"
+  },
+  "dbq": {
+    "nm": "Daba"
+  },
+  "ded": {
+    "nm": "Dedua"
+  },
+  "des": {
+    "nm": "Desano"
+  },
+  "dgc": {
+    "nm": "Casiguran Dumagat Agta"
+  },
+  "dgz": {
+    "nm": "Daga"
+  },
+  "dik": {
+    "nm": "Dinka, Rek"
+  },
+  "djk": {
+    "nm": "Aukaans",
+    "v": "Okanisi"
+  },
+  "dob": {
+    "nm": "Dobu"
+  },
+  "dop": {
+    "nm": "Lokpa"
+  },
+  "due": {
+    "nm": "Agta, Umiray Dumaget"
+  },
+  "duo": {
+    "nm": "Agta, Dupaninan",
+    "v": "Dupaninan Agta"
+  },
+  "dww": {
+    "nm": "Dawawa"
+  },
+  "dyi": {
+    "nm": "Djimini Senoufo",
+    "v": "Senoufo, Djimini"
+  },
+  "ebk": {
+    "nm": "Finallig"
+  },
+  "eip": {
+    "nm": "Eipomek",
+    "v": "Lik"
+  },
+  "eka": {
+    "nm": "Ekajuk"
+  },
+  "eko": {
+    "nm": "Ekoti"
+  },
+  "eky": {
+    "nm": "Kayah, Eastern",
+    "v": "Kayah"
+  },
+  "emp": {
+    "nm": "Embera Northern"
+  },
+  "enq": {
+    "nm": "Enga"
+  },
+  "eri": {
+    "nm": "Ogea"
+  },
+  "ese": {
+    "nm": "Ese Ejja"
+  },
+  "esk": {
+    "nm": "Inupiaq",
+    "v": "Iñupiatun"
+  },
+  "ess": {
+    "nm": "Central Siberian Yupik",
+    "v": "Yupigestun"
+  },
+  "faa": {
+    "nm": "Fasu"
+  },
+  "fab": {
+    "nm": "Fa D'ambu",
+    "v": "Fa D’ambu"
+  },
+  "fai": {
+    "nm": "Faiwol"
+  },
+  "fan": {
+    "nm": "Fang"
+  },
+  "for": {
+    "nm": "Fore"
+  },
+  "gah": {
+    "nm": "Alekano"
+  },
+  "gam": {
+    "nm": "Kandawo"
+  },
+  "gaw": {
+    "nm": "Nobonob"
+  },
+  "gdg": {
+    "nm": "Ga’dang"
+  },
+  "gdn": {
+    "nm": "Umanakaina"
+  },
+  "gdr": {
+    "nm": "Wipi"
+  },
+  "gfk": {
+    "nm": "Patpatar"
+  },
+  "ghs": {
+    "nm": "Guhu-Samane"
+  },
+  "gnw": {
+    "nm": "Guarani Western Bolivian",
+    "v": "Simba Guaraní"
+  },
+  "grg": {
+    "nm": "Madi"
+  },
+  "gub": {
+    "nm": "Guajajara"
+  },
+  "guc": {
+    "nm": "Wayuu"
+  },
+  "guh": {
+    "nm": "Guahibo"
+  },
+  "gui": {
+    "nm": "Eastern Bolivian Guaraní",
+    "v": "Guarani de Bolivia"
+  },
+  "gul": {
+    "nm": "Gullah"
+  },
+  "gum": {
+    "nm": "Guambiano"
+  },
+  "gun": {
+    "nm": "Guaraní Mbyá"
+  },
+  "guo": {
+    "nm": "Guayabero",
+    "v": "Jiwjame"
+  },
+  "gvc": {
+    "nm": "Guanano"
+  },
+  "gvf": {
+    "nm": "Golin"
+  },
+  "gvs": {
+    "nm": "Gumawana"
+  },
+  "gwi": {
+    "nm": "Gwich’in"
+  },
+  "gym": {
+    "nm": "Guaymi",
+    "v": "Ngäbere"
+  },
+  "gyr": {
+    "nm": "Guarayo",
+    "v": "Gwarayu"
+  },
+  "hbb": {
+    "nm": "Huba",
+    "v": "Həba"
+  },
+  "hch": {
+    "nm": "Huichol"
+  },
+  "hix": {
+    "nm": "Hixkaryana"
+  },
+  "hla": {
+    "nm": "Halia"
+  },
+  "hns": {
+    "nm": "Caribbean Hindustani",
+    "v": "Sarnaamie Hiendoestaanie"
+  },
+  "hot": {
+    "nm": "Hote"
+  },
+  "hto": {
+    "nm": "Huitoto, Minica",
+    "v": "HUITOTO MƗNƗCA"
+  },
+  "hui": {
+    "nm": "Huli"
+  },
+  "huu": {
+    "nm": "Huitoto Murui"
+  },
+  "huv": {
+    "nm": "Huave de San Mateo del Mar",
+    "v": "Huave, San Mateo del Mar"
+  },
+  "ian": {
+    "nm": "Iatmul"
+  },
+  "icr": {
+    "nm": "San Andrés Islander Creole",
+    "v": "San Andres Ailanda Kriol"
+  },
+  "ifa": {
+    "nm": "Amganad Ifugao",
+    "v": "Central Ifugao"
+  },
+  "ifu": {
+    "nm": "Mayoyao Ifugao"
+  },
+  "ify": {
+    "nm": "Antipolo Ifugao"
+  },
+  "ign": {
+    "nm": "Ignaciano"
+  },
+  "ikk": {
+    "nm": "Ika"
+  },
+  "ikw": {
+    "nm": "Ikwere"
+  },
+  "ilo": {
+    "nm": "Ilokano"
+  },
+  "imo": {
+    "nm": "Imbongu",
+    "v": "Imbo Ungu"
+  },
+  "inb": {
+    "nm": "Inga"
+  },
+  "ind": {
+    "nm": "Indonesian",
+    "v": "Bahasa Indonesia"
+  },
+  "ino": {
+    "nm": "Inoke-Yate"
+  },
+  "iqw": {
+    "nm": "Ikwo"
+  },
+  "iri": {
+    "nm": "Irigwe"
+  },
+  "isd": {
+    "nm": "Isnag"
+  },
+  "ivb": {
+    "nm": "Ibatan"
+  },
+  "ivv": {
+    "nm": "Ivatan"
+  },
+  "iws": {
+    "nm": "Iwam, Sepik"
+  },
+  "izz": {
+    "nm": "Izii"
+  },
+  "jaa": {
+    "nm": "Jamamadi"
+  },
+  "jab": {
+    "nm": "Hyam"
+  },
+  "jac": {
+    "nm": "Jacalteco, Western",
+    "v": "Jacalteco Occidental"
+  },
+  "jae": {
+    "nm": "Yabem"
+  },
+  "jam": {
+    "nm": "Jamaican Creole",
+    "v": "Jamiekan"
+  },
+  "jic": {
+    "nm": "Tol"
+  },
+  "jiv": {
+    "nm": "Shuar"
+  },
+  "jmx": {
+    "nm": "Western Juxtlahuaca Mixtec"
+  },
+  "jvn": {
+    "nm": "Caribbean Javanese",
+    "v": "Suriname Javanese"
+  },
+  "kaq": {
+    "nm": "Capanahua",
+    "v": "Noquen hihbaan joi"
+  },
+  "kbc": {
+    "nm": "Kadiweu"
+  },
+  "kbh": {
+    "nm": "Camsa",
+    "v": "Camsá"
+  },
+  "kcg": {
+    "nm": "Tyap"
+  },
+  "kew": {
+    "nm": "Kewa, West"
+  },
+  "kgf": {
+    "nm": "Kube"
+  },
+  "kgk": {
+    "nm": "Kaiwá"
+  },
+  "kgp": {
+    "nm": "Kaingang",
+    "v": "kanhgág"
+  },
+  "khz": {
+    "nm": "Keapara: Kalo",
+    "v": "KHZ (vernacular name not cached)"
+  },
+  "kiw": {
+    "nm": "Northeast Kiwai"
+  },
+  "kjb": {
+    "nm": "Kanjobal, Eastern",
+    "v": "K’anjobal"
+  },
+  "kjs": {
+    "nm": "East Kewa",
+    "v": "Kewa, East"
+  },
+  "kmg": {
+    "nm": "Kâte"
+  },
+  "kmk": {
+    "nm": "Limos Kalinga"
+  },
+  "kmo": {
+    "nm": "Kwoma"
+  },
+  "kms": {
+    "nm": "Kamasau"
+  },
+  "kmu": {
+    "nm": "Kanite"
+  },
+  "kne": {
+    "nm": "Kankanaey"
+  },
+  "knf": {
+    "nm": "Mankanya",
+    "v": "Mancagne"
+  },
+  "knj": {
+    "nm": "Akateco",
+    "v": "K’anjob’al"
+  },
+  "kog": {
+    "nm": "Cogui",
+    "v": "Kogi"
+  },
+  "kpc": {
+    "nm": "Curripaco"
+  },
+  "kpf": {
+    "nm": "Komba"
+  },
+  "kpg": {
+    "nm": "Kapingamarangi"
+  },
+  "kpj": {
+    "nm": "Karajá"
+  },
+  "kpr": {
+    "nm": "Korafe"
+  },
+  "kpw": {
+    "nm": "Kobon"
+  },
+  "kpx": {
+    "nm": "Koiali, Mountain"
+  },
+  "kqc": {
+    "nm": "Doromu",
+    "v": "Doromu-Koki"
+  },
+  "kqe": {
+    "nm": "Kalagan",
+    "v": "Kalagan, Eastern"
+  },
+  "kqw": {
+    "nm": "Kandas"
+  },
+  "ksc": {
+    "nm": "Southern Kalinga"
+  },
+  "ksr": {
+    "nm": "Borong"
+  },
+  "ktj": {
+    "nm": "Krumen, Plapo",
+    "v": "Kroumen, Plapo"
+  },
+  "kto": {
+    "nm": "Kuot"
+  },
+  "kub": {
+    "nm": "Kutep"
+  },
+  "kud": {
+    "nm": "’Auhelawa"
+  },
+  "kue": {
+    "nm": "Kuman"
+  },
+  "kup": {
+    "nm": "Kunimaipa"
+  },
+  "kvn": {
+    "nm": "Border Kuna",
+    "v": "Kuna de la frontera"
+  },
+  "kwi": {
+    "nm": "Awa (Ecuador)",
+    "v": "Awa Pit"
+  },
+  "kwj": {
+    "nm": "Kwanga"
+  },
+  "kxf": {
+    "nm": "Manu",
+    "v": "Kawyaw"
+  },
+  "kyc": {
+    "nm": "Kyaka",
+    "v": "Kyaka Eŋa"
+  },
+  "kyg": {
+    "nm": "Keyagana"
+  },
+  "kyj": {
+    "nm": "Karao"
+  },
+  "kyu": {
+    "nm": "Kayah, Western"
+  },
+  "kyz": {
+    "nm": "Kayabi",
+    "v": "Kayabí"
+  },
+  "lac": {
+    "nm": "Lacandón"
+  },
+  "lbk": {
+    "nm": "bnc"
+  },
+  "lcm": {
+    "nm": "Tungag"
+  },
+  "leu": {
+    "nm": "Kara (Papua New Guinea)"
+  },
+  "lid": {
+    "nm": "Nyindrou"
+  },
+  "lww": {
+    "nm": "Lewo"
+  },
+  "maj": {
+    "nm": "Jalapa De Díaz Mazatec",
+    "v": "Kinꞌekꞌatiya, Ntaxjo̱"
+  },
+  "maq": {
+    "nm": "Chiquihuitlán Mazatec",
+    "v": "Hne naja, Nne nangui ngaxni"
+  },
+  "mau": {
+    "nm": "Huautla Mazatec"
+  },
+  "mav": {
+    "nm": "Satere-Mawe"
+  },
+  "maz": {
+    "nm": "Central Mazahua",
+    "v": "Mazahua, Central"
+  },
+  "mbb": {
+    "nm": "Manobo, Western Bukidnon"
+  },
+  "mbc": {
+    "nm": "Macushi",
+    "v": "Macuxi"
+  },
+  "mbd": {
+    "nm": "Dibabawon Manobo"
+  },
+  "mbh": {
+    "nm": "Mangseng"
+  },
+  "mbi": {
+    "nm": "Ilianen Manobo"
+  },
+  "mbj": {
+    "nm": "Nadeb"
+  },
+  "mbk": {
+    "nm": "Malol"
+  },
+  "mbl": {
+    "nm": "Maxakalí"
+  },
+  "mbs": {
+    "nm": "Sarangani Manobo"
+  },
+  "mbt": {
+    "nm": "Matigsalug"
+  },
+  "mbu": {
+    "nm": "Mbula-Bwazza",
+    "v": "Mbula"
+  },
+  "mbz": {
+    "nm": "Amoltepec Mixtec"
+  },
+  "mca": {
+    "nm": "Maca",
+    "v": "Maka"
+  },
+  "mcb": {
+    "nm": "Machiguenga",
+    "v": "Matsigenka"
+  },
+  "mcd": {
+    "nm": "Sharanahua"
+  },
+  "mcf": {
+    "nm": "Matses"
+  },
+  "mco": {
+    "nm": "Mixe de Coatlan",
+    "v": "Mixe, Coatlán"
+  },
+  "mcq": {
+    "nm": "Ese"
+  },
+  "mda": {
+    "nm": "Mada"
+  },
+  "mdv": {
+    "nm": "Santa Lucía Monteverde Mixtec"
+  },
+  "med": {
+    "nm": "Melpa"
+  },
+  "mee": {
+    "nm": "Mengen"
+  },
+  "meh": {
+    "nm": "Mixtec, Southwestern Tlaxiaco",
+    "v": "Tu̱ꞌun káꞌánꞌ kájí"
+  },
+  "mek": {
+    "nm": "Mekeo"
+  },
+  "meu": {
+    "nm": "Motu"
+  },
+  "mfy": {
+    "nm": "Mayo"
+  },
+  "mgj": {
+    "nm": "Abureni"
+  },
+  "mhl": {
+    "nm": "Mawake"
+  },
+  "mie": {
+    "nm": "Mixteco de Ocotepec",
+    "v": "Mixteco, Ocotepec"
+  },
+  "mig": {
+    "nm": "Mixtec San Miguel El Grande",
+    "v": "Sahin sau"
+  },
+  "mih": {
+    "nm": "Mixteco de Mechoacán",
+    "v": "Tu’un savi"
+  },
+  "mil": {
+    "nm": "Mixteco de Penoles",
+    "v": "Tnúhu dàú"
+  },
+  "mim": {
+    "nm": "Alacatlatzala Mixtec",
+    "v": "Mixteco, Alacatlatzala"
+  },
+  "mio": {
+    "nm": "Mixteco, Pinotepa Nacional",
+    "v": "Tuhun Ñuun Ñucaan"
+  },
+  "mir": {
+    "nm": "Mixe, Guichicovi",
+    "v": "Ayuuk"
+  },
+  "mit": {
+    "nm": "Mixteco del Sur de Puebla",
+    "v": "Da'an davi"
+  },
+  "mix": {
+    "nm": "Mixtepec Mixtec"
+  },
+  "miy": {
+    "nm": "Ayutla Mixtec",
+    "v": "Mixteco, Ayutla"
+  },
+  "miz": {
+    "nm": "Coatzospan Mixtec",
+    "v": "Mixteco, Coatzospan"
+  },
+  "mjc": {
+    "nm": "Mixteco, San Juan Colorado",
+    "v": "Tu’un sav"
+  },
+  "mks": {
+    "nm": "Mixteco, Silacayoapan",
+    "v": "Tu̱hun ndáhví"
+  },
+  "mlp": {
+    "nm": "Bargam"
+  },
+  "mmn": {
+    "nm": "Mamanwa"
+  },
+  "mmo": {
+    "nm": "Buang - Mangga",
+    "v": "Buang, Mangga"
+  },
+  "mmx": {
+    "nm": "Madak"
+  },
+  "mna": {
+    "nm": "Mbula"
+  },
+  "moa": {
+    "nm": "Mwan"
+  },
+  "mox": {
+    "nm": "Molima"
+  },
+  "mpm": {
+    "nm": "Mixteco de Santiago Yosundúa",
+    "v": "Mixteco, Yosondúa"
+  },
+  "mpp": {
+    "nm": "Migabac"
+  },
+  "mps": {
+    "nm": "Dadibi"
+  },
+  "mpt": {
+    "nm": "Mian"
+  },
+  "mpx": {
+    "nm": "Misima-Panaeyati"
+  },
+  "msb": {
+    "nm": "Masbatenyo"
+  },
+  "msk": {
+    "nm": "Mansaka"
+  },
+  "msm": {
+    "nm": "Agusan Manobo",
+    "v": "Minanubu"
+  },
+  "mta": {
+    "nm": "Cotabato Manobo"
+  },
+  "mti": {
+    "nm": "Maiwa (Papua New Guinea)"
+  },
+  "mto": {
+    "nm": "Mixe Totontepec",
+    "v": "Mixe, Totontepec"
+  },
+  "mts": {
+    "nm": "Yora"
+  },
+  "mux": {
+    "nm": "Bo-Ung"
+  },
+  "mva": {
+    "nm": "Manam"
+  },
+  "mvn": {
+    "nm": "Minaveha"
+  },
+  "mwc": {
+    "nm": "Are"
+  },
+  "mxb": {
+    "nm": "Mixteco de Tezoatlan",
+    "v": "To̱ꞌon ndaꞌí"
+  },
+  "mxq": {
+    "nm": "Juquila Mixe",
+    "v": "Mixe, Juquila"
+  },
+  "mxt": {
+    "nm": "Jamiltepec Mixtec",
+    "v": "Mixteco, Jamiltepec"
+  },
+  "mxv": {
+    "nm": "Mixteco, Metlatónoc",
+    "v": "Mixteco, Metlatónoc y Cochoapa"
+  },
+  "myu": {
+    "nm": "Munduruku"
+  },
+  "myw": {
+    "nm": "Muyuw"
+  },
+  "myy": {
+    "nm": "Macuna"
+  },
+  "mza": {
+    "nm": "Mixteco, Zacatepeco",
+    "v": "Tu’un va’a"
+  },
+  "mzr": {
+    "nm": "Marúbo"
+  },
+  "mzz": {
+    "nm": "Maiadomu"
+  },
+  "nab": {
+    "nm": "Nambikuara, Southern"
+  },
+  "naf": {
+    "nm": "Nabak"
+  },
+  "nak": {
+    "nm": "Nakanai"
+  },
+  "nas": {
+    "nm": "Naasioi"
+  },
+  "nca": {
+    "nm": "Iyo"
+  },
+  "nch": {
+    "nm": "Central Huasteca Nahuatl",
+    "v": "Nāhuatlahtōlli"
+  },
+  "ncj": {
+    "nm": "Nahuatl Norte Puebla",
+    "v": "Mexicatl"
+  },
+  "ncl": {
+    "nm": "Michoacán Nahuatl",
+    "v": "Náhuatl, Michoacán"
+  },
+  "neb": {
+    "nm": "Toura"
+  },
+  "ngu": {
+    "nm": "Guerrero Nahuatl",
+    "v": "Nauatlajtojli"
+  },
+  "nhe": {
+    "nm": "Eastern Huasteca Nahuatl",
+    "v": "Mexkatl"
+  },
+  "nhg": {
+    "nm": "Tetelcingo Nahuatl"
+  },
+  "nhi": {
+    "nm": "Nahuatl Tenango",
+    "v": "Mehcanohtlahtol"
+  },
+  "nhw": {
+    "nm": "Nahuatl Huasteca, Western",
+    "v": "Nahuatl"
+  },
+  "nhy": {
+    "nm": "Náhuatl, Norte de Oaxaca",
+    "v": "Nāhuatlahtōlli"
+  },
+  "nif": {
+    "nm": "Nek"
+  },
+  "nii": {
+    "nm": "Nii"
+  },
+  "nin": {
+    "nm": "Ninzo"
+  },
+  "niy": {
+    "nm": "Ndruna",
+    "v": "Ndrǔna"
+  },
+  "nko": {
+    "nm": "Nkonya"
+  },
+  "nlv": {
+    "nm": "Nahuatl Orizaba"
+  },
+  "nop": {
+    "nm": "Numanggang",
+    "v": "Numaŋgaŋ"
+  },
+  "nou": {
+    "nm": "Ewage-Notu"
+  },
+  "npl": {
+    "nm": "Nahuatl, Southeastern Puebla",
+    "v": "Náhuatl, Sureste de Puebla"
+  },
+  "nsk": {
+    "nm": "Naskapi"
+  },
+  "nsn": {
+    "nm": "Nehan"
+  },
+  "nss": {
+    "nm": "Nali"
+  },
+  "nsu": {
+    "nm": "Nahuatl, Sierra Negra",
+    "v": "Nahuatlajtoli"
+  },
+  "ntp": {
+    "nm": "Northern Tepehuan",
+    "v": "Tepehuán del Norte"
+  },
+  "nuz": {
+    "nm": "Tlamacazapa Nahuatl"
+  },
+  "nvm": {
+    "nm": "Namiae"
+  },
+  "obo": {
+    "nm": "Manobo",
+    "v": "Manobo, Obo"
+  },
+  "okv": {
+    "nm": "Orokaiva"
+  },
+  "omw": {
+    "nm": "Omwunra-Toqura",
+    "v": "Omwunra Toqura"
+  },
+  "ong": {
+    "nm": "Olo"
+  },
+  "ood": {
+    "nm": "O’othham",
+    "v": "Oʼodham ha-ñeʼokĭ"
+  },
+  "opm": {
+    "nm": "Oksapmin"
+  },
+  "otm": {
+    "nm": "Otomí de la Sierra"
+  },
+  "otn": {
+    "nm": "Otomi, Tenango",
+    "v": "Otomí de Tenango"
+  },
+  "otq": {
+    "nm": "Otomí de Querétaro",
+    "v": "Otomí, Querétaro"
+  },
+  "ots": {
+    "nm": "Estado de México Otomi"
+  },
+  "oym": {
+    "nm": "Wayampi"
+  },
+  "pab": {
+    "nm": "Parecis",
+    "v": "Paresi"
+  },
+  "pad": {
+    "nm": "Paumarí"
+  },
+  "pah": {
+    "nm": "Tenharim"
+  },
+  "pao": {
+    "nm": "Northern Paiute",
+    "v": "Paiute, Northern"
+  },
+  "pav": {
+    "nm": "Pacaas Novos",
+    "v": "Pakaasnovos"
+  },
+  "pbc": {
+    "nm": "Patamona"
+  },
+  "pcm": {
+    "nm": "Nigerian Pidgin",
+    "v": "Nigerian Pidgin English"
+  },
+  "pdc": {
+    "nm": "Pennsylvania Dutch",
+    "v": "Pennsylvania Deitsh"
+  },
+  "pib": {
+    "nm": "Yine",
+    "v": "Gerotu Tokanchi Gipiratkaluru"
+  },
+  "pio": {
+    "nm": "Piapoco"
+  },
+  "pir": {
+    "nm": "Piratapuyo"
+  },
+  "pls": {
+    "nm": "Ngigua, San Marcos Tlacoyalco"
+  },
+  "plu": {
+    "nm": "Palikur"
+  },
+  "plw": {
+    "nm": "Palawano, Brooke’s Point",
+    "v": "Brooke’s Point Palawano"
+  },
+  "pma": {
+    "nm": "Paama"
+  },
+  "pmq": {
+    "nm": "Northern Pame"
+  },
+  "poe": {
+    "nm": "Ngiva, San Juan Atzingo",
+    "v": "Popoloca, San Juan Atzingo"
+  },
+  "poi": {
+    "nm": "Highland Popoluca",
+    "v": "Popoluca, Sierra"
+  },
+  "ppo": {
+    "nm": "Folopa"
+  },
+  "pps": {
+    "nm": "Ngigua, San Luis Temalacayuca",
+    "v": "Popoloca, San Luís Temalacayuca"
+  },
+  "prf": {
+    "nm": "Paranan"
+  },
+  "prq": {
+    "nm": "Ashéninka Perené"
+  },
+  "ptp": {
+    "nm": "Patep"
+  },
+  "puu": {
+    "nm": "Punu"
+  },
+  "pwg": {
+    "nm": "Gapapaiwa"
+  },
+  "qub": {
+    "nm": "Huallaga Huánuco Quechua",
+    "v": "Quechua, Huallaga Huánuco"
+  },
+  "quf": {
+    "nm": "Lambayeque Quechua",
+    "v": "Quechua, Lambayeque"
+  },
+  "qul": {
+    "nm": "North Bolivian Quechua",
+    "v": "Quechua, Zona Norte de Bolivia"
+  },
+  "qup": {
+    "nm": "Quechua Southern Pastaza",
+    "v": "Quechua, Pastaza del Sur"
+  },
+  "quw": {
+    "nm": "Quichua Tena Lowland",
+    "v": "Quichua, Tena"
+  },
+  "quy": {
+    "nm": "Ayacucho Quechua",
+    "v": "Quechua del Sur de Ayacucho"
+  },
+  "qve": {
+    "nm": "Eastern Apurímac Quechua",
+    "v": "Quechua, Este de Apurímac"
+  },
+  "qvn": {
+    "nm": "North Junín Quechua",
+    "v": "Quechua, Norte de Junín"
+  },
+  "qvo": {
+    "nm": "Quichua Napo Lowland",
+    "v": "Quichua, Napo"
+  },
+  "qvs": {
+    "nm": "Quechua San Martin",
+    "v": "Quechua, San Martín"
+  },
+  "qvw": {
+    "nm": "Huaylla Wanca Quechua",
+    "v": "Runa Simi, Wanca Nunashimi"
+  },
+  "qvz": {
+    "nm": "Northern Pastaza Quichua",
+    "v": "Quichua, Pastaza"
+  },
+  "qwa": {
+    "nm": "Corongo Ancash Quechua"
+  },
+  "qws": {
+    "nm": "Sihuas Ancash Quechua"
+  },
+  "qxh": {
+    "nm": "Panao Huánuco Quechua",
+    "v": "Quechua, Panao Huánuco"
+  },
+  "qxl": {
+    "nm": "Quichua Salasaka Highland",
+    "v": "Salasaka Highland Kichwa"
+  },
+  "qxo": {
+    "nm": "Quechua Sur de Conchucos",
+    "v": "Quechua, Sur de Conchucos"
+  },
+  "rai": {
+    "nm": "Ramoaaina"
+  },
+  "ram": {
+    "nm": "Canela"
+  },
+  "rap": {
+    "nm": "Rapa Nui"
+  },
+  "roh": {
+    "nm": "Romansh"
+  },
+  "roo": {
+    "nm": "Rotokas"
+  },
+  "rro": {
+    "nm": "Waima"
+  },
+  "rug": {
+    "nm": "Roviana"
+  },
+  "sab": {
+    "nm": "Buglere"
+  },
+  "sac": {
+    "nm": "Meskwaki"
+  },
+  "sbe": {
+    "nm": "Saliba"
+  },
+  "sbl": {
+    "nm": "Botolan Sambal",
+    "v": "Sambal, Botolan"
+  },
+  "sey": {
+    "nm": "Secoya"
+  },
+  "sgb": {
+    "nm": "Ayta Mag-antsi"
+  },
+  "sgz": {
+    "nm": "Sursurunga"
+  },
+  "shp": {
+    "nm": "Shipibo"
+  },
+  "sim": {
+    "nm": "Mende (Papua New Guinea)",
+    "v": "Mende"
+  },
+  "sja": {
+    "nm": "Eperã pedee"
+  },
+  "sll": {
+    "nm": "Salt-Yui"
+  },
+  "smk": {
+    "nm": "Bolinao"
+  },
+  "snc": {
+    "nm": "Sinaugoro"
+  },
+  "snn": {
+    "nm": "Siona"
+  },
+  "snx": {
+    "nm": "Sam"
+  },
+  "sny": {
+    "nm": "Saniyo-Hiyewe"
+  },
+  "soq": {
+    "nm": "Kanasi"
+  },
+  "spl": {
+    "nm": "Selepet"
+  },
+  "sps": {
+    "nm": "Saposa"
+  },
+  "sri": {
+    "nm": "Siriano"
+  },
+  "srm": {
+    "nm": "Saramaccan",
+    "v": "Gadu Buku"
+  },
+  "srn": {
+    "nm": "Sranan Tongo",
+    "v": "Sranantongo"
+  },
+  "srq": {
+    "nm": "Sirionó"
+  },
+  "ssd": {
+    "nm": "Siroi"
+  },
+  "ssg": {
+    "nm": "Seimat"
+  },
+  "sso": {
+    "nm": "Sissano"
+  },
+  "ssx": {
+    "nm": "Samberigi",
+    "v": "Sembeleke"
+  },
+  "ssy": {
+    "nm": "Saho"
+  },
+  "sti": {
+    "nm": "Bulo Stieng"
+  },
+  "stp": {
+    "nm": "Southeastern Tepehuan",
+    "v": "Tepehuán, Sureste"
+  },
+  "sua": {
+    "nm": "Sulka"
+  },
+  "suc": {
+    "nm": "Subanon, Western",
+    "v": "Subanon"
+  },
+  "sue": {
+    "nm": "Suena"
+  },
+  "swp": {
+    "nm": "Suau"
+  },
+  "syb": {
+    "nm": "Subanen, Central"
+  },
+  "tac": {
+    "nm": "Lowland Tarahumara",
+    "v": "Tarahumara, Baja"
+  },
+  "tav": {
+    "nm": "Tatuyo"
+  },
+  "tbc": {
+    "nm": "Takia"
+  },
+  "tbg": {
+    "nm": "North Tairora",
+    "v": "Arau"
+  },
+  "tbk": {
+    "nm": "Tagbanwa, Calamian"
+  },
+  "tbl": {
+    "nm": "Tboli"
+  },
+  "tbo": {
+    "nm": "Tawala"
+  },
+  "tcf": {
+    "nm": "Malinaltepec Me'phaa"
+  },
+  "ted": {
+    "nm": "Krumen, Tepo",
+    "v": "Kroumen, Tepo"
+  },
+  "tee": {
+    "nm": "Huehuetla Tepehua",
+    "v": "Tepehua, Huehuetla"
+  },
+  "ter": {
+    "nm": "Terena"
+  },
+  "tfr": {
+    "nm": "Teribe",
+    "v": "Naso"
+  },
+  "tif": {
+    "nm": "Tifal"
+  },
+  "tik": {
+    "nm": "Tikar"
+  },
+  "tim": {
+    "nm": "Timbe"
+  },
+  "tio": {
+    "nm": "Teop"
+  },
+  "tiy": {
+    "nm": "Téduray"
+  },
+  "tke": {
+    "nm": "Takwane"
+  },
+  "tku": {
+    "nm": "Upper Necaxa Totonac"
+  },
+  "tna": {
+    "nm": "Tacana"
+  },
+  "tnc": {
+    "nm": "Tanimuca-Letuama",
+    "v": "Tanimuka-rẽtuarã"
+  },
+  "tnk": {
+    "nm": "Kwamera",
+    "v": "Nǝfe"
+  },
+  "toc": {
+    "nm": "Coyutla Totonac",
+    "v": "Totonaco, Coyutla"
+  },
+  "toj": {
+    "nm": "Tojolabal"
+  },
+  "too": {
+    "nm": "Xicotepec De Juárez Totonac"
+  },
+  "top": {
+    "nm": "Papantla Totonac",
+    "v": "Totonaco, Papantla"
+  },
+  "tos": {
+    "nm": "Highland Totonac",
+    "v": "Totonaco, Sierra"
+  },
+  "tpa": {
+    "nm": "Taupota"
+  },
+  "tpl": {
+    "nm": "Tlacoapa Me'phaa"
+  },
+  "tpp": {
+    "nm": "Pisaflores Tepehua",
+    "v": "Tepehua, Pisaflores"
+  },
+  "tpt": {
+    "nm": "Tepehua Tlachichilco",
+    "v": "Tepehua, Tlachichilco"
+  },
+  "tpx": {
+    "nm": "Acatepec Me'phaa"
+  },
+  "tpz": {
+    "nm": "Vasui",
+    "v": "Tinputz"
+  },
+  "tqt": {
+    "nm": "Western Totonac"
+  },
+  "trc": {
+    "nm": "Copala Triqui",
+    "v": "Xnaꞌánj nu̱ꞌ"
+  },
+  "trq": {
+    "nm": "Triqui Itunyoso",
+    "v": "Triqui, San Martin Itunyoso"
+  },
+  "trs": {
+    "nm": "Chicahuaxtla Triqui",
+    "v": "Triqui, Chicahuaxtla"
+  },
+  "tsw": {
+    "nm": "Tsishingini"
+  },
+  "ttc": {
+    "nm": "Tektiteko"
+  },
+  "tte": {
+    "nm": "Bwanabwana"
+  },
+  "ttr": {
+    "nm": "Tera"
+  },
+  "tue": {
+    "nm": "Tuyuca"
+  },
+  "tuf": {
+    "nm": "Central Tunebo",
+    "v": "U’wa"
+  },
+  "tul": {
+    "nm": "Tula"
+  },
+  "tvk": {
+    "nm": "Ambrym, Southeast"
+  },
+  "txu": {
+    "nm": "Kayapo",
+    "v": "Kayapó"
+  },
+  "ubr": {
+    "nm": "Ubir"
+  },
+  "ura": {
+    "nm": "Urarina"
+  },
+  "urb": {
+    "nm": "Ka’apor"
+  },
+  "uro": {
+    "nm": "Ura"
+  },
+  "urt": {
+    "nm": "Urat"
+  },
+  "usa": {
+    "nm": "Usarufa"
+  },
+  "usp": {
+    "nm": "Uspanteco"
+  },
+  "uth": {
+    "nm": "ut-Hun (Eastern Dukawa)",
+    "v": "ut-Hun"
+  },
+  "uvl": {
+    "nm": "Lote"
+  },
+  "var": {
+    "nm": "Huarijio"
+  },
+  "viv": {
+    "nm": "Iduna"
+  },
+  "vmj": {
+    "nm": "Ixtayutla Mixtec"
+  },
+  "vmy": {
+    "nm": "Ayautla Mazatec",
+    "v": "Enre naxinanda nguifi"
+  },
+  "vmz": {
+    "nm": "Mazatlán Mazatec"
+  },
+  "waj": {
+    "nm": "Waffa"
+  },
+  "wap": {
+    "nm": "Wapishana"
+  },
+  "wau": {
+    "nm": "Waurá"
+  },
+  "waw": {
+    "nm": "UaiUai",
+    "v": "Uaiuai"
+  },
+  "wer": {
+    "nm": "Weri",
+    "v": "Amam"
+  },
+  "wiu": {
+    "nm": "Wiru"
+  },
+  "wnc": {
+    "nm": "Wantoat"
+  },
+  "wnu": {
+    "nm": "Usan"
+  },
+  "wos": {
+    "nm": "Hanga Hundi"
+  },
+  "wrs": {
+    "nm": "Waris"
+  },
+  "wuv": {
+    "nm": "Wuvulu-Aua"
+  },
+  "xav": {
+    "nm": "Xavante"
+  },
+  "xer": {
+    "nm": "Xerénte"
+  },
+  "xir": {
+    "nm": "Xiriâna"
+  },
+  "xla": {
+    "nm": "Kamula"
+  },
+  "xnn": {
+    "nm": "Kankanay, Northern"
+  },
+  "xri": {
+    "nm": "Krikati-Timbira"
+  },
+  "xsb": {
+    "nm": "Sambal",
+    "v": "Sambali"
+  },
+  "xsi": {
+    "nm": "Sio"
+  },
+  "xsu": {
+    "nm": "Sanumá"
+  },
+  "xta": {
+    "nm": "Alcozauca Mixtec",
+    "v": "Tu̱'un sâvi"
+  },
+  "xtd": {
+    "nm": "Diuxi-Tilantongo Mixtec",
+    "v": "Mixteco, Diuxi-Tilantongo"
+  },
+  "xte": {
+    "nm": "Ketengban"
+  },
+  "xtj": {
+    "nm": "San Juan Teita Mixtec"
+  },
+  "xtn": {
+    "nm": "Mixteco del Norte de Tlaxiaco",
+    "v": "Mixteco, Norte de Tlaxiaco"
+  },
+  "yaa": {
+    "nm": "Yaminahua",
+    "v": "Yamĩnãfa mekapã"
+  },
+  "yad": {
+    "nm": "Yagua"
+  },
+  "yaq": {
+    "nm": "Yaqui"
+  },
+  "yby": {
+    "nm": "Yaweyuha"
+  },
+  "ycn": {
+    "nm": "Yucuna"
+  },
+  "yka": {
+    "nm": "Yakan"
+  },
+  "yle": {
+    "nm": "Yele"
+  },
+  "yml": {
+    "nm": "Ubuvala",
+    "v": "Iamalele"
+  },
+  "yon": {
+    "nm": "Yonggom",
+    "v": "Yongkom"
+  },
+  "yrb": {
+    "nm": "Yareba"
+  },
+  "yrl": {
+    "nm": "Nhengatu"
+  },
+  "yuj": {
+    "nm": "Karkar-Yuri"
+  },
+  "yut": {
+    "nm": "Yopno"
+  },
+  "yuw": {
+    "nm": "Yau"
+  },
+  "zaa": {
+    "nm": "Sierra de Juárez Zapotec",
+    "v": "Titsaꞌ"
+  },
+  "zab": {
+    "nm": "Western Tlacolula Valley Zapotec",
+    "v": "Dixza"
+  },
+  "zac": {
+    "nm": "Ocotlán Zapotec",
+    "v": "Dizë́"
+  },
+  "zad": {
+    "nm": "Zapotec de Yaganiza",
+    "v": "Xtillꞌchonaꞌ"
+  },
+  "zai": {
+    "nm": "Zapoteco del Istmo",
+    "v": "Diidxazá"
+  },
+  "zam": {
+    "nm": "Miahuatlán Zapotec",
+    "v": "Diiste"
+  },
+  "zao": {
+    "nm": "Ozolotepec Zapotec",
+    "v": "Dizte chaan zha Ozolotepec"
+  },
+  "zaq": {
+    "nm": "Aloápam Zapotec",
+    "v": "Tisa"
+  },
+  "zar": {
+    "nm": "Rincón Zapotec",
+    "v": "Didza Xidza"
+  },
+  "zas": {
+    "nm": "Santo Domingo Albarradas Zapotec",
+    "v": "Diidxzaj"
+  },
+  "zat": {
+    "nm": "Zapotec, Tabaa"
+  },
+  "zav": {
+    "nm": "Yatzachi Zapotec",
+    "v": "Dižə’əxon"
+  },
+  "zaw": {
+    "nm": "Mitla Zapotec",
+    "v": "Didxsaj"
+  },
+  "zca": {
+    "nm": "Coatecas Altas Zapotec",
+    "v": "Diꞌzhzë"
+  },
+  "zia": {
+    "nm": "Zia"
+  },
+  "zos": {
+    "nm": "Francisco León Zoque",
+    "v": "Zoque, Francisco León"
+  },
+  "zpc": {
+    "nm": "Choapan Zapotec",
+    "v": "Diꞌidzaꞌ xidzaꞌ"
+  },
+  "zpg": {
+    "nm": "Guevea De Humboldt Zapotec",
+    "v": "Didz-rieꞌ"
+  },
+  "zpi": {
+    "nm": "Santa María Quiegolani Zapotec",
+    "v": "Disa"
+  },
+  "zpl": {
+    "nm": "Lachixío Zapotec",
+    "v": "Dialu"
+  },
+  "zpm": {
+    "nm": "Mixtepec Zapotec",
+    "v": "Diidz-zë"
+  },
+  "zpo": {
+    "nm": "Amatlán Zapotec",
+    "v": "Dizhze"
+  },
+  "zpq": {
+    "nm": "Zapoteco de Zoogocho",
+    "v": "Diža'xon"
+  },
+  "zpt": {
+    "nm": "San Vicente Coatlán Zapotec",
+    "v": "Dizhnde"
+  },
+  "zpu": {
+    "nm": "Yalálag Zapotec",
+    "v": "Dill Gurall ke Yararꞌj"
+  },
+  "zpv": {
+    "nm": "Chichicapan Zapotec",
+    "v": "Dxiꞌzah"
+  },
+  "zpz": {
+    "nm": "Texmelucan Zapotec",
+    "v": "Rixhquei"
+  },
+  "zsr": {
+    "nm": "Zapotec, Rincon Sur",
+    "v": "Didzaꞌ"
+  },
+  "ztl": {
+    "nm": "Lapaguía-Guivini Zapotec"
+  },
+  "ztp": {
+    "nm": "Loxicha Zapotec"
+  },
+  "ztq": {
+    "nm": "Quioquitani-Quierí Zapotec",
+    "v": "Tiitssë"
+  },
+  "zts": {
+    "nm": "Tilquiapan Zapotec"
+  },
+  "zty": {
+    "nm": "Yatee Zapotec",
+    "v": "Zapoteco, Yatée"
+  }
+}
