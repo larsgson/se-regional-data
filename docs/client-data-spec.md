@@ -61,39 +61,86 @@ hard vs. what to re-check.
 
 ## 3. `manifest.json` — the index
 
-The first thing to fetch. Lists every available language and the hashed
-filenames of its text assets.
+The first thing to fetch. An **iso-keyed map** of every available language, with
+the hashed filenames of its text assets and compact **discoverability flags** so
+a picker over all languages needs this one fetch — not one `info.json` per
+language.
 
 ```json
 {
-  "updated_at": "2026-07-01T15:37:57Z",
-  "languages": [
-    {
-      "iso": "ind",
-      "version": null,
-      "pkfs": ["ind_C01.CN8xM8h_.pkf"],
-      "catalogs": ["ind_C01.CQGdoNr3.json"],
-      "styles": 4,
-      "fonts": 2,
-      "pkf_bytes": 3486576
+  "updated_at": "2026-07-07T…",
+  "languages": {
+    "ind": {
+      "media": "",
+      "codex": "on",
+      "collections": [
+        {
+          "pkf": "ind_C01.CN8xM8h_.pkf",
+          "catalog": "ind_C01.CQGdoNr3.json",
+          "pkf_bytes": 3486576,
+          "media": "",
+          "books": 66,
+          "codex": "on"
+        }
+      ]
+    },
+    "niy": {
+      "media": "avt",
+      "codex": "on",
+      "collections": [
+        { "pkf": "fra_C02.Dtd78lh9.pkf", "catalog": "fra_C02.BAIxHq8g.json",
+          "pkf_bytes": 4184789, "media": "",    "books": 66, "codex": "on" },
+        { "pkf": "niy_C01.NAjnnqlC.pkf", "catalog": "niy_C01.DFlMbbeS.json",
+          "pkf_bytes": 2009477, "media": "avt", "books": 33, "codex": "on" }
+      ]
     }
-  ]
+  }
 }
 ```
 
 **How to use it**
 
-- Build the language picker from `languages[]`.
-- To load a language, take `pkfs[0]` / `catalogs[0]` and fetch
-  `pkf/<iso>/<that-filename>`. This is how you resolve the content-hashed names.
-- `version` may be `null` (e.g. direct-sourced languages); don't rely on it for
-  cache-busting — the hashed filename already does that.
-- **Multiple collections:** `pkfs`/`catalogs` are arrays because a few languages
-  ship more than one collection. The data is **flat** — there is no per-ISO
-  collection hierarchy; each collection is just an additional `.pkf`/catalog
-  entry under the same ISO, paired by array index (`pkfs[i]` ↔ `catalogs[i]`).
-  Currently the only two-collection languages are **`hch`, `niy`, `poi`** (each
-  ships 2); every other language has exactly one.
+- `languages` is an **object keyed by ISO** — `Object.keys(languages)` is your
+  picker list; `languages["ind"]` is direct lookup, no array scan.
+- The **top-level** `media` and `codex` on each entry are aggregates across its
+  `collections[]` (see below) — use them to filter/badge the picker by ISO
+  without walking `collections[]`.
+- To load a language, take a collection's `pkf` / `catalog` and fetch
+  `pkf/<iso>/<that-filename>`. That resolves the content-hashed names; the hash
+  is the cache-buster (there is no `version` field).
+
+**`media`** — a compact string, letters in the fixed order **`a` `v` `t`**
+(audio, video, timing), present letter = available. `""` = none. Always present.
+
+- **Scripture-Earth scope only.** These reflect media SE supplies (the
+  `info.json` `media` block and the CDN `timing/` files, §8–§9). A language can
+  be `media:""` here yet still have audio from **DBT / Bible Brain**, delivered
+  by a *separate* repo and merged on the client side — treat these as "SE has
+  it," and OR them with the DBT availability source for the full picture.
+- `t` (timing) implies `a` (audio); timing without audio never occurs.
+
+**`codex`** — a compact string of testament initials in canon order **`o` `n`
+`d`** (Old Testament, New Testament, Deuterocanon), e.g. `"on"`, `"n"`, `"ond"`.
+Lets the picker show "Full Bible" vs "NT only" etc. without reading the catalog.
+
+**`collections[]`** — one entry per collection. A few languages ship more than
+one; the data is **flat** (no per-ISO hierarchy) — each collection is just
+another `{ pkf, catalog, … }` object. Per-collection fields:
+
+- **`pkf` / `catalog`** — the content-hashed filenames for this collection.
+- **`pkf_bytes`** — size of this collection's `.pkf` (per-collection, so you can
+  budget the exact download).
+- **`media`** — as above, but scoped to *this* collection. In multi-collection
+  languages a flag can differ per collection (e.g. `niy` above: the French
+  `fra_C02` has no audio, the Nyokon `niy_C01` has audio+timing). The top-level
+  `media` is the OR across collections.
+- **`books`** — bare integer: scripture book count (glossary/peripherals
+  excluded).
+- **`codex`** — as above, scoped to this collection; the top-level `codex` is
+  the union.
+
+Currently the only multi-collection languages are **`hch`, `niy`, `poi`** (each
+ships 2); every other language has exactly one collection.
 
 ---
 
@@ -108,7 +155,8 @@ per-book headers.
 - Load with `proskomma-core` (same library the pipeline uses): decompress →
   `loadSuccinctDocSet`. Query text via GraphQL against the docset.
 - One `.pkf` per collection; the three languages named in §3 ship two. Use every
-  entry in `manifest.languages[].pkfs` (flat, index-paired with `catalogs`).
+  entry in `manifest.languages[<iso>].collections[]` (each carries its own `pkf`
+  and `catalog`).
 
 The `.pkf` is the source of truth for **text**; it is *not* where UI strings,
 navigation labels, or styling live — those are §6 and §7.
@@ -186,7 +234,8 @@ specific text edition* — it's the `.pkf`/catalog filename stem (e.g. `ind_C01`
 `cco_cco`, `tpl_tcf`). Use it for downstream cross-referencing / de-duplicating
 against other resources that carry several editions per language. For the rare
 multi-collection languages this is the **primary** collection's key; the other
-editions' `versionId`s are the remaining `manifest.pkfs[]` stems (see §3–§4).
+editions' `versionId`s are the remaining `manifest` `collections[].pkf` stems
+(see §3–§4).
 Read these synchronously at load — everything else can be deferred.
 
 ### 6.2 `interfaceLanguages` — UI language options
@@ -416,7 +465,8 @@ predictable: `<BOOK>` is the USFM code, `<chapter>` the number
 
 ## 10. Putting it together — a load sequence
 
-1. `GET manifest.json` → pick language → read its hashed `pkfs`/`catalogs`.
+1. `GET manifest.json` → pick language (`languages[<iso>]`) → read its
+   `collections[].pkf` / `collections[].catalog` hashed filenames.
 2. `GET _app/nav-base.json` **once** (cache it) → the single shared English
    UI-string set; render labels as `navBase[key]`.
 3. `GET <iso>/app-config.json` → set `lang`/`dir` from `collection`; keep

@@ -82,7 +82,25 @@ def find_previous_manifest() -> dict | None:
 
 
 def index_by_iso(manifest: dict) -> dict[str, dict]:
-    return {l["iso"]: l for l in manifest.get("languages", [])}
+    # `languages` is an iso-keyed map in the new compact manifest, a list of
+    # {iso, ...} entries in the older form. Normalise both to {iso: entry}.
+    langs = manifest.get("languages", {})
+    if isinstance(langs, dict):
+        return dict(langs)
+    return {l["iso"]: l for l in langs}
+
+
+def _pkfs(entry: dict) -> set:
+    """Set of .pkf filenames for an entry, from either manifest form."""
+    if "collections" in entry:
+        return {c.get("pkf") for c in entry["collections"] if c.get("pkf")}
+    return set(entry.get("pkfs", []))
+
+
+def _entry_bytes(entry: dict) -> int:
+    if "collections" in entry:
+        return sum(c.get("pkf_bytes", 0) for c in entry["collections"])
+    return entry.get("pkf_bytes", 0)
 
 
 def fmt_bytes(n: int) -> str:
@@ -96,8 +114,8 @@ def fmt_bytes(n: int) -> str:
 
 
 def totals(manifest: dict) -> dict:
-    langs = manifest.get("languages", [])
-    return {"count": len(langs), "bytes": sum(l.get("pkf_bytes", 0) for l in langs)}
+    idx = index_by_iso(manifest)
+    return {"count": len(idx), "bytes": sum(_entry_bytes(e) for e in idx.values())}
 
 
 def build_notes(current: dict, previous: dict | None, previous_tag: str | None) -> str:
@@ -119,18 +137,20 @@ def build_notes(current: dict, previous: dict | None, previous_tag: str | None) 
     cur_idx = index_by_iso(current)
     all_isos = sorted(set(prev_idx) | set(cur_idx))
 
-    added: list[dict] = []
-    removed: list[dict] = []
-    bumped: list[dict] = []
+    added: list[str] = []
+    removed: list[str] = []
+    changed: list[str] = []
     for iso in all_isos:
         a = prev_idx.get(iso)
         b = cur_idx.get(iso)
         if not a and b:
-            added.append(b)
+            added.append(iso)
         elif a and not b:
-            removed.append(a)
-        elif a and b and a.get("version") != b.get("version"):
-            bumped.append({"iso": iso, "from": a.get("version"), "to": b.get("version")})
+            removed.append(iso)
+        elif a and b and _pkfs(a) != _pkfs(b):
+            # .pkf filenames are content-hashed, so a differing set means the
+            # shipped text changed (the compact manifest carries no version).
+            changed.append(iso)
 
     lines.extend(
         [
@@ -138,24 +158,24 @@ def build_notes(current: dict, previous: dict | None, previous_tag: str | None) 
             "",
             f"- Added: **{len(added)}**",
             f"- Removed: **{len(removed)}**",
-            f"- Version-bumped: **{len(bumped)}**",
+            f"- Updated: **{len(changed)}**",
             "",
         ]
     )
     if added:
         lines.append("### Added languages")
-        for l in added:
-            lines.append(f"- `{l['iso']}` v{l.get('version') or '?'}")
+        for iso in added:
+            lines.append(f"- `{iso}`")
         lines.append("")
     if removed:
         lines.append("### Removed languages")
-        for l in removed:
-            lines.append(f"- `{l['iso']}`")
+        for iso in removed:
+            lines.append(f"- `{iso}`")
         lines.append("")
-    if bumped:
-        lines.append("### Version bumps")
-        for b in bumped:
-            lines.append(f"- `{b['iso']}`: {b.get('from') or '?'} → {b.get('to') or '?'}")
+    if changed:
+        lines.append("### Updated languages")
+        for iso in changed:
+            lines.append(f"- `{iso}`")
         lines.append("")
     return "\n".join(lines) + "\n"
 

@@ -15,3 +15,4 @@ conf/direct-sources.txt
 # Release outputs live on GitHub Releases (per-tag, immutable) + the CDN.
 # pack/release/publish regenerate these locally each run; no need to track them.
 release/
+temp/

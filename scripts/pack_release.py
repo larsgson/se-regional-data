@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -53,12 +54,112 @@ def sha256_of_file(path: Path) -> str:
 
 
 def summarize_manifest(manifest: dict) -> dict:
-    langs = manifest.get("languages", [])
+    langs = manifest.get("languages", {})
+    total = sum(c.get("pkf_bytes", 0)
+                for e in langs.values() for c in e.get("collections", []))
     return {
         "languages": len(langs),
-        "pkf_bytes_total": sum(l.get("pkf_bytes", 0) for l in langs),
+        "pkf_bytes_total": total,
         "updated_at": manifest.get("updated_at"),
     }
+
+
+# --- manifest discoverability (enriched, per-collection) --------------------
+# Compact per-collection flags so a client picker over all languages needs one
+# fetch. SCRIPTURE-EARTH SCOPE ONLY — audio/timing reflect what SE supplies;
+# DBT/Bible Brain audio is a separate repo's export, merged client-side.
+
+MEDIA_CACHE = REPO_ROOT / "data" / ".media-cache"
+_OT = set("GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST "
+          "JOB PSA PRO ECC SNG ISA JER LAM EZK DAN HOS JOL AMO OBA JON MIC NAM "
+          "HAB ZEP HAG ZEC MAL".split())
+_NT = set("MAT MRK LUK JHN ACT ROM 1CO 2CO GAL EPH PHP COL 1TH 2TH 1TI 2TI TIT "
+          "PHM HEB JAS 1PE 2PE 1JN 2JN 3JN JUD REV".split())
+_DC = set("TOB JDT ESG WIS SIR BAR LJE S3Y SUS BEL 1MA 2MA 3MA 4MA 1ES 2ES MAN "
+          "PS2 ODA PSS".split())
+
+
+def _coverage(catalog_path: Path) -> tuple[int, str]:
+    """(scripture book count, codex string 'o'/'n'/'d') from a collection's
+    catalog. Excludes glossary/peripherals."""
+    try:
+        c = json.loads(catalog_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return 0, ""
+    count, has = 0, {"o": False, "n": False, "d": False}
+    for doc in c.get("documents", []):
+        b = doc.get("bookCode")
+        if b in _OT:
+            count += 1; has["o"] = True
+        elif b in _NT:
+            count += 1; has["n"] = True
+        elif b in _DC:
+            count += 1; has["d"] = True
+    return count, "".join(k for k in "ond" if has[k])
+
+
+def _collection_audio(iso: str, coll_ids: list) -> dict:
+    """Per-collection audio presence, parsed from the cached SE manifest chunk's
+    per-bookCollection audio arrays (only needed for multi-collection langs, so
+    the aggregate can't attribute audio to the right collection)."""
+    out = {cid: False for cid in coll_ids}
+    files = list(MEDIA_CACHE.glob(f"{iso}.*.js"))
+    if not files:
+        return out
+    js = files[0].read_text(encoding="utf-8", errors="replace")
+    starts = [(m.start(), m.group(1))
+              for m in re.finditer(r'\{id:"([A-Za-z0-9]+)",collection', js)]
+    for i, (pos, cid) in enumerate(starts):
+        if cid not in out:
+            continue
+        end = starts[i + 1][0] if i + 1 < len(starts) else len(js)
+        out[cid] = "audio:[{" in js[pos:end]
+    return out
+
+
+def manifest_entry(iso: str, lang: dict) -> dict:
+    """Build the enriched, iso-keyed manifest entry: top-level media/codex (OR /
+    union, for filtering) + per-collection detail."""
+    iso_dir = PKF_ROOT / iso
+    try:
+        info = json.loads((iso_dir / "info.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        info = {}
+    media = info.get("media") or {}
+    items = (media.get("audio") or {}).get("items") or []
+    videos = media.get("videos") or []
+    agg_audio, agg_video = bool(items), bool(videos)
+    agg_timing = any(i.get("hasTiming") for i in items)
+
+    pkfs = lang.get("pkfs", [])
+    catalogs = lang.get("catalogs", [])
+    coll_ids = [p.split(".")[0].rsplit("_", 1)[-1] for p in pkfs]
+    multi = len(pkfs) > 1
+    per_audio = _collection_audio(iso, coll_ids) if multi else {}
+    placed = {v.get("placement", {}).get("collection") for v in videos}
+
+    collections, codex_union = [], set()
+    for pkf, cat in zip(pkfs, catalogs):
+        cid = pkf.split(".")[0].rsplit("_", 1)[-1]
+        count, codex = _coverage(iso_dir / cat)
+        if multi:
+            a = per_audio.get(cid, False)
+            v = cid in placed
+            t = a and agg_timing
+        else:
+            a, v, t = agg_audio, agg_video, agg_timing
+        letters = ("a" if a else "") + ("v" if v else "") + ("t" if t else "")
+        try:
+            size = (iso_dir / pkf).stat().st_size
+        except OSError:
+            size = 0
+        collections.append({"pkf": pkf, "catalog": cat, "pkf_bytes": size,
+                            "media": letters, "books": count, "codex": codex})
+        codex_union |= set(codex)
+
+    top_media = ("a" if agg_audio else "") + ("v" if agg_video else "") + ("t" if agg_timing else "")
+    top_codex = "".join(k for k in "ond" if k in codex_union)
+    return {"media": top_media, "codex": top_codex, "collections": collections}
 
 
 def main() -> int:
@@ -94,6 +195,13 @@ def main() -> int:
     # sibling release asset. The on-disk data/pkf/manifest.json is left alone
     # (that's fetch_pkf.py's output; the pipeline re-uses it across runs).
     filtered = filter_manifest(full_manifest, excluded, excluded_packages)
+    # Rebuild `languages` as an iso-keyed map of enriched, per-collection entries
+    # (media/books/codex flags + collections[]) so a client picker over all
+    # languages needs one fetch, not one per language.
+    filtered["languages"] = {
+        lang["iso"]: manifest_entry(lang["iso"], lang)
+        for lang in filtered.get("languages", [])
+    }
     filtered_json = json.dumps(filtered, indent=2, ensure_ascii=False)
 
     tar_path = STAGE / ASSET
