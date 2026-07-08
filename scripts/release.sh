@@ -72,11 +72,19 @@ draft_flag=()
 [ "${DRAFT:-0}" = "1" ] && draft_flag=(--draft)
 
 echo "[release] publishing ${TAG} (tarball: ${RELEASE_TARBALL:-0})"
-gh release create "$TAG" \
-    "${ASSETS[@]}" \
-    --title "$TAG" \
-    --notes-file "$NOTES" \
-    ${draft_flag[@]+"${draft_flag[@]}"}
+if gh release view "$TAG" >/dev/null 2>&1; then
+    # Same-day re-release (the tag is date-based): update the existing release's
+    # assets and notes in place rather than failing on the duplicate tag.
+    echo "[release] ${TAG} exists — updating assets in place (--clobber)"
+    gh release upload "$TAG" "${ASSETS[@]}" --clobber
+    gh release edit "$TAG" --title "$TAG" --notes-file "$NOTES"
+else
+    gh release create "$TAG" \
+        "${ASSETS[@]}" \
+        --title "$TAG" \
+        --notes-file "$NOTES" \
+        ${draft_flag[@]+"${draft_flag[@]}"}
+fi
 
 # Prune old releases: keep only the RELEASE_KEEP most recent (default 2 = latest
 # + previous). The "previous" one must survive — diff_manifest.py diffs the next
