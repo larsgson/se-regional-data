@@ -108,6 +108,12 @@ def main() -> int:
             files.setdefault(ref, fp)
         index[f"{iso}/{base}"] = ref
 
+    # Publish the COMPLETE standard scheme library — all six — even schemes no SE
+    # collection references (lxx, vul …). Clients, or merged non-SE data, may
+    # point at any standard scheme, so _vrs/<code>.vrs must always be resolvable.
+    for code in PRIORITY:
+        files.setdefault(code, dict(schemes[code]))
+
     # Write the deduped set + index.
     if OUT.exists():
         for f in OUT.glob("*"):
@@ -133,9 +139,12 @@ def main() -> int:
             bad.append(key)
 
     total = len(index)
+    n_std = sum(1 for r in files if r in PRIORITY)
     print(f"[vrs] {total} collections -> {len(files)} files "
-          f"({len(used_std)} standard: {','.join(sorted(used_std))}; "
-          f"{len(custom)} custom) in {OUT}/")
+          f"({n_std} standard schemes [all published]; {len(custom)} custom) in {OUT}/")
+    print(f"[vrs] standards referenced by SE collections: "
+          f"{','.join(sorted(used_std)) or 'none'} "
+          f"(lxx/vul/etc. published for cross-versification even if unreferenced)")
     print(f"[vrs] {sum(1 for r in index.values() if r in used_std)} collections share a "
           f"standard scheme; {sum(1 for r in index.values() if r in custom)} use a custom file")
     if nodata:

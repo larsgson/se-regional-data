@@ -190,6 +190,10 @@ another `{ pkf, catalog, … }` object. Per-collection fields:
   merges and excluded/renumbered verses are *not* duplicated here; those live in
   the catalog's `versesByChapters` (§5). So `vrs` tells you the numbering system;
   `versesByChapters` tells you exactly which verses this text contains.
+
+  **All six standard scheme files are always published** (`_vrs/eng.vrs` …
+  `_vrs/vul.vrs`), even ones no SE text currently uses — so external or merged
+  data (e.g. Septuagint/Vulgate-versified sources) can reference any of them.
 - **`coverage`** — present **only when the collection is *not* full** (i.e. it
   doesn't contain, in their entirety, the testaments its `codex` marks; the
   common cases are book portions or scattered-chapter selections). Its **absence
