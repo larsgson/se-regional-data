@@ -30,6 +30,9 @@ fi
 echo "[release] classifying licenses (disk-cached; rm data/.license-scan-cache to force rescan)"
 python3 scripts/classify_licenses.py
 
+echo "[release] generating deduplicated versification (.vrs) index"
+python3 scripts/gen_vrs.py
+
 echo "[release] packing ${COUNTRY} → ${TAG}"
 python3 scripts/pack_release.py
 

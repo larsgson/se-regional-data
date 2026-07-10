@@ -34,6 +34,12 @@ from _lib import (  # noqa: E402
     package_base_from_filename,
     strippable_packages_for_iso,
 )
+from analyze_versification import (  # noqa: E402
+    coverage as _vrs_coverage,
+    extract_schemes as _vrs_extract_schemes,
+    footprint_from_catalog as _vrs_footprint,
+    scheme_book_counts as _vrs_book_counts,
+)
 
 COUNTRY = os.environ.get("COUNTRY", "mx").lower()
 PKF_ROOT = REPO_ROOT / "data" / COUNTRY
@@ -79,6 +85,15 @@ try:
 except (OSError, ValueError):
     LANG_NAMES = {}
 
+# {"<iso>/<collection>": "<vrs>"} — the truthful versification file reference per
+# collection (a standard code like "eng" or a content hash), built by
+# scripts/gen_vrs.py. Points at data/_vrs/<vrs>.vrs, which reproduces the text's
+# verse structure exactly. No file for a collection => no vrs field.
+try:
+    VRS_INDEX = json.loads((REPO_ROOT / "data" / "_vrs" / "index.json").read_text(encoding="utf-8"))
+except (OSError, ValueError):
+    VRS_INDEX = {}
+
 _OT = set("GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST "
           "JOB PSA PRO ECC SNG ISA JER LAM EZK DAN HOS JOL AMO OBA JON MIC NAM "
           "HAB ZEP HAG ZEC MAL".split())
@@ -88,13 +103,17 @@ _DC = set("TOB JDT ESG WIS SIR BAR LJE S3Y SUS BEL 1MA 2MA 3MA 4MA 1ES 2ES MAN "
           "PS2 ODA PSS".split())
 
 
-def _coverage(catalog_path: Path) -> tuple[int, str]:
-    """(scripture book count, codex string 'o'/'n'/'d') from a collection's
-    catalog. Excludes glossary/peripherals."""
+def _scripture(catalog_path: Path, book_counts: dict) -> dict:
+    """Per-collection scripture facts from one catalog read:
+      books      scripture book count (excludes glossary/peripherals)
+      codex      testaments present, 'o'/'n'/'d'
+      coverage   {o|n|d: 'full' | {BOOK: 'ch-ranges'}} map, only when NOT full
+    (Versification is a separate, deduplicated file reference — see VRS_INDEX.)
+    """
     try:
         c = json.loads(catalog_path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return 0, ""
+        return {"books": 0, "codex": "", "coverage": None}
     count, has = 0, {"o": False, "n": False, "d": False}
     for doc in c.get("documents", []):
         b = doc.get("bookCode")
@@ -104,7 +123,11 @@ def _coverage(catalog_path: Path) -> tuple[int, str]:
             count += 1; has["n"] = True
         elif b in _DC:
             count += 1; has["d"] = True
-    return count, "".join(k for k in "ond" if has[k])
+    out = {"books": count, "codex": "".join(k for k in "ond" if has[k]), "coverage": None}
+    if book_counts:
+        cov = _vrs_coverage(_vrs_footprint(c), book_counts)
+        out["coverage"] = None if cov["full"] else cov["map"]
+    return out
 
 
 def _collection_audio(iso: str, coll_ids: list) -> dict:
@@ -126,7 +149,7 @@ def _collection_audio(iso: str, coll_ids: list) -> dict:
     return out
 
 
-def manifest_entry(iso: str, lang: dict) -> dict:
+def manifest_entry(iso: str, lang: dict, book_counts: dict) -> dict:
     """Build the enriched, iso-keyed manifest entry: top-level media/codex (OR /
     union, for filtering) + per-collection detail."""
     iso_dir = PKF_ROOT / iso
@@ -149,8 +172,9 @@ def manifest_entry(iso: str, lang: dict) -> dict:
 
     collections, codex_union = [], set()
     for pkf, cat in zip(pkfs, catalogs):
-        cid = pkf.split(".")[0].rsplit("_", 1)[-1]
-        count, codex = _coverage(iso_dir / cat)
+        base = pkf.split(".")[0]
+        cid = base.rsplit("_", 1)[-1]
+        sc = _scripture(iso_dir / cat, book_counts)
         if multi:
             a = per_audio.get(cid, False)
             v = cid in placed
@@ -162,9 +186,15 @@ def manifest_entry(iso: str, lang: dict) -> dict:
             size = (iso_dir / pkf).stat().st_size
         except OSError:
             size = 0
-        collections.append({"pkf": pkf, "catalog": cat, "pkf_bytes": size,
-                            "media": letters, "books": count, "codex": codex})
-        codex_union |= set(codex)
+        col = {"pkf": pkf, "catalog": cat, "pkf_bytes": size,
+               "media": letters, "books": sc["books"], "codex": sc["codex"]}
+        vrs = VRS_INDEX.get(f"{iso}/{base}")
+        if vrs:
+            col["vrs"] = vrs
+        if sc["coverage"] is not None:
+            col["coverage"] = sc["coverage"]
+        collections.append(col)
+        codex_union |= set(sc["codex"])
 
     top_media = ("a" if agg_audio else "") + ("v" if agg_video else "") + ("t" if agg_timing else "")
     top_codex = "".join(k for k in "ond" if k in codex_union)
@@ -213,8 +243,20 @@ def main() -> int:
     # Rebuild `languages` as an iso-keyed map of enriched, per-collection entries
     # (media/books/codex flags + collections[]) so a client picker over all
     # languages needs one fetch, not one per language.
+    # The 6 standard scheme footprints give per-book chapter counts used to
+    # decide full vs partial coverage. (The vrs field itself comes from
+    # VRS_INDEX, built by gen_vrs.py.)
+    try:
+        book_counts = _vrs_book_counts(_vrs_extract_schemes())
+    except SystemExit:
+        print("[pack] WARNING: versification schemes unavailable; "
+              "omitting coverage fields", file=sys.stderr)
+        book_counts = {}
+    if not VRS_INDEX:
+        print("[pack] WARNING: data/_vrs/index.json missing; omitting vrs fields "
+              "(run 'make gen-vrs' first)", file=sys.stderr)
     filtered["languages"] = {
-        lang["iso"]: manifest_entry(lang["iso"], lang)
+        lang["iso"]: manifest_entry(lang["iso"], lang, book_counts)
         for lang in filtered.get("languages", [])
     }
     filtered_json = json.dumps(filtered, indent=2, ensure_ascii=False)

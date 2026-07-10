@@ -139,7 +139,21 @@ else
     echo "[cdn] timing: nothing new"
 fi
 
-# Pass 4 — the FILTERED manifest as pkf/manifest.json (short TTL, in place)
+# Pass 4 — versification specs (data/_vrs/, shared across languages). Small,
+# scheme-only .vrs files: the standard schemes (eng.vrs …) plus content-hashed
+# customs, each referenced by a collection's manifest `vrs`. Not per-iso and not
+# in the SRC tree, so it rides its own pass; --checksum skips files whose content
+# is unchanged despite regeneration. Moderate TTL: filenames are stable per
+# structure, so the only thing a TTL guards against is a format change.
+if [ -d data/_vrs ]; then
+    rclone copy data/_vrs "${DEST}/_vrs" "${COMMON[@]}" --checksum \
+        --include "*.vrs" \
+        --header-upload "Cache-Control: public, max-age=3600"
+else
+    echo "[cdn] _vrs: data/_vrs missing (run scripts/gen_vrs.py) — skipping" >&2
+fi
+
+# Pass 5 — the FILTERED manifest as pkf/manifest.json (short TTL, in place)
 rclone copyto "$MANIFEST" "${DEST}/manifest.json" ${DRY[@]+"${DRY[@]}"} \
     --header-upload "Cache-Control: public, max-age=300"
 

@@ -10,7 +10,7 @@ COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 # Parse a conf file into a space-separated list of country codes
 read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 
-.PHONY: help release release-dry release-draft release-publish lang-names pack notes \
+.PHONY: help release release-dry release-draft release-publish lang-names vrs-report gen-vrs pack notes \
         pipeline fetch dedupe map-figures map-media app-config classify classify-rescan clean \
         region-pipeline region-release merge-region merge-global \
         publish-cdn publish-cdn-dry prune-releases
@@ -61,7 +61,13 @@ publish-cdn-dry:
 lang-names:
 	python3 scripts/build_lang_names.py
 
-pack:
+vrs-report:
+	python3 scripts/analyze_versification.py
+
+gen-vrs:
+	python3 scripts/gen_vrs.py
+
+pack: gen-vrs
 	python3 scripts/pack_release.py
 
 notes:

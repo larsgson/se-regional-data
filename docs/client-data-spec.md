@@ -18,17 +18,22 @@ are present. A language absent from the CDN was excluded on purpose — treat a
 ```
 pkf/
   manifest.json                         # index of every published language
+  _vrs/<vrs>.vrs                        # versification specs, deduplicated + shared   ← NEW
   <iso>/
     info.json                           # per-language metadata + media manifest
     <collection>.<hash>.pkf             # scripture text (Proskomma docset)
     <collection>.<hash>.json            # Proskomma catalog (book list, structure)
-    app-config.json                     # UI config: navigation strings, features   ← NEW
+    app-config.json                     # UI config: navigation strings, features
     styles/
       bundle.css                        # ready-to-use reader stylesheet (incl. themes)
       raw/*.css                         # source stylesheets (bundle is built from these)
       fonts/*.ttf                       # the fonts this language uses
     timing/<BOOK>-<chapter>.json        # verse audio timing (only where audio exists)
 ```
+
+`_vrs/` is shared across languages: each collection's manifest `vrs` field names
+its file there (a standard scheme like `eng.vrs`, or a content hash), so every
+English version points at the same `_vrs/eng.vrs` (§3).
 
 Two things to internalise before the details:
 
@@ -53,6 +58,7 @@ hard vs. what to re-check.
 | `<iso>/<collection>.<hash>.pkf`, catalog, `styles/**`, `fonts/**` | `immutable, max-age=31536000` | Content-hashed → cache forever. A change arrives as a new filename. |
 | `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `_app/nav-base.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
 | `<iso>/timing/*.json` | `max-age=3600` | Rarely changes; hold up to an hour. |
+| `_vrs/*.vrs` | `max-age=3600` | Versification specs (§3). Filenames are stable per structure; hold up to an hour. |
 
 `_app/nav-base.json` (the single shared English UI-string set, §6.5) is fetched
 **once** and reused for every language — it is not per-ISO.
@@ -82,12 +88,19 @@ language.
           "pkf_bytes": 3486576,
           "media": "",
           "books": 66,
-          "codex": "on"
+          "codex": "on",
+          "vrs": "443615e816a7e382"
         }
       ]
     },
-    "cco": { "nm": "Chinantec, Comaltepec", "media": "avt", "codex": "n",
-             "collections": [ … ] },
+    "cco": {
+      "nm": "Chinantec, Comaltepec", "media": "avt", "codex": "n",
+      "collections": [
+        { "pkf": "cco_cco.OQKl-t7N.pkf", "catalog": "cco_cco.BpLcyqvW.json",
+          "pkf_bytes": 1017185, "media": "avt", "books": 27, "codex": "n",
+          "vrs": "eng" }
+      ]
+    },
     "niy": {
       "nm": "Ndruna",
       "v": "Ndrǔna",
@@ -95,9 +108,12 @@ language.
       "codex": "on",
       "collections": [
         { "pkf": "fra_C02.Dtd78lh9.pkf", "catalog": "fra_C02.BAIxHq8g.json",
-          "pkf_bytes": 4184789, "media": "",    "books": 66, "codex": "on" },
+          "pkf_bytes": 4184789, "media": "",    "books": 66, "codex": "on",
+          "vrs": "938e92a081140e82" },
         { "pkf": "niy_C01.NAjnnqlC.pkf", "catalog": "niy_C01.DFlMbbeS.json",
-          "pkf_bytes": 2009477, "media": "avt", "books": 33, "codex": "on" }
+          "pkf_bytes": 2009477, "media": "avt", "books": 33, "codex": "on",
+          "vrs": "7f12b3c97397ce74",
+          "coverage": { "o": { "GEN": "1-50", "PSA": "1-150" }, "n": "full" } }
       ]
     }
   }
@@ -157,6 +173,40 @@ another `{ pkf, catalog, … }` object. Per-collection fields:
   excluded).
 - **`codex`** — as above, scoped to this collection; the top-level `codex` is
   the union.
+- **`vrs`** — versification reference: the **basename of this collection's file
+  at `_vrs/<vrs>.vrs`**, which reproduces its verse structure (the last verse of
+  every chapter) *exactly*. Present for every collection that has a catalog. Two
+  forms:
+  - a **standard Paratext scheme code** — `eng` (English), `org`
+    (Original/Hebrew), `lxx` (Septuagint), `vul` (Vulgate), `rso` (Russian
+    Orthodox), `rsc` (Russian Protestant) — when that standard scheme *fully and
+    truthfully* describes the text. This is only asserted when true, so every
+    English version shares the one `_vrs/eng.vrs` (no per-collection copy);
+  - a **content hash** (e.g. `443615e816a7e382`) when the text deviates from
+    every standard scheme and needs its own file. Identical structures share one
+    hashed file.
+
+  Resolve it as `_vrs/<vrs>.vrs`. The files are **scheme-only** — per-translation
+  merges and excluded/renumbered verses are *not* duplicated here; those live in
+  the catalog's `versesByChapters` (§5). So `vrs` tells you the numbering system;
+  `versesByChapters` tells you exactly which verses this text contains.
+- **`coverage`** — present **only when the collection is *not* full** (i.e. it
+  doesn't contain, in their entirety, the testaments its `codex` marks; the
+  common cases are book portions or scattered-chapter selections). Its **absence
+  means full coverage** — every OT/NT book the `codex` claims is complete, so no
+  map is needed. When present, it maps present chapters per testament:
+
+  ```jsonc
+  "coverage": {
+    "o": { "GEN": "1-50", "EXO": "1-20,24,31-34,40" },  // partial OT: per-book chapter ranges
+    "n": "full",                                         // NT complete
+    "d": { "TOB": "1-14" }                               // deuterocanon present (always mapped)
+  }
+  ```
+  A testament key is `"full"` when that whole testament is present, or an
+  object of `{ BOOK: "chapter-ranges" }` when partial. Deuterocanon (`d`) is
+  bonus — it never by itself makes a collection "partial", but it is listed in
+  the map when the collection is partial for another reason.
 
 Currently the only multi-collection languages are **`hch`, `niy`, `poi`** (each
 ships 2); every other language has exactly one collection.
