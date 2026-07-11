@@ -139,12 +139,12 @@ else
     echo "[cdn] timing: nothing new"
 fi
 
-# Pass 4 — versification specs (data/_vrs/, shared across languages). Small,
-# scheme-only .vrs files: the standard schemes (eng.vrs …) plus content-hashed
-# customs, each referenced by a collection's manifest `vrs`. Not per-iso and not
-# in the SRC tree, so it rides its own pass; --checksum skips files whose content
-# is unchanged despite regeneration. Moderate TTL: filenames are stable per
-# structure, so the only thing a TTL guards against is a format change.
+# Pass 4 — OUR versification specs (data/_vrs/, content-hashed customs only). The
+# named standard scheme files (eng.vrs …) are owned/published by the DBT service,
+# so gen_vrs.py does not write them and we do not upload them here. These small
+# scheme-only .vrs files are each referenced by a collection's manifest `vrs`.
+# Not per-iso and not in the SRC tree, so it rides its own pass; --checksum skips
+# unchanged files. Moderate TTL: hashed filenames are stable per structure.
 if [ -d data/_vrs ]; then
     rclone copy data/_vrs "${DEST}/_vrs" "${COMMON[@]}" --checksum \
         --include "*.vrs" \

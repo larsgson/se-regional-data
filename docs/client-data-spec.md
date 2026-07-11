@@ -16,9 +16,10 @@ are present. A language absent from the CDN was excluded on purpose — treat a
 ## 1. Delivery model at a glance
 
 ```
+_vrs/<code>.vrs                         # named standard versification schemes — DBT-owned (§3)
 pkf/
   manifest.json                         # index of every published language
-  _vrs/<vrs>.vrs                        # versification specs, deduplicated + shared   ← NEW
+  _vrs/<hash>.vrs                       # content-hashed versification specs — ours (§3)
   <iso>/
     info.json                           # per-language metadata + media manifest
     <collection>.<hash>.pkf             # scripture text (Proskomma docset)
@@ -31,9 +32,10 @@ pkf/
     timing/<BOOK>-<chapter>.json        # verse audio timing (only where audio exists)
 ```
 
-`_vrs/` is shared across languages: each collection's manifest `vrs` field names
-its file there (a standard scheme like `eng.vrs`, or a content hash), so every
-English version points at the same `_vrs/eng.vrs` (§3).
+Each collection's manifest `vrs` field names a versification file. **A scheme
+code** (`eng`, `org`, `orgw`, `catm`, `lxx`, `vul`, `rso`) resolves to the
+DBT-owned `/_vrs/<code>.vrs` (root, so every English version shares one file); **a
+hash** resolves to our `pkf/_vrs/<hash>.vrs` (§3).
 
 Two things to internalise before the details:
 
@@ -58,7 +60,8 @@ hard vs. what to re-check.
 | `<iso>/<collection>.<hash>.pkf`, catalog, `styles/**`, `fonts/**` | `immutable, max-age=31536000` | Content-hashed → cache forever. A change arrives as a new filename. |
 | `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `_app/nav-base.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
 | `<iso>/timing/*.json` | `max-age=3600` | Rarely changes; hold up to an hour. |
-| `_vrs/*.vrs` | `max-age=3600` | Versification specs (§3). Filenames are stable per structure; hold up to an hour. |
+| `pkf/_vrs/<hash>.vrs` | `max-age=3600` | Our content-hashed versification specs (§3). Filenames stable per structure. |
+| `/_vrs/<code>.vrs` | (DBT-set) | Named standard schemes, served by the DBT service (§3); cache per its headers. |
 
 `_app/nav-base.json` (the single shared English UI-string set, §6.5) is fetched
 **once** and reused for every language — it is not per-ISO.
@@ -173,27 +176,32 @@ another `{ pkf, catalog, … }` object. Per-collection fields:
   excluded).
 - **`codex`** — as above, scoped to this collection; the top-level `codex` is
   the union.
-- **`vrs`** — versification reference: the **basename of this collection's file
-  at `_vrs/<vrs>.vrs`**, which reproduces its verse structure (the last verse of
-  every chapter) *exactly*. Present for every collection that has a catalog. Two
-  forms:
-  - a **standard Paratext scheme code** — `eng` (English), `org`
-    (Original/Hebrew), `lxx` (Septuagint), `vul` (Vulgate), `rso` (Russian
-    Orthodox), `rsc` (Russian Protestant) — when that standard scheme *fully and
-    truthfully* describes the text. This is only asserted when true, so every
-    English version shares the one `_vrs/eng.vrs` (no per-collection copy);
-  - a **content hash** (e.g. `443615e816a7e382`) when the text deviates from
-    every standard scheme and needs its own file. Identical structures share one
-    hashed file.
+- **`vrs`** — versification reference: names a `.vrs` file that reproduces this
+  collection's verse structure (the last verse of every chapter) *exactly*.
+  Present for every collection that has a catalog. Two forms, which resolve to
+  **two different locations**:
+  - a **standard scheme code** — one of `eng` (English), `org` (Original/Hebrew),
+    `orgw` (org-western: org Psalms, Western Malachi), `catm` (Catholic-Masoretic),
+    `lxx` (Septuagint), `vul` (Vulgate), `rso` (Russian Orthodox) — asserted only
+    when that standard scheme *fully and truthfully* describes the text, so every
+    English version shares one file. **Resolve at `https://cdn.bibel.wiki/_vrs/<code>.vrs`.**
+  - a **content hash** (e.g. `443615e816a7e382`) when the text matches no standard
+    scheme and needs its own file; identical structures share one file. **Resolve
+    at `https://cdn.bibel.wiki/pkf/_vrs/<hash>.vrs`.**
 
-  Resolve it as `_vrs/<vrs>.vrs`. The files are **scheme-only** — per-translation
+  Routing rule: if `vrs` is one of the seven scheme codes above → root `/_vrs/`;
+  otherwise (a hash) → `pkf/_vrs/`. The files are **scheme-only** — per-translation
   merges and excluded/renumbered verses are *not* duplicated here; those live in
   the catalog's `versesByChapters` (§5). So `vrs` tells you the numbering system;
   `versesByChapters` tells you exactly which verses this text contains.
 
-  **All six standard scheme files are always published** (`_vrs/eng.vrs` …
-  `_vrs/vul.vrs`), even ones no SE text currently uses — so external or merged
-  data (e.g. Septuagint/Vulgate-versified sources) can reference any of them.
+  **Ownership.** The named standard schemes at `/_vrs/` are **owned and published
+  by the DBT versification service** (the authority — it holds the reference
+  Septuagint/Vulgate exemplars, and its scheme set may grow). This repository
+  publishes **only the content-hashed `pkf/_vrs/<hash>.vrs` files** and references
+  the standard files by code. A collection gets a standard code only when *DBT's*
+  file provably reproduces its structure, so the reference is always valid. `vrs`
+  is always a resolvable file — never a "no scheme" sentinel.
 - **`coverage`** — present **only when the collection is *not* full** (i.e. it
   doesn't contain, in their entirety, the testaments its `codex` marks; the
   common cases are book portions or scattered-chapter selections). Its **absence

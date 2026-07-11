@@ -131,6 +131,22 @@ Each release has three assets plus metadata:
 
 The consuming PWA's build step downloads `index.json`, verifies `sha256`, then pulls the tarball.
 
+## Versification (`_vrs/`)
+
+Each collection's manifest carries a `vrs` field naming a file under `pkf/_vrs/`
+that reproduces its verse structure (`scripts/gen_vrs.py`, `scripts/analyze_versification.py`).
+
+**Ownership boundary (external dependency):** the *named* standard scheme files —
+`cdn.bibel.wiki/_vrs/{eng,org,orgw,catm,lxx,vul,rso}.vrs` (a central, root-level
+location) — are **owned and published by the DBT versification service**, not
+this repo. We publish only the content-hashed `pkf/_vrs/<hash>.vrs` files
+(SE-specific structures that match no standard). `gen_vrs.py` classifies each
+text against DBT's *published* standard files (fetched from `VRS_BASE` =
+`https://cdn.bibel.wiki/_vrs/`, cached in `data/.vrs-standards/`), so a text is
+labelled with a standard code only when DBT's file provably reproduces it —
+otherwise it gets one of our hashed files. Resolution: a manifest `vrs` that is a
+scheme code → `/_vrs/<code>.vrs` (DBT); a hash → `pkf/_vrs/<hash>.vrs` (ours).
+
 ## Disk caches
 
 Both caches are shared across countries (ISO-keyed, not country-keyed):
