@@ -220,8 +220,12 @@ another `{ pkf, catalog, … }` object. Per-collection fields:
   bonus — it never by itself makes a collection "partial", but it is listed in
   the map when the collection is partial for another reason.
 
-Currently the only multi-collection languages are **`hch`, `niy`, `poi`** (each
-ships 2); every other language has exactly one collection.
+Currently the only published multi-collection language is **`niy`** (ships 2:
+a French `fra_C02` + the Nyokon `niy_C01`); every other language has exactly one
+collection. (`hch` and `poi` also *source* a second collection each, but its
+companion is a proprietary Spanish text stripped at publish time — see
+[`EXCLUDED_PACKAGES.txt`](../EXCLUDED_PACKAGES.txt) — so they ship 1 in what's
+actually delivered.) Always read the array length; don't hardcode this list.
 
 ---
 
@@ -235,9 +239,9 @@ per-book headers.
 
 - Load with `proskomma-core` (same library the pipeline uses): decompress →
   `loadSuccinctDocSet`. Query text via GraphQL against the docset.
-- One `.pkf` per collection; the three languages named in §3 ship two. Use every
-  entry in `manifest.languages[<iso>].collections[]` (each carries its own `pkf`
-  and `catalog`).
+- One `.pkf` per collection; `niy` (§3) ships two. Use every entry in
+  `manifest.languages[<iso>].collections[]` (each carries its own `pkf` and
+  `catalog`) — never assume a fixed count.
 
 The `.pkf` is the source of truth for **text**; it is *not* where UI strings,
 navigation labels, or styling live — those are §6 and §7.
@@ -532,7 +536,7 @@ Verse-level timing for synced audio highlight. Delivered only for chapters that
 have it (`info.json` → `hasTiming`).
 
 ```json
-[ [0.0, 4.32, "1"], [4.32, 9.10, "2"], [9.10, 13.7, "3"] ]
+[[5.14,7.82,"s1"],[7.82,12.66,"1"],[12.66,18.98,"2"],[18.98,23.52,"3a"],[23.52,27.32,"3b"]]
 ```
 
 Each row is `[startSeconds, endSeconds, verseLabel]`, in playback order.
@@ -541,6 +545,16 @@ Each row is `[startSeconds, endSeconds, verseLabel]`, in playback order.
 `[start,end)` contains `currentTime` and highlight `verseLabel`. Path is
 predictable: `<BOOK>` is the USFM code, `<chapter>` the number
 (e.g. `timing/JHN-3.json`).
+
+**`verseLabel` is not always a plain integer** — treat it as an opaque string,
+not a number to parse:
+- `"s1"`, `"s2"`, … — a **section/heading marker**, not a verse. Typically
+  narration before the first verse; don't map it to a `versesByChapters` entry,
+  just don't highlight a verse for it.
+- `"3a"`, `"3b"`, … — a **sub-verse split** (the audio narrates a merged/long
+  verse in parts). Match against the corresponding merged label in the
+  catalog's `versesByChapters` (§5) if you need to resolve it to a verse number;
+  for simple highlighting, matching the label string as-is is enough.
 
 ---
 
