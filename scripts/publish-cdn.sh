@@ -119,7 +119,8 @@ else
     echo "[cdn] assets: nothing new"
 fi
 
-# Pass 2 — mutable per-iso indexes: short TTL so a new release propagates.
+# Pass 2 — mutable per-iso indexes (info.json, app-config.json,
+# license-notice.html): short TTL so a new release propagates.
 if [ -s "$DELTA_DIR/info.txt" ]; then
     rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
         --files-from "$DELTA_DIR/info.txt" --no-traverse \

@@ -295,6 +295,15 @@ def _with_years(out: dict, holder: str | None) -> dict:
     return out
 
 
+def _notice_url(iso: str) -> str | None:
+    """The full copyright/attribution page (raw HTML, verbatim), published by
+    scripts/classify_licenses.py's write_notice() when the source carries one.
+    Relative path a client resolves against the pkf/ base, same as other assets."""
+    if (POOL_DIR / iso / "license-notice.html").exists():
+        return f"{iso}/license-notice.html"
+    return None
+
+
 def extract_copyright(iso: str, info: dict, lic: dict) -> dict | None:
     entry = lic.get(iso)
     if entry:
@@ -304,6 +313,9 @@ def extract_copyright(iso: str, info: dict, lic: dict) -> dict | None:
             out["holder"] = holder
         _with_years(out, holder)
         out["source"] = info.get("source")
+        notice = _notice_url(iso)
+        if notice:
+            out["notice_url"] = notice
         return out
     ml = info.get("manual_license")
     if ml:
@@ -313,6 +325,9 @@ def extract_copyright(iso: str, info: dict, lic: dict) -> dict | None:
             out["holder"] = holder
         _with_years(out, holder)
         out["source"] = info.get("source")
+        notice = _notice_url(iso)
+        if notice:
+            out["notice_url"] = notice
         return out
     return None
 
@@ -392,15 +407,24 @@ def main() -> int:
             if p.is_dir() and not p.name.startswith("_")
             and (not only or p.name in only)]
 
-    # Stage the curated shared UI-string set into the pool for delivery
-    # (published as pkf/_app/nav-base.json). Canonical source is conf/nav-base.json.
-    nav_src = REPO_ROOT / "conf" / "nav-base.json"
-    if nav_src.exists() and not only:
+    # Stage the curated shared UI-string sets into the pool for delivery
+    # (published as pkf/_app/nav-base.json + pkf/_app/nav-<code>.json). English
+    # (nav-base.json) is canonical/hand-reconciled; the nav-<code>.json locales
+    # are majority-reconciled by scripts/extract_nav_locales.py — a client picks
+    # among them using app-config.json's interfaceLanguages.available codes.
+    if not only:
         app_dir = POOL_DIR / "_app"
         app_dir.mkdir(parents=True, exist_ok=True)
-        (app_dir / "nav-base.json").write_text(
-            nav_src.read_text(encoding="utf-8"), encoding="utf-8")
-        print(f"[nav-base] staged conf/nav-base.json -> {app_dir}/nav-base.json")
+        nav_srcs = [REPO_ROOT / "conf" / "nav-base.json"]
+        nav_srcs += sorted((REPO_ROOT / "conf").glob("nav-*.json"))
+        seen = set()
+        for nav_src in nav_srcs:
+            if not nav_src.exists() or nav_src.name in seen:
+                continue
+            seen.add(nav_src.name)
+            (app_dir / nav_src.name).write_text(
+                nav_src.read_text(encoding="utf-8"), encoding="utf-8")
+        print(f"[nav-base] staged {len(seen)} nav file(s) -> {app_dir}/ ({', '.join(sorted(seen))})")
 
     ok = err = 0
     with ThreadPoolExecutor(max_workers=conc) as ex:

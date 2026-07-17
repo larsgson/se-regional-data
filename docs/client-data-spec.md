@@ -20,8 +20,12 @@ _vrs/<code>.vrs                         # named standard versification schemes �
 pkf/
   manifest.json                         # index of every published language
   _vrs/<hash>.vrs                       # content-hashed versification specs — ours (§3)
+  _app/
+    nav-base.json                       # shared English UI-string set (§6.5)
+    nav-<code>.json                     # optional shared localized UI-string sets (es/pt/fr/nl/id) (§6.5)
   <iso>/
     info.json                           # per-language metadata + media manifest
+    license-notice.html                 # full copyright/attribution page, verbatim (§6.7)
     <collection>.<hash>.pkf             # scripture text (Proskomma docset)
     <collection>.<hash>.json            # Proskomma catalog (book list, structure)
     app-config.json                     # UI config: navigation strings, features
@@ -58,13 +62,15 @@ hard vs. what to re-check.
 | Path | `Cache-Control` | Meaning for the client |
 |---|---|---|
 | `<iso>/<collection>.<hash>.pkf`, catalog, `styles/**`, `fonts/**` | `immutable, max-age=31536000` | Content-hashed → cache forever. A change arrives as a new filename. |
-| `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `_app/nav-base.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
+| `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `<iso>/license-notice.html`, `_app/nav-base.json`, `_app/nav-<code>.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
 | `<iso>/timing/*.json` | `max-age=3600` | Rarely changes; hold up to an hour. |
 | `pkf/_vrs/<hash>.vrs` | `max-age=3600` | Our content-hashed versification specs (§3). Filenames stable per structure. |
 | `/_vrs/<code>.vrs` | (DBT-set) | Named standard schemes, served by the DBT service (§3); cache per its headers. |
 
-`_app/nav-base.json` (the single shared English UI-string set, §6.5) is fetched
-**once** and reused for every language — it is not per-ISO.
+`_app/nav-base.json` (the shared English UI-string set, §6.5) is fetched
+**once** and reused for every language — it is not per-ISO. The optional
+`_app/nav-<code>.json` locales (§6.5, §6.2) are likewise shared across every
+language that lists that `code`, not per-ISO — fetch each at most once.
 
 ---
 
@@ -335,11 +341,14 @@ Read these synchronously at load — everything else can be deferred.
 }
 ```
 
-**Use:** informational — the interface languages the *original* deployment
-offered. The delivered UI strings are the single shared English set (§6.5), so
-there is no per-language UI payload to switch to; treat this as metadata (e.g.
-to show what the source app supported), not as a set of fetchable UI variants.
-`default` was the source app's initial selection.
+**Use:** the interface languages the *original* deployment offered — and,
+**for any `code` other than `en`, also a real, fetchable UI-string set**: try
+`GET _app/nav-<code>.json` (§6.5). Not every `code` has one (a handful of
+sources offer a from-scratch translation into their own single-digit-deployment
+language that wasn't broad enough to reconcile — see §6.5), so treat a 404 on
+`nav-<code>.json` as "fall back to English," not an error. `default` was the
+source app's initial selection — a reasonable default for which locale to try
+first, alongside `en`.
 
 ### 6.3 `features` — behaviour flags
 
@@ -399,12 +408,16 @@ count — use it to build the chapter picker and bound chapter navigation
 **without loading the `.pkf`** (the catalog's `versesByChapters` gives the same
 counts if you need per-chapter verse totals too).
 
-### 6.5 UI strings — the single shared `_app/nav-base.json`
+### 6.5 UI strings — `_app/nav-base.json` + optional `_app/nav-<code>.json` locales
 
 All UI chrome (menus, annotations panel, search, settings, plans, onboarding —
-459 keys) is **one shared English set at `pkf/_app/nav-base.json`, used by every
-language.** It is *not* per-collection and is **not** part of `app-config.json`
-— fetch it **once** and reuse it for the whole app.
+459 keys) has a **shared English set at `pkf/_app/nav-base.json`, used by
+every language** — plus, for about half of languages, one or more **shared
+localized sets** at `pkf/_app/nav-<code>.json` (`nav-es.json`, `nav-pt.json`,
+`nav-fr.json`, `nav-nl.json`, `nav-id.json`). None of these are per-collection
+and none are part of `app-config.json` — fetch `nav-base.json` **once** and
+reuse it for the whole app; additionally fetch `nav-<code>.json` for any
+`code` in a language's `interfaceLanguages.available` (§6.2) that isn't `en`.
 
 ```json
 {
@@ -417,17 +430,38 @@ language.** It is *not* per-collection and is **not** part of `app-config.json`
 }
 ```
 
-**Use:** render any label as `navBase[key]`. Keys are stable SAB identifiers
-(`Menu_*`, `Annotation_*`, `Settings_*`, …) — use them directly, no remap. Flat
-`key → string`; no per-language file, no merge, no fallback logic.
+**Use:** render any label as `navBase[key]`, or `navLocale[key] ?? navBase[key]`
+once a locale set is loaded — **a locale file never has every key** (see
+below), so always fall back to English per-key, not per-file. Keys are stable
+SAB identifiers (`Menu_*`, `Annotation_*`, `Settings_*`, …) — use them
+directly, no remap.
 
-**Why one shared set:** across all 466 source deployments the English strings
-were 96–98% identical (differences were only SAB-version wording drift), so the
-set was reconciled once, by hand, into a single canonical file. There is
-deliberately **no per-language nav and no delta** — every client uses this one
-English set. (The source deployments' own translations are not delivered; if the
-PWA localises its UI, it does so with its own translation layer keyed on these
-same stable identifiers.)
+**Why `nav-base.json` is one shared English set:** across all 466 source
+deployments the English strings were 96–98% identical (differences were only
+SAB-version wording drift), so the set was reconciled once, by hand, into a
+single canonical file — no per-language nav, no delta, every client uses this
+one English set for the English case.
+
+**Why the `nav-<code>.json` locales exist, and why they're partial:** SAB
+ships a small library of pre-built UI translations (not one per target
+scripture language — that's a separate, much bigger undertaking most of the
+~600 minority-language projects never do). A deployment just opts into
+whichever of these its community also reads, which is why `interfaceLanguages`
+often lists a *regional* language (Spanish, Portuguese, French, Dutch,
+Indonesian) unrelated to the collection's own target language. Unlike English,
+these are reconciled from far fewer independent deployments (`es`: 255,
+`pt`: 42, `fr`: 17, `nl`: 6, `id`: 3), and disagreement between them is
+**mostly genuine** (different SAB tooling versions over time — measured, not
+assumed: ~85% of `es` disagreements and ~93% of `id`'s are real wording
+differences, not case drift). So each `nav-<code>.json` only includes a key
+when a **confident majority** (≥60% of contributing deployments) agrees;
+contested-but-published keys keep the majority wording, and keys with no
+confident majority are **omitted** rather than publishing a coin flip —
+expect `nav-<code>.json` to cover roughly 60–95% of `nav-base.json`'s keys,
+not all 459. A source offering its *own* from-scratch translation to only
+itself (fewer than 2 contributing deployments) isn't published as a locale at
+all — there's nothing to reconcile against, and one sample isn't a shared,
+verified set.
 
 ### 6.6 `themeNames` — theme switcher entries
 
@@ -451,15 +485,16 @@ a theme is a CSS operation (§7). `id` is the value you set on
   "holder": "1993, 2003, 2009, 2011, Wycliffe Bible Translators, Inc., …",
   "year": 2011,
   "years": [1993, 2003, 2009, 2011],
-  "source": "https://scriptureearth.org/…"
+  "source": "https://scriptureearth.org/…",
+  "notice_url": "<iso>/license-notice.html"
 }
 ```
 
 **Use:** the About / copyright screen, attribution, and edition dating.
 `license` is present for **every** language (`CC-BY-NC-ND-4.0`, `Public Domain`,
-…). `holder` is the copyright line where one was detected (present for ~42% of
-languages — mostly Wycliffe-sourced texts; **may be absent**, render the licence
-alone then). `year` is the most recent copyright year — the effective **edition
+…). `holder` is the copyright line where one was detected (present for ~83% of
+languages; **may be absent**, render the licence alone then). `year` is the
+most recent copyright year — the effective **edition
 date**, a useful disambiguator against other resources' editions; present only
 when a `holder` was found. `years` is the full ascending list and appears **only
 when there was more than one** (i.e. a revision history — original + revisions).
@@ -469,6 +504,22 @@ This is authoritative for attribution — every published language is
 licence-cleared before delivery, and this block is the machine-readable record
 of under what terms. Do not omit it from a public reading view where the licence
 requires attribution (CC-BY-NC-ND does).
+
+**`notice_url`** — present when the source carried a fuller copyright/attribution
+page beyond what `holder`/`year` distill (edition numbers, translation-status
+caveats, contact info, related-work credits, external links — whatever the
+source actually published). **Present for every included language** (source
+carries no such page for a handful of hand-curated/direct sources; `holder`/
+`year`/`license` are the reliable machine-readable fields regardless — this is
+a bonus, richer, less structured supplement). A relative path resolving to
+`pkf/<that-path>` — fetch
+it for the **raw source HTML, verbatim** (small, e.g. `<div>`/`<b>`/`<a href>`
+fragments — not a full HTML document; render as a fragment or strip tags for
+plain text, your choice). We republish it as our own static asset specifically
+so it doesn't depend on the original deployment staying reachable — the
+deployment itself may be a private/staging link (see `source`) with no
+durability guarantee. Cache per §2 (`max-age=300`, same tier as `info.json` /
+`app-config.json`).
 
 ---
 
@@ -562,12 +613,15 @@ not a number to parse:
 
 1. `GET manifest.json` → pick language (`languages[<iso>]`) → read its
    `collections[].pkf` / `collections[].catalog` hashed filenames.
-2. `GET _app/nav-base.json` **once** (cache it) → the single shared English
-   UI-string set; render labels as `navBase[key]`.
+2. `GET _app/nav-base.json` **once** (cache it) → the shared English UI-string
+   set; render labels as `navBase[key]`.
 3. `GET <iso>/app-config.json` → set `lang`/`dir` from `collection`; keep
    `features` for behaviour, `books` for the picker, `themeNames` for the
    switcher, `copyright` for the About/attribution view. (No `nav` here — UI
-   strings come from step 2.)
+   strings come from step 2.) Optionally, for any non-`en` code in
+   `interfaceLanguages.available`, `GET _app/nav-<code>.json` **once** (cache
+   it, reuse across every language offering that code) and merge over
+   `navBase` per-key for a localized UI.
 4. `GET <iso>/styles/bundle.css` → apply; set `data-color-theme` from the default
    in `themeNames`.
 5. `GET <iso>/<collection>.<hash>.pkf` (+ catalog) → render text (the `GLO`
@@ -575,9 +629,9 @@ not a number to parse:
 6. If audio: read `info.json` → `media`; per chapter with `hasTiming`, `GET` the
    matching `timing/*.json`.
 
-`manifest.json`, `info.json`, `app-config.json`, `_app/nav-base.json` are the
-only files that change in place (short TTL); everything else is content-hashed
-and cacheable forever.
+`manifest.json`, `info.json`, `app-config.json`, `license-notice.html`,
+`_app/nav-base.json`, `_app/nav-<code>.json` are the only files that change in
+place (short TTL); everything else is content-hashed and cacheable forever.
 
 ---
 
@@ -586,11 +640,14 @@ and cacheable forever.
 Two guarantees the client can rely on, so today's integration keeps working:
 
 - **Stable resource URLs.** Each concern is fetched from a stable path
-  (`<iso>/app-config.json`, `_app/nav-base.json`, `<iso>/styles/…`,
-  `<iso>/timing/…`). A future server-side optimisation may share more data across
-  languages behind the same URLs; the paths you fetch will not move.
+  (`<iso>/app-config.json`, `_app/nav-base.json`, `_app/nav-<code>.json`,
+  `<iso>/styles/…`, `<iso>/timing/…`). A future server-side optimisation may
+  share more data across languages behind the same URLs; the paths you fetch
+  will not move.
 - **Additive data.** New sections only *add* previously-unavailable data
-  (behaviour flags, copyright, the shared UI-string set). Existing files (`.pkf`,
+  (behaviour flags, copyright, the UI-string sets). Existing files (`.pkf`,
   catalog, CSS, fonts) are never deprecated or reshaped; adopting `app-config.json`
-  never requires abandoning anything you consume today. UI strings are one flat
-  shared set (`_app/nav-base.json`, §6.5) — no per-language files, no merge.
+  never requires abandoning anything you consume today. UI strings are flat
+  key→string sets (`_app/nav-base.json` + optional `_app/nav-<code>.json`,
+  §6.5) — no per-language *files per ISO*, just a small shared library; still
+  no complex merge logic beyond a per-key fallback to English.

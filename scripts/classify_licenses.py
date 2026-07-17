@@ -109,6 +109,51 @@ TEXTO_FALLBACK = re.compile(
 )
 HOLDER_RE = re.compile(r"©\s*([0-9,\s]+[^<]{2,160})")
 
+# --- notice fallback: recover the copyright/attribution block when there is no
+# "Texto:" label at all (a different SAB export template — the block is just a
+# plain <div> sequence). About 54% of included languages have no Texto: label;
+# in nearly all of those the block sits between two <hr> dividers (the visual
+# section rule in the About/Copyright screen) right around the CC declaration
+# we already matched via CC_TEXT. Recovers the SPECIFIC attribution (Published:/
+# Text:/Texto:/Publicado:/Publié: line) plus the license deed text, not just the
+# deed alone. Does not affect include/exclude decisions (those stay on the
+# original, label-based `texto`); this only feeds `text_holder` and the notice
+# file — pure quality bonus, safe to be approximate.
+HR_TAG = re.compile(r"<hr\s*/?>", re.I)
+NOTICE_ATTR_LABEL = re.compile(r"(?:Published|Text|Texto|Publicado|Publié)\s*:", re.I)
+NOTICE_PARA_BOUND = re.compile(r"</div>\s*\n\s*\n\s*<div class=\s*\n\s*>")
+
+
+def extract_notice_fallback(joined: str, cc_match: re.Match) -> str:
+    s = joined
+    match_start, match_end = cc_match.start(), cc_match.end()
+    hr_before = list(HR_TAG.finditer(s, max(0, match_start - 3000), match_start))
+    hr_after = list(HR_TAG.finditer(s, match_end, min(len(s), match_end + 4000)))
+    if hr_before and hr_after:
+        hr1, hr2 = hr_before[-1], hr_after[0]
+        pre_window = s[max(0, hr1.start() - 600):hr1.start()]
+        labels = list(NOTICE_ATTR_LABEL.finditer(pre_window))
+        start = (max(0, hr1.start() - 600) + labels[0].start()) if labels else hr1.end()
+        end = hr2.start()
+        if 0 < end - start <= 6000:
+            return s[start:end].strip()
+    # No clean <hr> pair (a third template family, seen in French Wycliffe
+    # deployments) — fall back to paragraph (blank-line-separated <div>)
+    # boundaries instead of a raw character window, so we don't cut mid-tag.
+    bounds_before = [m.start() for m in
+                     NOTICE_PARA_BOUND.finditer(s, max(0, match_start - 1500), match_start)]
+    start = (bounds_before[-3] if len(bounds_before) >= 3
+             else bounds_before[0] if bounds_before else max(0, match_start - 300))
+    if hr_after:
+        end = hr_after[0].start()
+    else:
+        bounds_after = [m.start() for m in
+                        NOTICE_PARA_BOUND.finditer(s, match_end, min(len(s), match_end + 2500))]
+        end = bounds_after[2] if len(bounds_after) >= 3 else min(len(s), match_end + 1200)
+    if 0 < end - start <= 6000:
+        return s[start:end].strip()
+    return ""
+
 NEG_USADO = re.compile(r"usado con permiso|used with permission", re.I)
 NEG_ARR = re.compile(r"todos los derechos reservados|all rights reserved", re.I)
 NEG_NVI = re.compile(r"nueva versi[óo]n internacional|nvi®|biblica", re.I)
@@ -201,6 +246,23 @@ def joined_js_for_iso(iso: str, chunk_delay_s: float) -> dict:
     return {"unreachable": False, "sw": sw, "joined": joined}
 
 
+def write_notice(iso: str, texto: str | None) -> None:
+    """Publish the raw copyright/attribution block verbatim as its own small
+    static asset, so a client that wants the FULL page (edition notes, revision
+    caveats, contact info — everything beyond the curated license/holder/year
+    fields) can fetch it directly from our own CDN rather than depending on the
+    source deployment staying up. We already have this text in hand at
+    classification time (label-based extract_texto, or the boundary-based
+    extract_notice_fallback for the ~54% of sources with no "Texto:" label);
+    publishing it is just not throwing it away.
+    Raw HTML (source strings carry <a href>, <b> etc.) — not curated or stripped."""
+    if not texto:
+        return
+    notice_path = PKF_DIR / iso / "license-notice.html"
+    notice_path.parent.mkdir(parents=True, exist_ok=True)
+    notice_path.write_text(texto, encoding="utf-8")
+
+
 def manual_probe_result(iso: str) -> dict | None:
     """If this ISO was fetched by scripts/fetch_direct.py, its info.json carries
     a manual_license block (human-verified, not from scriptureearth.org — there's
@@ -223,7 +285,11 @@ def manual_probe_result(iso: str) -> dict | None:
         "license": manual.get("license", "unknown"),
         "reason": manual.get("reason", "manually verified — direct source"),
         "text_holder": manual.get("text_holder"),
-        "texto": manual.get("reason", ""),
+        # Direct sources are never chunk-scanned, so there is no real Texto:
+        # block to publish here — empty, NOT the reason string (that isn't
+        # notice content and would otherwise get written verbatim by
+        # write_notice(), clobbering any hand-curated license-notice.html).
+        "texto": "",
         "evidence": {"manual": True, "source": info.get("source")},
     }
 
@@ -236,9 +302,16 @@ def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
     sw = result["sw"]
     joined = result["joined"]
     badge = bool(BADGE.search(sw))
+    cc_match = CC_TEXT.search(joined)
+    cc_text = bool(cc_match)
+    # `texto` (label-based) stays exactly as before and is what decides
+    # include/exclude below — no behaviour change. `notice_texto` additionally
+    # tries the boundary-based fallback when there's no "Texto:" label, purely
+    # to improve text_holder / the published notice file (see
+    # extract_notice_fallback's docstring) — never fed into the decision.
     texto = extract_texto(joined)
-    holder = extract_holder(texto)
-    cc_text = bool(CC_TEXT.search(joined))
+    notice_texto = texto or (extract_notice_fallback(joined, cc_match) if cc_match else "")
+    holder = extract_holder(notice_texto)
     decision = classify_texto(texto, strippable)
     evidence = {"badge_in_sw": badge, "cc_text_in_js": cc_text}
 
@@ -248,7 +321,7 @@ def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
             "include": False,
             "license": "not-cc",
             "reason": decision["reason"],
-            "texto": texto,
+            "texto": notice_texto,
             "text_holder": holder,
             "evidence": evidence,
         }
@@ -257,7 +330,7 @@ def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
             "iso": iso,
             "include": True,
             "license": "CC-BY-NC-ND-4.0",
-            "texto": texto,
+            "texto": notice_texto,
             "text_holder": holder,
             "evidence": evidence,
         }
@@ -269,7 +342,7 @@ def probe_iso(iso: str, chunk_delay_s: float, strippable: set[str]) -> dict:
         "include": False,
         "license": "unclear",
         "reason": "No CC declaration found in Texto block or JS bundle",
-        "texto": texto,
+        "texto": notice_texto,
         "text_holder": holder,
         "evidence": evidence,
     }
@@ -405,6 +478,7 @@ def main() -> int:
             if r.get("strip_packages"):
                 entry["strip_packages"] = r["strip_packages"]
             included[r["iso"]] = entry
+            write_notice(r["iso"], r.get("texto"))
         else:
             excluded[r["iso"]] = {
                 "license": r["license"],
