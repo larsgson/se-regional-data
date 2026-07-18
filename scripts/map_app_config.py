@@ -33,7 +33,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _lib import POOL_DIR, REPO_ROOT  # noqa: E402
+from _lib import POOL_DIR, REPO_ROOT, write_if_changed  # noqa: E402
 from map_media import (  # noqa: E402
     CACHE_DIR, SE, fetch_text, get_field, head_size,
 )
@@ -389,9 +389,8 @@ def process_iso(iso: str, lic: dict) -> dict:
     if cr:
         cfg["copyright"] = cr
 
-    (iso_dir / "app-config.json").write_text(
-        json.dumps(cfg, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+    write_if_changed(iso_dir / "app-config.json",
+                     json.dumps(cfg, indent=2, ensure_ascii=False))
     return {"iso": iso, "books": len(cfg["books"]),
             "features": len(cfg["features"]), "themes": len(cfg["themeNames"]),
             "copyright": bool(cr)}
@@ -422,8 +421,7 @@ def main() -> int:
             if not nav_src.exists() or nav_src.name in seen:
                 continue
             seen.add(nav_src.name)
-            (app_dir / nav_src.name).write_text(
-                nav_src.read_text(encoding="utf-8"), encoding="utf-8")
+            write_if_changed(app_dir / nav_src.name, nav_src.read_text(encoding="utf-8"))
         print(f"[nav-base] staged {len(seen)} nav file(s) -> {app_dir}/ ({', '.join(sorted(seen))})")
 
     ok = err = 0

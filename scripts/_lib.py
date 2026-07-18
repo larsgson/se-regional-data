@@ -19,6 +19,24 @@ PKF_ROOT = REPO_ROOT / "data" / COUNTRY
 POOL_DIR = REPO_ROOT / "data" / "_pool"
 
 
+def write_if_changed(path: Path, content: str, encoding: str = "utf-8") -> bool:
+    """write_text, but ONLY if content actually differs from what's on disk.
+
+    scripts/cdn_delta.py's incremental publish plan compares (size, mtime)
+    against the last-published state, not content — so a plain write_text()
+    always bumps mtime and looks "changed" even when the bytes are identical,
+    triggering a real (wasteful) re-upload of everything a full-corpus
+    regeneration touches, every single release. Callers that regenerate many
+    files per run (map_app_config.py, classify_licenses.py's write_notice,
+    extract_nav_locales.py) must use this so an unchanged release stays a
+    no-op all the way to the CDN. Returns True if the file was (re)written."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and path.read_text(encoding=encoding) == content:
+        return False
+    path.write_text(content, encoding=encoding)
+    return True
+
+
 def _load_first_token_set(path: Path) -> set[str]:
     """Parse a file with one token per line, # comments allowed, blanks skipped."""
     if not path.exists():

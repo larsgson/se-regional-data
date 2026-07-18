@@ -30,6 +30,12 @@ fi
 echo "[release] classifying licenses (disk-cached; rm data/.license-scan-cache to force rescan)"
 python3 scripts/classify_licenses.py
 
+echo "[release] reconciling localized UI-string sets (cached; --rescan to force)"
+python3 scripts/extract_nav_locales.py
+
+echo "[release] regenerating per-language app-config.json (incl. notice_url) + staging nav files"
+CONCURRENCY=8 python3 scripts/map_app_config.py
+
 echo "[release] generating deduplicated versification (.vrs) index"
 python3 scripts/gen_vrs.py
 

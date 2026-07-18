@@ -43,6 +43,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _lib import write_if_changed  # noqa: E402
+
 CACHE_DIR = REPO_ROOT / "data" / ".media-cache"
 NAV_BASE = REPO_ROOT / "conf" / "nav-base.json"
 OUT_DIR = REPO_ROOT / "conf"
@@ -160,8 +163,8 @@ def main() -> int:
 
     for code, info in sorted(published.items(), key=lambda kv: -kv[1]["deployments"]):
         out = OUT_DIR / f"nav-{code}.json"
-        out.write_text(json.dumps(info["strings"], indent=2, sort_keys=True, ensure_ascii=False) + "\n",
-                       encoding="utf-8")
+        write_if_changed(out, json.dumps(info["strings"], indent=2, sort_keys=True,
+                                         ensure_ascii=False) + "\n")
         dis, weak = disagreements[code], omitted[code]
         print(f"[nav-locales] {code}: {info['deployments']} deployments, "
               f"{info['keys']}/{info['of']} keys -> {out.relative_to(REPO_ROOT)} "

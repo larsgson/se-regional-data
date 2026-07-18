@@ -57,6 +57,7 @@ from _lib import (  # noqa: E402
     REPO_ROOT,
     load_excluded_packages,
     strippable_packages_for_iso,
+    write_if_changed,
 )
 
 PKF_DIR = PKF_ROOT
@@ -258,9 +259,7 @@ def write_notice(iso: str, texto: str | None) -> None:
     Raw HTML (source strings carry <a href>, <b> etc.) — not curated or stripped."""
     if not texto:
         return
-    notice_path = PKF_DIR / iso / "license-notice.html"
-    notice_path.parent.mkdir(parents=True, exist_ok=True)
-    notice_path.write_text(texto, encoding="utf-8")
+    write_if_changed(PKF_DIR / iso / "license-notice.html", texto)
 
 
 def manual_probe_result(iso: str) -> dict | None:
