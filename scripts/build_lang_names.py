@@ -30,6 +30,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import sys
 import urllib.request
 from pathlib import Path
@@ -88,18 +89,27 @@ def main() -> int:
     ):
         iso_names[row["Id"]] = row["Ref_Name"]
 
+    # DBT's own registry occasionally has a bare code as `nm` instead of a real
+    # name (found: lbk -> "bnc" — bnc is lbk's *macrolanguage*, not its name;
+    # confirmed present in DBT's own media-index.json, not introduced by us).
+    # Don't propagate an obviously-bad upstream value — fall back per-entry.
+    bare_code_nm = re.compile(r"^[a-z]{2,4}$")
+
     registry: dict[str, dict] = {}
     from_dbt = from_iso = no_name = 0
     missing: list[str] = []
+    bad_dbt_nm: list[str] = []
     for iso in pool_isos():
         e = dbt.get(iso)
-        if e and e.get("nm"):
+        if e and e.get("nm") and not bare_code_nm.match(e["nm"]):
             entry = {"nm": e["nm"]}
             v = e.get("v")
             if v and v != e["nm"]:      # v only when it differs from nm
                 entry["v"] = v
             from_dbt += 1
         elif iso in iso_names:
+            if e and e.get("nm"):
+                bad_dbt_nm.append(f"{iso} (DBT nm={e['nm']!r})")
             entry = {"nm": iso_names[iso]}
             from_iso += 1
         else:
@@ -117,6 +127,10 @@ def main() -> int:
     if missing:
         print(f"[names] WARNING: no name source for {no_name} iso(s), used code "
               f"as nm: {', '.join(missing)}", file=sys.stderr)
+    if bad_dbt_nm:
+        print(f"[names] NOTE: rejected a bare-code nm from DBT's registry for "
+              f"{len(bad_dbt_nm)} iso(s) (upstream data issue, worth flagging to "
+              f"DBT), used ISO 639-3 instead: {', '.join(bad_dbt_nm)}", file=sys.stderr)
     return 0
 
 

@@ -41,12 +41,28 @@ code** (`eng`, `org`, `orgw`, `catm`, `lxx`, `vul`, `rso`) resolves to the
 DBT-owned `/_vrs/<code>.vrs` (root, so every English version shares one file); **a
 hash** resolves to our `pkf/_vrs/<hash>.vrs` (§3).
 
-Two things to internalise before the details:
+Three things to internalise before the details:
 
 - **Filenames of `.pkf` and catalog are content-hashed.** Never hardcode them —
   resolve them from `manifest.json` (or the language's `info.json`). A new
   release changes the hash (and thus the filename), which is how cache-busting
   works.
+- **The filename *prefix* (before the hash) is NOT a language identifier —
+  never infer language from it.** It's an arbitrary internal project label
+  from the source tooling, and can differ entirely from the `<iso>` it's
+  published under. Real, currently-published examples: `aom` (Ömie) ships as
+  `lwm_C01.<hash>.pkf`; `uth` (ut-Hun/Dukawa) ships as `dud_C01.<hash>.pkf`.
+  Neither `lwm` nor `dud` mean anything about the content — they're Wycliffe's
+  own build-time labels, verified against the source deployments' own
+  self-reported names and package IDs (`"Omie Bible"` / `org.wycliffe.aom.…`
+  and `"ut-Hun (Dukawa) Bible"` / `org.wycliffe.dud.uthun.dukawa.…`
+  respectively). **The `<iso>` key in `manifest.json` — not any filename
+  substring — is the authoritative language identifier**, and it's the only
+  thing to key off of. We run a corpus-wide audit cross-checking every
+  published `<iso>` against its source deployment's own self-reported name (an
+  independent signal from the source project itself, not just our own
+  indexing) specifically to back this guarantee — see
+  `scripts/audit_language_identity.py` if you want the methodology.
 - **The theme/colour system ships inside the CSS, not as JSON.** All three
   colour themes are baked into `styles/` (see §7). `app-config.json` deliberately
   does *not* re-deliver colours — it only names the themes so you can build the
