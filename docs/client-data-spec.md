@@ -1,8 +1,12 @@
 # Client data spec — `cdn.bibel.wiki/pkf/`
 
-Everything the `se-regional-pwa` client fetches at runtime, and how to use each
-part. All paths are served from Cloudflare R2 behind the CDN base URL and are
-CORS-enabled for `GET`/`HEAD`.
+Everything a client fetches from the PKF source at runtime, and how to use
+each part. This is the "PKF" source documented in
+[`bcv-commons/bibles`](https://github.com/bcv-commons/bibles) (the discovery
+layer indexing Bible content across PKF, DBT, and helloAO) — see its
+[`doc/sources.md`](https://github.com/bcv-commons/bibles/blob/main/doc/sources.md)
+for how PKF fits alongside the other sources. All paths here are served from
+Cloudflare R2 behind the CDN base URL and are CORS-enabled for `GET`/`HEAD`.
 
 **Base URL:** `https://cdn.bibel.wiki/pkf/`
 (configured client-side as `PUBLIC_ASSET_BASE` + `/pkf/`)

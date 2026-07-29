@@ -1,8 +1,8 @@
 # se-regional-data
 
-Data pipeline for [`se-regional-pwa`](https://github.com/larsgson/bw-se-regional-pwa). Pulls Scripture Earth (`scriptureearth.org`) Proskomma `.pkf` archives, catalogs, fonts, audio timing data, and per-language video/audio manifests, then publishes the result as GitHub Releases.
+Data pipeline that publishes Scripture Earth (`scriptureearth.org`) content as the **PKF source** in [`bcv-commons/bibles`](https://github.com/bcv-commons/bibles) — the discovery layer that indexes Bible content across PKF, DBT, and helloAO. Pulls Proskomma `.pkf` archives, catalogs, fonts, audio timing data, and per-language video/audio manifests, then publishes the result both as GitHub Releases and live on Cloudflare R2 at `cdn.bibel.wiki/pkf/`.
 
-Supports per-country, per-region, and global releases. Everything runs on your local machine — the pipeline, the packaging, and the `gh release create` call. The consuming PWA pulls the latest release as a build-time fixture; nothing in this repo is served at runtime.
+Supports per-country, per-region, and global releases. Everything runs on your local machine — the pipeline, the packaging, the `gh release create` call, and the CDN publish. `cdn.bibel.wiki/pkf/` is served live at runtime (see [`docs/client-data-spec.md`](docs/client-data-spec.md) for the full client contract); GitHub Releases carry the same metadata plus optional full-tarball backup snapshots.
 
 Code is MIT-licensed. Released data is upstream-licensed (CC BY-NC-ND 4.0 per included language); see [`LICENSING.md`](LICENSING.md).
 
@@ -129,7 +129,7 @@ Each release has three assets plus metadata:
 | `licenses-<country>-<YYYYMMDD>.json` | Per-ISO classification (`included` / `excluded` + reason)   |
 | `index.json`                         | `{ version, created_at, bytes, sha256, tag, … }`           |
 
-The consuming PWA's build step downloads `index.json`, verifies `sha256`, then pulls the tarball.
+A downstream build step (if it wants the full offline tarball rather than the live CDN) downloads `index.json`, verifies `sha256`, then pulls the tarball.
 
 ## Versification (`_vrs/`)
 
