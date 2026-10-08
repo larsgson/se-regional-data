@@ -30,7 +30,7 @@ if [ -f .env ]; then
     set -a; . ./.env; set +a
 fi
 
-COUNTRY="$(echo "${COUNTRY:-mx}" | tr A-Z a-z)"
+COUNTRY="$(echo "${COUNTRY:-global}" | tr A-Z a-z)"
 SRC="data/${COUNTRY}"
 
 # --- preconditions ---------------------------------------------------------

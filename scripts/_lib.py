@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 EXCLUDED_TXT = REPO_ROOT / "EXCLUDED_ISOS.txt"
 EXCLUDED_PACKAGES_TXT = REPO_ROOT / "EXCLUDED_PACKAGES.txt"
 
-COUNTRY = os.environ.get("COUNTRY", "mx").lower()
+COUNTRY = os.environ.get("COUNTRY", "global").lower()
 PKF_ROOT = REPO_ROOT / "data" / COUNTRY
 POOL_DIR = REPO_ROOT / "data" / "_pool"
 

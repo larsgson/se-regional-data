@@ -3,7 +3,7 @@
 # Assumes `gh auth status` is OK and the current repo has a remote.
 #
 # Usage:
-#   scripts/release.sh                # country=mx, tag=data-YYYY.MM.DD
+#   scripts/release.sh                # country=global, tag=data-YYYY.MM.DD
 #   COUNTRY=mx scripts/release.sh
 #   TAG=data-2026.04.23 scripts/release.sh
 #   DRAFT=1 scripts/release.sh        # publish as draft (still uploads to GitHub)
@@ -16,7 +16,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-COUNTRY="${COUNTRY:-mx}"
+COUNTRY="${COUNTRY:-global}"
 YMD="$(date -u +%Y%m%d)"
 TAG="${TAG:-data-$(date -u +%Y.%m.%d)}"
 export COUNTRY TAG

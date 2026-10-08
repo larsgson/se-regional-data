@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _lib import REPO_ROOT, load_excluded_isos, filter_manifest  # noqa: E402
 
-COUNTRY = os.environ.get("COUNTRY", "mx").lower()
+COUNTRY = os.environ.get("COUNTRY", "global").lower()
 CURRENT_MANIFEST = REPO_ROOT / "data" / COUNTRY / "manifest.json"
 
 

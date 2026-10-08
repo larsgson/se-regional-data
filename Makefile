@@ -4,6 +4,15 @@ ZSTD_LEVEL ?= 19
 
 export COUNTRY TAG ZSTD_LEVEL
 
+# Release-side targets act on the whole corpus by default. classify rewrites the
+# auto-managed block of EXCLUDED_ISOS.txt from the data it scanned, so running
+# it for a single country silently drops every other country's exclusions.
+# Fetch/pipeline stay per-country (default mx). Pass COUNTRY=<cc> (command line
+# or environment) to run a release-side target for one country anyway.
+RELEASE_COUNTRY := $(if $(filter file,$(origin COUNTRY)),global,$(COUNTRY))
+release release-dry release-draft release-publish publish-cdn publish-cdn-dry \
+  pack notes classify classify-rescan: COUNTRY := $(RELEASE_COUNTRY)
+
 COUNTRY_UPPER := $(shell echo $(COUNTRY) | tr a-z A-Z)
 COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 
@@ -38,6 +47,8 @@ help:
 	@echo "  make merge-global    CONF=conf/global.conf MERGED=global"
 	@echo ""
 	@echo "Vars: COUNTRY=$(COUNTRY)  TAG=$(TAG)  ZSTD_LEVEL=$(ZSTD_LEVEL)"
+	@echo "      (fetch/pipeline default to $(COUNTRY); release, publish-cdn, pack, notes and"
+	@echo "       classify default to COUNTRY=global unless you pass COUNTRY=<cc>)"
 	@echo "Data: data/$(COUNTRY_LOWER)/"
 
 release:

@@ -41,7 +41,7 @@ from analyze_versification import (  # noqa: E402
     scheme_book_counts as _vrs_book_counts,
 )
 
-COUNTRY = os.environ.get("COUNTRY", "mx").lower()
+COUNTRY = os.environ.get("COUNTRY", "global").lower()
 PKF_ROOT = REPO_ROOT / "data" / COUNTRY
 STAGE = REPO_ROOT / "release"
 CREATED_AT = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
