@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 """
-Consolidate duplicated fonts into a shared pool, then emit a tiny per-language
-delta CSS that combines with the app's baseline reader.css.
+Consolidate duplicated fonts into a shared pool, then (via build_styles.py)
+emit the shared scripture stylesheet and a small per-language delta.css.
 
 Idempotent: safe to re-run after fetch_pkf.py fetches more languages, and safe
 to re-run after deltas have already been emitted.
 
 Layout produced:
-    data/pkf/_fonts/<name>.<sha8>.ttf              shared font pool
-    data/pkf/_fonts/index.json                     sha -> {name, size, isos[]}
-    data/pkf/<iso>/styles/delta.css                ~500-byte per-iso CSS
-    data/pkf/<iso>/styles/raw/                     original SE stylesheets (source of truth)
+    data/_pool/_fonts/<name>.<sha8>.ttf            shared font pool
+    data/_pool/_fonts/index.json                   sha -> {name, size, isos[]}
+    data/_pool/_styles/sab-scripture.css           shared Bible-text rules (build_styles.py)
+    data/_pool/<iso>/styles/delta.css              per-iso fonts, colours, overrides (build_styles.py)
+    data/_pool/<iso>/styles/raw/                   original SE stylesheets (source of truth)
 
 Deleted:
-    data/pkf/<iso>/styles/fonts/                   (content moved to pool)
-    data/pkf/<iso>/styles/bundle.css               (superseded by delta.css + reader.css)
+    data/_pool/<iso>/styles/fonts/                 (content moved to pool)
+    data/_pool/<iso>/styles/bundle.css             (superseded by _styles/ + delta.css)
 """
 
 from __future__ import annotations
@@ -25,14 +26,11 @@ import json
 import re
 import shutil
 import sys
-from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _lib import POOL_DIR as PKF_ROOT  # noqa: E402
 FONTS_POOL = PKF_ROOT / "_fonts"
-FONT_URL_RE = re.compile(r"url\(\s*\./fonts/([A-Za-z0-9_.\-]+\.(?:ttf|otf|woff2?))\s*\)")
-FONT_URL_POOL_RE = re.compile(r"url\(\s*\.\./\.\./_fonts/([A-Za-z0-9_.\-]+)\s*\)")
 
 
 def sha256_of(p: Path) -> str:
@@ -105,141 +103,6 @@ def consolidate_fonts() -> dict:
         "iso_font_dirs_consolidated": len(iso_to_mapping),
         "iso_font_dirs_removed": removed_dirs,
     }
-
-
-# ---------- Per-iso delta CSS generation ----------
-
-FONT_FACE_RE = re.compile(r"@font-face\s*\{\s*([^}]+?)\s*\}", re.DOTALL)
-CONTAINER_RE = re.compile(r"#container\s*\{\s*([^}]+?)\s*\}")
-URL_IN_SRC_RE = re.compile(r"url\(\s*\.?/?([^)\s\"']+)\s*\)")
-
-
-def _parse_css_decls(block: str) -> dict[str, str]:
-    """Parse `prop:value;prop:value` style declarations into a dict."""
-    out: dict[str, str] = {}
-    for part in re.split(r";(?![^(]*\))", block):
-        if ":" not in part:
-            continue
-        k, _, v = part.partition(":")
-        out[k.strip().lower()] = v.strip()
-    return out
-
-
-def _build_pool_reverse(pool_index: dict[str, dict]) -> dict[str, dict[str, str]]:
-    """iso -> { base-name (e.g. 'CharisSILAm-R') -> pool filename }."""
-    rev: dict[str, dict[str, str]] = defaultdict(dict)
-    for _sha, info in pool_index.items():
-        pool_name = info["name"]
-        base = pool_name.split(".")[0]
-        for iso in info["isos"]:
-            rev[iso][base] = pool_name
-    return rev
-
-
-def generate_delta(iso: str, pool_reverse: dict[str, dict[str, str]]) -> tuple[Path, int] | None:
-    raw_dir = PKF_ROOT / iso / "styles" / "raw"
-    if not raw_dir.exists():
-        return None
-    app_files = sorted(raw_dir.glob("sab-app.*.css"))
-    if not app_files:
-        return None
-    app_css = app_files[0].read_text(encoding="utf-8")
-    bc_files = sorted(raw_dir.glob(f"sab-bc-{iso}.*.css"))
-    bc_css = bc_files[0].read_text(encoding="utf-8") if bc_files else ""
-
-    # @font-face blocks: extract family name + src URL + weight/style.
-    # Rename each family to "<iso>-<origfamily>" so multiple langs can coexist.
-    faces: list[dict[str, str]] = []
-    for m in FONT_FACE_RE.finditer(app_css):
-        decls = _parse_css_decls(m.group(1))
-        family = decls.get("font-family", "").strip().strip('"').strip("'")
-        src = decls.get("src", "")
-        url_match = URL_IN_SRC_RE.search(src)
-        if not family or not url_match:
-            continue
-        orig_filename = url_match.group(1).split("/")[-1]
-        base = orig_filename.split(".")[0]
-        pool_name = pool_reverse.get(iso, {}).get(base)
-        if not pool_name:
-            continue
-        faces.append({
-            "family": f"{iso}-{family}",
-            "pool": pool_name,
-            "weight": decls.get("font-weight", "400"),
-            "style": decls.get("font-style", "normal"),
-        })
-
-    # #container rule: app_css provides a default, bc_css overrides.
-    container: dict[str, str] = {}
-    for css in (app_css, bc_css):
-        m = CONTAINER_RE.search(css)
-        if m:
-            container.update(_parse_css_decls(m.group(1)))
-
-    orig_family = container.get("font-family", "font1").strip()
-    scoped_family = f"{iso}-{orig_family}"
-
-    lines: list[str] = [
-        f"/* Per-language delta stylesheet for {iso}.",
-        f" * Pairs with the app's shared reader.css baseline.",
-        f" * Source: data/pkf/{iso}/styles/raw/  (do not edit by hand).",
-        " */",
-    ]
-    for f in faces:
-        lines.append(
-            '@font-face{'
-            f'font-family:{f["family"]};'
-            f'src:url(../../_fonts/{f["pool"]}) format("truetype");'
-            f'font-weight:{f["weight"]};'
-            f'font-style:{f["style"]}'
-            '}'
-        )
-    props: list[str] = [f"font-family:{scoped_family}"]
-    for css_prop in ("direction", "font-size", "font-weight", "font-style", "color"):
-        if css_prop in container:
-            props.append(f"{css_prop}:{container[css_prop]}")
-    lines.append(f'.reader-root[data-iso="{iso}"]{{{";".join(props)}}}')
-
-    delta_path = PKF_ROOT / iso / "styles" / "delta.css"
-    content = "\n".join(lines) + "\n"
-    delta_path.write_text(content, encoding="utf-8")
-    return delta_path, len(content)
-
-
-def update_info_json(iso: str, delta_rel: str) -> None:
-    info_path = PKF_ROOT / iso / "info.json"
-    if not info_path.exists():
-        return
-    info = json.loads(info_path.read_text(encoding="utf-8"))
-    info["style_delta"] = delta_rel
-    info.pop("style_bundle", None)
-    info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
-
-
-def generate_all_deltas() -> dict:
-    pool_index = _load_pool_index()
-    pool_reverse = _build_pool_reverse(pool_index)
-    counts = {"emitted": 0, "skipped": 0, "already_done": 0, "total_bytes": 0}
-    sizes: list[int] = []
-    for iso_dir in sorted(d for d in PKF_ROOT.iterdir() if d.is_dir() and not d.name.startswith("_")):
-        delta_path = iso_dir / "styles" / "delta.css"
-        if delta_path.exists():
-            counts["already_done"] += 1
-            continue
-        result = generate_delta(iso_dir.name, pool_reverse)
-        if not result:
-            counts["skipped"] += 1
-            continue
-        delta_path, size = result
-        counts["emitted"] += 1
-        counts["total_bytes"] += size
-        sizes.append(size)
-        update_info_json(iso_dir.name, str(delta_path.relative_to(PKF_ROOT / iso_dir.name)))
-    if sizes:
-        counts["avg_bytes"] = counts["total_bytes"] // len(sizes)
-        counts["min_bytes"] = min(sizes)
-        counts["max_bytes"] = max(sizes)
-    return counts
 
 
 def remove_bundles() -> int:
@@ -331,10 +194,14 @@ def main() -> int:
     stats = consolidate_fonts()
     print(f"[dedupe] fonts: {stats['iso_font_dirs_consolidated']} consolidated, "
           f"{stats['pool_files']} in pool")
-    delta_stats = generate_all_deltas()
-    print(f"[dedupe] delta CSS: {delta_stats['emitted']} new, "
-          f"{delta_stats['already_done']} already done, "
-          f"{delta_stats['skipped']} skipped")
+    # Always rebuild: delta.css depends on the corpus-wide shared sheet, so a
+    # newly fetched language can change what every other delta must override.
+    # build_styles only rewrites files whose bytes changed.
+    import build_styles
+    st = build_styles.build_all()
+    print(f"[dedupe] styles: shared sab-scripture.{st.get('shared_hash')} "
+          f"({st.get('shared_rules')} rules, {st.get('shared_bytes')} B) · "
+          f"{st.get('languages')} delta.css ({st.get('delta_written', 0)} changed)")
     removed = remove_bundles()
     if removed:
         print(f"[dedupe] removed {removed} superseded bundle.css file(s)")

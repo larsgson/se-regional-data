@@ -11,13 +11,15 @@ COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 
 .PHONY: help release release-dry release-draft release-publish lang-names vrs-report gen-vrs pack notes \
-        pipeline fetch dedupe map-figures map-media app-config classify classify-rescan clean \
+        pipeline fetch dedupe styles audit-styles map-figures map-media app-config classify classify-rescan clean \
         region-pipeline region-release merge-region merge-global \
         publish-cdn publish-cdn-dry prune-releases
 
 help:
 	@echo "Targets:"
 	@echo "  make pipeline         fetch + dedupe + map-figures + map-media"
+	@echo "  make styles           rebuild pkf/_styles/sab-scripture.css + per-language delta.css"
+	@echo "  make audit-styles     verify the shared/delta CSS split loses nothing (gates release)"
 	@echo "  make classify         scan SE per iso → data/$(COUNTRY_LOWER)/licenses.json (disk-cached; fast on re-runs)"
 	@echo "  make classify-rescan  drop the disk cache and rescan everything (~30 min on a cold cache)"
 	@echo "  make release          classify + pack + diff + gh release create"
@@ -90,6 +92,15 @@ fetch:
 
 dedupe:
 	python3 scripts/dedupe_assets.py
+
+# Rebuild the shared scripture stylesheet + per-language delta.css only
+# (dedupe does this too, after consolidating fonts).
+styles:
+	python3 scripts/build_styles.py
+
+# Prove shared sheet + delta.css reproduce every language's original rules.
+audit-styles:
+	python3 scripts/audit_styles.py
 
 map-figures:
 	node scripts/map_figures.mjs

@@ -33,6 +33,10 @@ python3 scripts/classify_licenses.py
 echo "[release] reconciling localized UI-string sets (cached; --rescan to force)"
 python3 scripts/extract_nav_locales.py
 
+echo "[release] rebuilding shared scripture CSS + per-language delta.css, then auditing the split"
+python3 scripts/build_styles.py
+python3 scripts/audit_styles.py
+
 echo "[release] regenerating per-language app-config.json (incl. notice_url) + staging nav files"
 CONCURRENCY=8 python3 scripts/map_app_config.py
 

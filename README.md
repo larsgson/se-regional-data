@@ -41,9 +41,10 @@ data/mx/                           per-country data (one per COUNTRY)
     info.json                      metadata, audio/video manifests
     *.pkf                          Proskomma docset
     *.json                         catalog
-    styles/delta.css               compact stylesheet
+    styles/delta.css               fonts + colour themes + rare overrides (pairs with _styles/)
     timing/<BOOK>-<chapter>.json   verse-level audio timing
   _fonts/                          deduplicated font pool
+  _styles/sab-scripture.css        Bible-text rules shared by every language
 
 data/latam/                        merged directory (symlinks to per-country ISOs)
 data/global/                       global merge (symlinks to all ISOs)
@@ -56,7 +57,8 @@ data/.license-scan-cache/          shared across countries (ISO-keyed)
 ```bash
 make pipeline                      # runs all four stages below
 make fetch                         # download PKF + catalog + CSS + fonts from SE
-make dedupe                        # consolidate fonts into _fonts/, emit delta.css
+make dedupe                        # consolidate fonts into _fonts/, then build _styles/ + delta.css
+make audit-styles                  # prove shared CSS + delta.css lose nothing
 make map-figures                   # parse PKF files for figure URLs (requires Node)
 make map-media                     # extract video/audio manifests + timing data from SE JS chunks
 ```
@@ -170,7 +172,9 @@ Full background and downstream attribution requirements: [`LICENSING.md`](LICENS
 Python (stdlib only):
 
 - `scripts/fetch_pkf.py` — discovers and downloads PKF + catalog + CSS + fonts.
-- `scripts/dedupe_assets.py` — consolidates fonts into `_fonts/`, emits per-ISO `delta.css`.
+- `scripts/dedupe_assets.py` — consolidates fonts into `_fonts/`, then calls `build_styles.py`.
+- `scripts/build_styles.py` — splits SAB's per-language `sab-app` CSS into one shared `_styles/sab-scripture.css` (Bible-text rules, majority rendering) and a small per-ISO `delta.css` (fonts, base size, colour themes, rare overrides). Parser/classifier in `scripts/sab_css.py`.
+- `scripts/audit_styles.py` — re-parses the output and proves the split reproduces every language's original scripture rules; gates `release.sh`.
 - `scripts/map_media.py` — extracts video/audio manifests + verse-level timing data from SE JS chunks.
 - `scripts/classify_licenses.py` — probes SE per ISO, emits `licenses.json`, rewrites `EXCLUDED_ISOS.txt`.
 - `scripts/pack_release.py` — builds the release tarball + `index.json`.

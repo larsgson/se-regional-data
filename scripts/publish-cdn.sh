@@ -110,7 +110,7 @@ done
 
 python3 scripts/cdn_delta.py plan --src "$SRC" --state "$STATE_FILE" --out-dir "$DELTA_DIR"
 
-# Pass 1 — content-hashed assets (pkf, catalog json, fonts, styles): cache forever.
+# Pass 1 — content-hashed assets (pkf, catalog json, fonts, hashed styles): cache forever.
 if [ -s "$DELTA_DIR/assets.txt" ]; then
     rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
         --files-from "$DELTA_DIR/assets.txt" --no-traverse \
@@ -119,8 +119,9 @@ else
     echo "[cdn] assets: nothing new"
 fi
 
-# Pass 2 — mutable per-iso indexes (info.json, app-config.json,
-# license-notice.html): short TTL so a new release propagates.
+# Pass 2 — mutable files at stable paths (per-iso info.json, app-config.json,
+# license-notice.html, styles/delta.css; shared _app/nav-*.json,
+# _styles/sab-scripture.css, _styles/index.json): short TTL so a release propagates.
 if [ -s "$DELTA_DIR/info.txt" ]; then
     rclone copy "$SRC" "$DEST" "${COMMON[@]}" \
         --files-from "$DELTA_DIR/info.txt" --no-traverse \

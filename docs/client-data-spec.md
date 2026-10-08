@@ -24,6 +24,11 @@ _vrs/<code>.vrs                         # named standard versification schemes �
 pkf/
   manifest.json                         # index of every published language
   _vrs/<hash>.vrs                       # content-hashed versification specs — ours (§3)
+  _styles/
+    sab-scripture.css                   # shared Bible-text rules for EVERY language (§7)
+    sab-scripture.<sha8>.css            # same bytes, content-hashed (immutable)
+    index.json                          # what the shared sheet was built from
+  _fonts/<name>.<sha8>.ttf              # shared font pool, referenced by delta.css (§7)
   _app/
     nav-base.json                       # shared English UI-string set (§6.5)
     nav-<code>.json                     # optional shared localized UI-string sets (es/pt/fr/nl/id) (§6.5)
@@ -34,9 +39,8 @@ pkf/
     <collection>.<hash>.json            # Proskomma catalog (book list, structure)
     app-config.json                     # UI config: navigation strings, features
     styles/
-      bundle.css                        # ready-to-use reader stylesheet (incl. themes)
-      raw/*.css                         # source stylesheets (bundle is built from these)
-      fonts/*.ttf                       # the fonts this language uses
+      delta.css                         # this language's fonts, base text, colour themes (§7)
+      raw/*.css                         # original SAB stylesheets — reference only
     timing/<BOOK>-<chapter>.json        # verse audio timing (only where audio exists)
 ```
 
@@ -68,7 +72,7 @@ Three things to internalise before the details:
   indexing) specifically to back this guarantee — see
   `scripts/audit_language_identity.py` if you want the methodology.
 - **The theme/colour system ships inside the CSS, not as JSON.** All three
-  colour themes are baked into `styles/` (see §7). `app-config.json` deliberately
+  colour themes live in `styles/delta.css` (see §7). `app-config.json` deliberately
   does *not* re-deliver colours — it only names the themes so you can build the
   switcher.
 
@@ -81,8 +85,8 @@ hard vs. what to re-check.
 
 | Path | `Cache-Control` | Meaning for the client |
 |---|---|---|
-| `<iso>/<collection>.<hash>.pkf`, catalog, `styles/**`, `fonts/**` | `immutable, max-age=31536000` | Content-hashed → cache forever. A change arrives as a new filename. |
-| `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `<iso>/license-notice.html`, `_app/nav-base.json`, `_app/nav-<code>.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
+| `<iso>/<collection>.<hash>.pkf`, catalog, `<iso>/styles/raw/**`, `_fonts/**`, `_styles/sab-scripture.<sha8>.css` | `immutable, max-age=31536000` | Content-hashed → cache forever. A change arrives as a new filename. |
+| `manifest.json`, `<iso>/info.json`, `<iso>/app-config.json`, `<iso>/license-notice.html`, `<iso>/styles/delta.css`, `_styles/sab-scripture.css`, `_styles/index.json`, `_app/nav-base.json`, `_app/nav-<code>.json` | `max-age=300` | Mutable in place. Re-validate every ~5 min; safe to hold briefly. |
 | `<iso>/timing/*.json` | `max-age=3600` | Rarely changes; hold up to an hour. |
 | `pkf/_vrs/<hash>.vrs` | `max-age=3600` | Our content-hashed versification specs (§3). Filenames stable per structure. |
 | `/_vrs/<code>.vrs` | (DBT-set) | Named standard schemes, served by the DBT service (§3); cache per its headers. |
@@ -543,33 +547,69 @@ durability guarantee. Cache per §2 (`max-age=300`, same tier as `info.json` /
 
 ---
 
-## 7. `<iso>/styles/` — look & feel, incl. themes
+## 7. Styles — look & feel, incl. themes
 
-The complete visual appearance. **This is where colours live** — all three
-themes are baked into the CSS as attribute-scoped custom-property blocks:
+A language's complete appearance is **two small files**, loaded in this order:
 
-```css
-#container[data-color-theme=Normal] { --BackgroundColor:#F2F2F2; --TextColor:#2A2A2A; … }
-#container[data-color-theme=Sepia]  { --BackgroundColor:#E9D8BA; --TextColor:#5A4129; … }
-#container[data-color-theme=Dark]   { --BackgroundColor:#000000; --TextColor:#E0E0E0; … }
+| File | Scope | Holds |
+|---|---|---|
+| `_styles/sab-scripture.css` | shared by **every** language (~14 KB) | The Bible-text rules in SAB's own class names: paragraphs (`div.p`, `div.m`, `div.pi`…), poetry (`div.q`, `div.q2`…), headings (`div.s`, `div.ms`, `div.mt`…), verse/chapter (`span.v`, `div.c`), lists, tables (`td.tc1`…), footnotes & cross-refs, figures/captions, inline video, study-bible blocks, intro material, plus the page modes `#container.footnote`, `.crossref`, `.scrpopup`, `.glossary`, `.story`, `.single`, `.verse-by-verse` |
+| `<iso>/styles/delta.css` (`info.json` → `style_delta`) | one language (~4 KB) | `@font-face` (files in `_fonts/`), base font/size/direction, the three colour themes, and — for the ~20% of languages that have any — the few scripture rules that differ from the shared sheet |
+
+What is deliberately **not** in either file: SAB's app chrome (contents/home
+screen, plans, settings, quiz, assistant, onboarding, audio bar, annotations UI,
+downloads, history). A text renderer does not need it; it remains in
+`<iso>/styles/raw/sab-app.<hash>.css` if you build those screens.
+`raw/sab-annotations.*` and `raw/override-dab.*` are app-only / empty
+respectively and can be ignored.
+
+```html
+<link rel="stylesheet" href="https://cdn.bibel.wiki/pkf/_styles/sab-scripture.css">
+<link rel="stylesheet" href="https://cdn.bibel.wiki/pkf/ind/styles/delta.css">   <!-- info.json: style_delta -->
+<div id="container" data-iso="ind" data-color-theme="Normal"> … rendered Sofria … </div>
 ```
 
-**How to use it**
+**Rules of use**
 
-1. Load `styles/bundle.css` (ready-to-use; it already `@import`s / inlines the
-   reader styles). You do **not** need `styles/raw/*` — those are the source the
-   bundle is built from, delivered for reference only.
-2. Render the reader inside an element with `id="container"` (or matching the
-   selector the CSS expects).
-3. **Switch theme** by setting `data-color-theme="Dark"` (a value from
-   `themeNames`, §6.6). The CSS custom properties cascade and everything
-   re-colours instantly — no JS colour math, no re-fetch.
-4. **Fonts:** `styles/fonts/*.ttf` are referenced by the CSS `@font-face` rules
-   with relative URLs, so serving the `styles/` tree together makes fonts resolve
-   automatically. No separate font wiring needed.
+1. Load the shared sheet first, then `delta.css`. `info.json` names both
+   (`style_shared` = `../_styles/sab-scripture.css`, relative to `<iso>/`;
+   `style_delta` = `styles/delta.css`). `style_shared_hash` is the sha8 of the
+   shared sheet this delta was built against — the delta's header comment says
+   the same. To pin an immutable URL use `_styles/sab-scripture.<sha8>.css`.
+2. Put `data-iso="<iso>"` on the element that carries `id="container"` (or
+   `.reader-root`). Every delta rule is scoped to that attribute, so deltas of
+   several languages can be loaded in one page without interfering.
+3. **Colours** are attribute-scoped custom properties in `delta.css`:
 
-Because colours/styling are fully contained here, treat the CSS as the single
-source of visual truth and let `app-config.json` handle only strings/behaviour.
+   ```css
+   :is(#container,.reader-root)[data-iso="ind"][data-color-theme=Normal] { --BackgroundColor:#F2F2F2; --TextColor:#2A2A2A; … }
+   :is(#container,.reader-root)[data-iso="ind"][data-color-theme=Sepia]  { … }
+   :is(#container,.reader-root)[data-iso="ind"][data-color-theme=Dark]   { … }
+   ```
+   Switch theme by setting `data-color-theme` (a value from `themeNames`, §6.6);
+   everything re-colours with no JS colour maths. `delta.css` carries every
+   variable the shared sheet uses (verse numbers, links, block backgrounds,
+   highlighter pens, footers …) plus the core chrome colours (`--PrimaryColor`,
+   `--BackgroundColor`, `--DialogBackgroundColor`, `--LinkColor`, `--DividerColor` …).
+   The full ~150-variable SAB palette (audio bar, plans, quiz …) is only in
+   `raw/sab-app.*.css`.
+4. **Fonts**: `@font-face` families are named `<iso>-font1` etc. and point at
+   `../../_fonts/<name>.<sha8>.ttf`, so serving the tree as published resolves
+   them. The few dozen distinct font files are shared across languages and cached once.
+   A handful of languages reference a font SAB hosts under a name we cannot
+   fetch (e.g. `eky`); their `delta.css` then has no `@font-face` and the browser
+   default applies. `_styles/index.json` → `missing_fonts` lists them.
+5. The shared sheet and `delta.css` are **mutable at a stable path** (5-minute
+   TTL, §2) because they are regenerated together whenever a new language
+   changes the shared baseline. Do not cache them for longer than that; the
+   hashed `sab-scripture.<sha8>.css` is the immutable form.
+
+How the split was derived and verified: `scripts/build_styles.py` takes, per
+rule, the majority rendering across all languages as the shared baseline, and
+emits everything else per language. `scripts/audit_styles.py` re-parses the
+published files and checks that shared + delta reproduce every language's
+original scripture rules declaration-for-declaration, that every `var()` is
+defined in all three themes, and that the shared sheet contains no app chrome.
 
 ---
 
@@ -584,6 +624,9 @@ where the deployment has audio/video.
   "iso": "ind",
   "source": "https://…",
   "assets": [ … ],          // the hashed files that make up this language
+  "style_delta": "styles/delta.css",            // per-language stylesheet (§7)
+  "style_shared": "../_styles/sab-scripture.css", // shared scripture stylesheet, relative to <iso>/ (§7)
+  "style_shared_hash": "ac5de0fc",              // sha8 of the shared sheet this delta was built against
   "media": {
     "audio": { "base_url": "…", "items": [ { "bookCode","chapter","url","hasTiming" } ] },
     "videos": [ … ]
@@ -642,14 +685,16 @@ not a number to parse:
    `interfaceLanguages.available`, `GET _app/nav-<code>.json` **once** (cache
    it, reuse across every language offering that code) and merge over
    `navBase` per-key for a localized UI.
-4. `GET <iso>/styles/bundle.css` → apply; set `data-color-theme` from the default
-   in `themeNames`.
+4. `GET _styles/sab-scripture.css` **once** (cache ≤ 5 min), then
+   `GET <iso>/styles/delta.css` → apply both; put `data-iso="<iso>"` and
+   `data-color-theme` (default from `themeNames`) on the `#container` element (§7).
 5. `GET <iso>/<collection>.<hash>.pkf` (+ catalog) → render text (the `GLO`
    document, if present, is the glossary).
 6. If audio: read `info.json` → `media`; per chapter with `hasTiming`, `GET` the
    matching `timing/*.json`.
 
 `manifest.json`, `info.json`, `app-config.json`, `license-notice.html`,
+`styles/delta.css`, `_styles/sab-scripture.css`, `_styles/index.json`,
 `_app/nav-base.json`, `_app/nav-<code>.json` are the only files that change in
 place (short TTL); everything else is content-hashed and cacheable forever.
 
@@ -661,7 +706,7 @@ Two guarantees the client can rely on, so today's integration keeps working:
 
 - **Stable resource URLs.** Each concern is fetched from a stable path
   (`<iso>/app-config.json`, `_app/nav-base.json`, `_app/nav-<code>.json`,
-  `<iso>/styles/…`, `<iso>/timing/…`). A future server-side optimisation may
+  `<iso>/styles/delta.css`, `_styles/sab-scripture.css`, `<iso>/timing/…`). A future server-side optimisation may
   share more data across languages behind the same URLs; the paths you fetch
   will not move.
 - **Additive data.** New sections only *add* previously-unavailable data

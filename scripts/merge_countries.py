@@ -101,8 +101,8 @@ def main() -> int:
         target = os.path.relpath(pool_dir / iso, merged_dir)
         link.symlink_to(target)
 
-    # Symlink shared pool dirs (_fonts, _app) into the merged tree
-    for shared in ("_fonts", "_app"):
+    # Symlink shared pool dirs (_fonts, _app, _styles) into the merged tree
+    for shared in ("_fonts", "_app", "_styles"):
         link = merged_dir / shared
         if link.is_symlink():
             link.unlink()
