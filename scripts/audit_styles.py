@@ -75,7 +75,13 @@ def main() -> int:
         fail("_styles", f"stale hashed copies: {extra}")
 
     # (4a) shared sheet holds no chrome
-    shared_flat = B.flatten(S.parse(shared_css))
+    shared_raw = B.flatten(S.parse(shared_css))
+    for (_, sel), _ in shared_raw:
+        for one in S.split_selectors(sel):
+            if not (one.startswith(B.SHARED_BOX) or one.startswith(B.SHARED_DESC + " ")):
+                fail("_styles", f"shared selector not scoped to the container: {one}")
+    shared_flat = [((w, ",".join(B.unscope_shared_selector(x) for x in S.split_selectors(p))), d)
+                   for (w, p), d in shared_raw]
     base = {k: dict(d) for k, d in shared_flat}
     for (wrap, sel), _ in shared_flat:
         for one in S.split_selectors(sel):

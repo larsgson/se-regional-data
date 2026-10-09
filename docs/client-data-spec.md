@@ -553,7 +553,7 @@ A language's complete appearance is **two small files**, loaded in this order:
 
 | File | Scope | Holds |
 |---|---|---|
-| `_styles/sab-scripture.css` | shared by **every** language (~14 KB) | The Bible-text rules in SAB's own class names: paragraphs (`div.p`, `div.m`, `div.pi`…), poetry (`div.q`, `div.q2`…), headings (`div.s`, `div.ms`, `div.mt`…), verse/chapter (`span.v`, `div.c`), lists, tables (`td.tc1`…), footnotes & cross-refs, figures/captions, inline video, study-bible blocks, intro material, plus the page modes `#container.footnote`, `.crossref`, `.scrpopup`, `.glossary`, `.story`, `.single`, `.verse-by-verse` |
+| `_styles/sab-scripture.css` | shared by **every** language (~21 KB; every selector is scoped to `#container` / `.reader-root`, descendant rules via `:where()` so they add no specificity — safe to load into a host page) | The Bible-text rules in SAB's own class names: paragraphs (`div.p`, `div.m`, `div.pi`…), poetry (`div.q`, `div.q2`…), headings (`div.s`, `div.ms`, `div.mt`…), verse/chapter (`span.v`, `div.c`), lists, tables (`td.tc1`…), footnotes & cross-refs, figures/captions, inline video, study-bible blocks, intro material, plus the page modes `#container.footnote`, `.crossref`, `.scrpopup`, `.glossary`, `.story`, `.single`, `.verse-by-verse` |
 | `<iso>/styles/delta.css` (`info.json` → `style_delta`) | one language (~4 KB) | `@font-face` (files in `_fonts/`), base font/size/direction, the three colour themes, and — for the ~20% of languages that have any — the few scripture rules that differ from the shared sheet |
 
 What is deliberately **not** in either file: SAB's app chrome (contents/home
