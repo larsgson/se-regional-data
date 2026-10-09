@@ -20,7 +20,7 @@ COUNTRY_LOWER := $(shell echo $(COUNTRY) | tr A-Z a-z)
 read-conf = $(shell sed 's/\#.*//' $(1) | tr '\n' ' ')
 
 .PHONY: help release release-dry release-draft release-publish lang-names vrs-report gen-vrs pack notes \
-        pipeline fetch dedupe styles audit-styles map-figures map-media app-config classify classify-rescan clean \
+        pipeline fetch dedupe styles audit-styles map-figures sofria map-media app-config classify classify-rescan clean \
         region-pipeline region-release merge-region merge-global \
         publish-cdn publish-cdn-dry prune-releases
 
@@ -96,7 +96,7 @@ else
 	$(MAKE) --no-print-directory fetch process
 endif
 
-process: dedupe map-figures map-media app-config
+process: dedupe map-figures sofria map-media app-config
 
 fetch:
 	python3 scripts/fetch_pkf.py --country $(COUNTRY_UPPER) --workers 8
@@ -115,6 +115,11 @@ audit-styles:
 
 map-figures:
 	node scripts/map_figures.mjs
+
+# Per-chapter Sofria + glossary.json from each .pkf (sofria/<BOOK>/<ch>.sofria.json).
+# Skips languages whose .pkf set is unchanged; FORCE=1 rebuilds all.
+sofria:
+	node scripts/export_sofria.mjs --jobs=4 $(if $(FORCE),--force)
 
 map-media:
 	CONCURRENCY=6 python3 scripts/map_media.py

@@ -37,6 +37,9 @@ echo "[release] rebuilding shared scripture CSS + per-language delta.css, then a
 python3 scripts/build_styles.py
 python3 scripts/audit_styles.py
 
+echo "[release] exporting per-chapter Sofria + glossary.json (skips languages whose .pkf is unchanged)"
+node scripts/export_sofria.mjs --jobs=4
+
 echo "[release] regenerating per-language app-config.json (incl. notice_url) + staging nav files"
 CONCURRENCY=8 python3 scripts/map_app_config.py
 

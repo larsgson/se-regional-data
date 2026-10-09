@@ -83,19 +83,22 @@ def classify_tier(relpath: str) -> str:
     """assets | info | timing — mirrors publish-cdn.sh's three upload passes.
 
     'info' = mutable, short-TTL files that change in place each release:
-    per-iso info.json + app-config.json + license-notice.html + styles/delta.css,
+    per-iso info.json + glossary.json + app-config.json + license-notice.html + styles/delta.css,
     and the shared _app/nav-base.json + _app/nav-<code>.json locales and
     _styles/sab-scripture.css (stable path) + _styles/index.json. 'assets' =
     content-hashed, cache-forever (incl. _styles/sab-scripture.<sha8>.css and
-    styles/raw/*). 'timing' = its own moderate TTL."""
+    styles/raw/*). 'timing' = its own moderate TTL (timing/** and the per-chapter
+    sofria/** + glossary.json written by export_sofria.mjs; stable paths, so
+    not immutable)."""
     if (relpath.endswith("/info.json")
             or relpath.endswith("/styles/delta.css")
             or relpath in ("_styles/sab-scripture.css", "_styles/index.json")
+            or relpath.endswith("/glossary.json")
             or relpath.endswith("/app-config.json")
             or relpath.endswith("/license-notice.html")
             or (relpath.startswith("_app/nav-") and relpath.endswith(".json"))):
         return "info"
-    if "/timing/" in relpath:
+    if "/timing/" in relpath or "/sofria/" in relpath:
         return "timing"
     return "assets"
 

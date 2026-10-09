@@ -38,6 +38,8 @@ pkf/
     <collection>.<hash>.pkf             # scripture text (Proskomma docset)
     <collection>.<hash>.json            # Proskomma catalog (book list, structure)
     app-config.json                     # UI config: navigation strings, features
+    sofria/<BOOK>/<chapter>.sofria.json # one chapter as Sofria — read this instead of unpacking the .pkf (§7a)
+    glossary.json                       # {term: definition}, only where the language has a glossary
     styles/
       delta.css                         # this language's fonts, base text, colour themes (§7)
       raw/*.css                         # original SAB stylesheets — reference only
@@ -613,6 +615,26 @@ defined in all three themes, and that the shared sheet contains no app chrome.
 
 ---
 
+## 7a. Per-chapter Sofria and glossary
+
+So a reader doesn't have to download and unpack the whole `.pkf` before showing a
+chapter, the build also writes every chapter out as Sofria, the same layout as
+`cdn.bibel.wiki/openbible/…`:
+
+- `<iso>/sofria/<BOOK>/<chapter>.sofria.json` — exactly what Proskomma's
+  `sofria(chapter:N)` returns. Chapter 1 carries the book title and introduction.
+  Where that query throws (e.g. a table running across a chapter break) the chapter
+  is cut from the whole-book Sofria with `sliceChapter` (as in bcv-commons/bibles
+  `tools/sofria-render`) and the file has `"fallback": "whole-book"`.
+- `info.json` → `formats.sofria.path` is the path template; resolve it against `<iso>/`.
+- A companion collection (e.g. `niy`'s `fra_C02`) is under `sofria/<base>/<BOOK>/…` and
+  listed in `formats.sofria.collections`; the language's own collection is at `sofria/`.
+- `<iso>/glossary.json` (`{term: definition}`, from the `GLO` book) and
+  `info.json` → `glossary`. Present only where a glossary exists.
+- Figures and media are unchanged (`figure_urls`, `media` in `info.json`).
+- Cache: mutable paths, `max-age=3600` (`glossary.json`: 300). Packages in
+  `EXCLUDED_PACKAGES.txt` are not exported.
+
 ## 8. `<iso>/info.json` — metadata + media manifest
 
 Per-language metadata plus the audio/video manifest (produced by the media
@@ -627,6 +649,8 @@ where the deployment has audio/video.
   "style_delta": "styles/delta.css",            // per-language stylesheet (§7)
   "style_shared": "../_styles/sab-scripture.css", // shared scripture stylesheet, relative to <iso>/ (§7)
   "style_shared_hash": "ac5de0fc",              // sha8 of the shared sheet this delta was built against
+  "formats": { "sofria": { "path": "sofria/<BOOK>/<chapter>.sofria.json", "granularity": "chapter" } },
+  "glossary": "glossary.json",                  // present only when the language has a glossary
   "media": {
     "audio": { "base_url": "…", "items": [ { "bookCode","chapter","url","hasTiming" } ] },
     "videos": [ … ]

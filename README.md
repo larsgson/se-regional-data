@@ -42,6 +42,8 @@ data/mx/                           per-country data (one per COUNTRY)
     *.pkf                          Proskomma docset
     *.json                         catalog
     styles/delta.css               fonts + colour themes + rare overrides (pairs with _styles/)
+    sofria/<BOOK>/<ch>.sofria.json one chapter as Sofria (scripts/export_sofria.mjs)
+    glossary.json                  {term: definition}, where a GLO book exists
     timing/<BOOK>-<chapter>.json   verse-level audio timing
   _fonts/                          deduplicated font pool
   _styles/sab-scripture.css        Bible-text rules shared by every language
@@ -60,6 +62,7 @@ make fetch                         # download PKF + catalog + CSS + fonts from S
 make dedupe                        # consolidate fonts into _fonts/, then build _styles/ + delta.css
 make audit-styles                  # prove shared CSS + delta.css lose nothing
 make map-figures                   # parse PKF files for figure URLs (requires Node)
+make sofria                        # per-chapter Sofria + glossary.json from each PKF (requires Node)
 make map-media                     # extract video/audio manifests + timing data from SE JS chunks
 ```
 
@@ -185,6 +188,7 @@ Python (stdlib only):
 
 Node (required for this one only):
 
+- `scripts/export_sofria.mjs` — writes `<iso>/sofria/<BOOK>/<chapter>.sofria.json` and `glossary.json` from each `.pkf`, and `formats.sofria` / `glossary` in `info.json`. Idempotent; `--jobs=N` for parallel.
 - `scripts/map_figures.mjs` — uses `proskomma-core` to parse `.pkf` and populate `figure_urls` in `info.json`.
 
 Config:
