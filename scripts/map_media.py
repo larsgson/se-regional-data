@@ -30,6 +30,9 @@ chunk-fetch requests (~25x faster). Invalidates automatically when SE
 redeploys (chunk hashes change). To force a full re-fetch:
     rm -rf data/.media-cache/
 
+Offline backfill of book/chapter/damId on existing info.json:
+    python3 scripts/map_media.py --enrich [iso …]
+
 Env:
     CONCURRENCY=6   number of parallel workers (default 6)
 """
@@ -45,6 +48,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Optional
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -362,6 +366,109 @@ def extract_audio_items(chunk_text: str, sources: dict[str, str]) -> list[dict]:
     return out
 
 
+# like SOURCES_HEAD_RE but for any first-source type (fcbh, assets, …)
+ANY_SOURCES_HEAD_RE = re.compile(
+    r"\b(?:audio)?[Ss]ources\s*:\s*\{\s*[A-Za-z][A-Za-z0-9_]*\s*:\s*\{\s*type\s*:\s*\""
+)
+BOOK_ID_RE = re.compile(r'\bid\s*:\s*"([A-Z0-9]{3})"')
+AUDIO_ARRAY_RE = re.compile(r'\baudio\s*:\s*\[')
+AUDIO_FILE_RE = re.compile(r'filename\s*:\s*"([^"]+\.mp3)"')
+
+
+def extract_audio_source_meta(chunk_text: str) -> dict[str, dict]:
+    """Per-source details worth publishing: {src: {type, name, damId, folder,
+    address}}. The source's API `key` is deliberately NOT copied: it is the app
+    builder's embedded credential, not ours to republish."""
+    m = ANY_SOURCES_HEAD_RE.search(chunk_text)
+    if not m:
+        return {}
+    open_idx = chunk_text.find("{", m.start())
+    end = find_matching_brace(chunk_text, open_idx)
+    if end < 0:
+        return {}
+    inner = chunk_text[open_idx : end + 1]
+    out: dict[str, dict] = {}
+    key_re = re.compile(r"([A-Za-z][A-Za-z0-9_]*)\s*:\s*\{")
+    pos = 0
+    while True:
+        km = key_re.search(inner, pos)
+        if not km:
+            break
+        start = km.end() - 1
+        e = find_matching_brace(inner, start)
+        if e < 0:
+            break
+        body = inner[start : e + 1]
+        meta = {f: get_field(body, f) for f in ("type", "name", "damId", "folder", "address")}
+        out[km.group(1)] = {f: v for f, v in meta.items() if v}
+        pos = e + 1
+    return out
+
+
+def book_by_audio_filename(chunk_text: str) -> dict[str, str]:
+    """filename -> book code. Each book object reads `id:"ACT",name:…,audio:[…]`
+    (with optional extras such as additionalNames:[{…}] in between), so the book
+    is the nearest 3-character id before its `audio:[`."""
+    ids = [(m.start(), m.group(1)) for m in BOOK_ID_RE.finditer(chunk_text)]
+    out: dict[str, str] = {}
+    k = 0
+    for m in AUDIO_ARRAY_RE.finditer(chunk_text):
+        while k + 1 < len(ids) and ids[k + 1][0] < m.start():
+            k += 1
+        if not ids or ids[k][0] > m.start():
+            continue
+        book = ids[k][1]
+        open_idx = m.end() - 1
+        depth, j = 0, open_idx
+        while j < len(chunk_text):
+            c = chunk_text[j]
+            if c == "[":
+                depth += 1
+            elif c == "]":
+                depth -= 1
+                if depth == 0:
+                    break
+            j += 1
+        for f in AUDIO_FILE_RE.findall(chunk_text[open_idx:j]):
+            out.setdefault(f, book)
+    return out
+
+
+SW_AUDIO_RE = re.compile(r"/_app/immutable/assets/([^\"'\s]+?)\.([A-Za-z0-9_-]{8})\.mp3")
+
+
+def enrich_audio(items: list[dict], chunk_text: str, iso: str = "", sw_text: str = "") -> dict[str, dict]:
+    """Fill bookCode/chapter, damId and url on each audio item, in place; return
+    the source details to publish as media.audio.sources. len and size are never
+    touched. Idempotent.
+
+    url, in order: the item's source `address` + file name (percent-encoded);
+    for an app-bundled (`assets`) file, its hashed path in the app deployment,
+    read from the service worker's file list. DBT (`fcbh`) files are not ours,
+    so they keep url null."""
+    meta = extract_audio_source_meta(chunk_text)
+    books = book_by_audio_filename(chunk_text)
+    bundled = {m.group(1) + ".mp3": m.group(0) for m in SW_AUDIO_RE.finditer(sw_text)} if sw_text else {}
+    for it in items:
+        book = books.get(it.get("filename"))
+        # the manifest's own book id wins over a file-name guess (ztp names its
+        # Ruth files "…-RTH-01.mp3"; the book is RUT)
+        if book and it.get("bookCode") != book:
+            it["bookCode"] = book
+            if it.get("chapter") is None and isinstance(it.get("num"), int):
+                it["chapter"] = it["num"]
+        src = meta.get(it.get("src")) or {}
+        if src.get("damId"):
+            it["damId"] = src["damId"]
+        addr = src.get("address")
+        fn = it.get("filename") or ""
+        if addr:
+            it["url"] = re.sub(r"^http://", "https://", addr).rstrip("/") + "/" + quote(fn)
+        elif src.get("type") == "assets" and iso and fn in bundled:
+            it["url"] = f"{SE}/data/{iso}/sab/{iso}{bundled[fn]}"
+    return {k: v for k, v in meta.items() if v}
+
+
 # --- timing extraction --------------------------------------------------------
 
 
@@ -562,6 +669,15 @@ def _mark_no_media(info: dict, info_path: Path) -> None:
         info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def _audio_base_url(items: list[dict], meta: dict[str, dict]) -> Optional[str]:
+    """Address of the first download source an audio item actually uses."""
+    for it in items:
+        addr = (meta.get(it.get("src")) or {}).get("address")
+        if addr:
+            return re.sub(r"^http://", "https://", addr).rstrip("/")
+    return None
+
+
 def process_iso(iso: str) -> Optional[dict]:
     iso_dir = PKF_ROOT / iso
     info_path = iso_dir / "info.json"
@@ -607,6 +723,7 @@ def process_iso(iso: str) -> Optional[dict]:
     videos = extract_videos(manifest_text, image_map)
     sources = extract_audio_sources(manifest_text)
     audio_items = extract_audio_items(manifest_text, sources)
+    source_meta = enrich_audio(audio_items, manifest_text, iso, sw)
 
     if not videos and not audio_items:
         _mark_no_media(info, info_path)
@@ -652,9 +769,10 @@ def process_iso(iso: str) -> Optional[dict]:
                         timing_count += 1
 
     base_url = sources.get("d1") or (next(iter(sources.values())) if sources else None)
+    base_url = base_url or _audio_base_url(audio_items, source_meta)
     info["media"] = {
         "videos": videos,
-        "audio": {"base_url": base_url, "items": audio_items},
+        "audio": {"base_url": base_url, "sources": source_meta, "items": audio_items},
     }
     info_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -673,8 +791,51 @@ def process_iso(iso: str) -> Optional[dict]:
     }
 
 
+def enrich_existing(filter_set: Optional[set]) -> int:
+    """--enrich: add bookCode/chapter/damId + media.audio.sources to info.json
+    files that already have a media section, from the cached manifest chunks
+    (no network). len and size are left exactly as they are."""
+    changed = total = missing = 0
+    for d in sorted(PKF_ROOT.iterdir()):
+        if not d.is_dir() or d.name.startswith("_") or (filter_set and d.name not in filter_set):
+            continue
+        ip = d / "info.json"
+        try:
+            info = json.loads(ip.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        audio = (info.get("media") or {}).get("audio") or {}
+        items = audio.get("items") or []
+        if not items:
+            continue
+        total += 1
+        chunks = sorted(CACHE_DIR.glob(f"{d.name}.*.js"))
+        if not chunks:
+            missing += 1
+            continue
+        before = json.dumps(info, sort_keys=True)
+        sw_files = sorted(CACHE_DIR.glob(f"{d.name}.*.sw"))
+        sources = enrich_audio(items, chunks[0].read_text(encoding="utf-8"), d.name,
+                               sw_files[0].read_text(encoding="utf-8") if sw_files else "")
+        for it in items:   # no timing file for this book/chapter -> not timed
+            if it.get("hasTiming") and not (d / "timing" / f"{it['bookCode']}-{it['chapter']}.json").exists():
+                del it["hasTiming"]
+        info["media"]["audio"] = {
+            "base_url": audio.get("base_url") or _audio_base_url(items, sources), "sources": sources,
+            **{k: v for k, v in audio.items() if k not in ("base_url", "sources")},
+        }
+        if json.dumps(info, sort_keys=True) != before:
+            ip.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
+            changed += 1
+    print(f"[enrich] {total} languages with audio · {changed} updated · {missing} without a cached manifest")
+    return 0
+
+
 def main() -> int:
     argv = sys.argv[1:]
+    if "--enrich" in argv:
+        rest = {a for a in argv if not a.startswith("--")}
+        return enrich_existing(rest or None)
     filter_set = set(argv) if argv else None
     concurrency = int(os.environ.get("CONCURRENCY", "6"))
 

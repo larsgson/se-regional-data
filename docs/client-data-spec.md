@@ -652,7 +652,11 @@ where the deployment has audio/video.
   "formats": { "sofria": { "path": "sofria/<BOOK>/<chapter>.sofria.json", "granularity": "chapter" } },
   "glossary": "glossary.json",                  // present only when the language has a glossary
   "media": {
-    "audio": { "base_url": "…", "items": [ { "bookCode","chapter","url","hasTiming" } ] },
+    "audio": {
+      "base_url": "…",
+      "sources": { "h1": { "type": "fcbh", "name": "FCBH", "damId": "ACUTBLN2DA", "folder": "Achuar audio" } },
+      "items": [ { "bookCode","chapter","src","damId","url","len","size","hasTiming" } ]
+    },
     "videos": [ … ]
   }
 }
@@ -662,6 +666,16 @@ where the deployment has audio/video.
 
 - `media.audio.items[]` — each chapter's streaming `url` (fetched from the
   source, not the CDN) plus `hasTiming: true` when verse-timing exists.
+- Every item has `bookCode` and `chapter` (no need to parse the file name) and
+  `src`, a key into `media.audio.sources`. A `fcbh` source is DBT: `damId` is the
+  DBT fileset id and `filename` the file in it. Those files are **not** on our
+  CDN, so `url` is null. Every non-DBT item (`d*` download, `a1` app-bundled)
+  has its own percent-encoded `url`, except the few `a1` files whose location the
+  deployed app doesn't reveal. Pair the timing with the DBT file `filename` in fileset
+  `damId`. `len` (ms) and `size` (bytes) are copied from the app manifest as it
+  reports them; they are informational, not a reliable integrity check (some items
+  have no `size`, a few carry a wrong `len` or `size` for an unchanged recording).
+  The source's API key is never published.
 - When `hasTiming`, fetch `pkf/<iso>/timing/<BOOK>-<chapter>.json` (§9) to drive
   verse-synced playback.
 - `media` absent (or empty) → the language is text-only.
