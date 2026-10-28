@@ -668,7 +668,11 @@ where the deployment has audio/video.
   source, not the CDN) plus `hasTiming: true` when verse-timing exists.
 - Every item has `bookCode` and `chapter` (no need to parse the file name) and
   `src`, a key into `media.audio.sources`. A `fcbh` source is DBT: `damId` is the
-  DBT fileset id and `filename` the file in it. Those files are **not** on our
+  DBT fileset id and `filename` the file in it. An item's `damId` is the fileset
+  its old-style file name ends with (`…_AMETBLN1DA.mp3`), which can differ from the
+  source's default `damId` in `media.audio.sources`; new-style names
+  (`BSNWBTN2DA_B03_LUK_001.mp3`) don't carry it, so the source's applies. Non-Bible
+  items sit under their own book id (`XXA`/`XXB` extra material, `B001` a songbook). Those files are **not** on our
   CDN, so `url` is null. Every non-DBT item (`d*` download, `a1` app-bundled)
   has its own percent-encoded `url`, except the few `a1` files whose location the
   deployed app doesn't reveal. Pair the timing with the DBT file `filename` in fileset

@@ -370,7 +370,10 @@ def extract_audio_items(chunk_text: str, sources: dict[str, str]) -> list[dict]:
 ANY_SOURCES_HEAD_RE = re.compile(
     r"\b(?:audio)?[Ss]ources\s*:\s*\{\s*[A-Za-z][A-Za-z0-9_]*\s*:\s*\{\s*type\s*:\s*\""
 )
-BOOK_ID_RE = re.compile(r'\bid\s*:\s*"([A-Z0-9]{3})"')
+# book ids are 3 characters (ACT, XXA) or 4 for non-Bible books (B001, a songbook)
+BOOK_ID_RE = re.compile(r'\bid\s*:\s*"([A-Z0-9]{3,4})"')
+# old-style DBT file names end with their own fileset: B01___01_Matthew_____AMETBLN1DA.mp3
+FILENAME_DAMID_RE = re.compile(r"_([A-Z0-9]{3}[A-Z]{3}[NP][12]DA)\.mp3$")
 AUDIO_ARRAY_RE = re.compile(r'\baudio\s*:\s*\[')
 AUDIO_FILE_RE = re.compile(r'filename\s*:\s*"([^"]+\.mp3)"')
 
@@ -458,7 +461,14 @@ def enrich_audio(items: list[dict], chunk_text: str, iso: str = "", sw_text: str
             if it.get("chapter") is None and isinstance(it.get("num"), int):
                 it["chapter"] = it["num"]
         src = meta.get(it.get("src")) or {}
-        if src.get("damId"):
+        # a DBT file belongs to the fileset its name says; the source's damId is
+        # the app's default and can name the sibling recording (ame: source
+        # AMETBLN2DA, files …_AMETBLN1DA.mp3). New-style names
+        # (BSNWBTN2DA_B03_LUK_001.mp3) don't carry the fileset, so the source's wins.
+        named = FILENAME_DAMID_RE.search(it.get("filename") or "")
+        if src.get("type") == "fcbh" and named:
+            it["damId"] = named.group(1)
+        elif src.get("damId"):
             it["damId"] = src["damId"]
         addr = src.get("address")
         fn = it.get("filename") or ""
